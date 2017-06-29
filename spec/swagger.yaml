@@ -1,246 +1,5959 @@
-# This is an **example** API to demontstrate features of OpenAPI specification.
-# It doesn't cover all OpenAPI features. For more full example check out: https://github.com/APIs-guru/petstore_extended
-
 swagger: '2.0'
-# You should specify common part of your endpoints in the following format:
-#   <schemes>://<host><basepath>
-schemes:
-  - http # Remove if your API doesn't support HTTP
-  - https # Remove if your API donsn't support HTTPS
-host: example.com # Replace with your hostname. You can also specify port e.g. example.com:777
-basePath: /api/v1 # Replace with your basePath. Note: SHOULD begin with '/'.
 info:
-  # Describe your API here, you can use GFM (https://guides.github.com/features/mastering-markdown) here
+  title: Accounting API
+  version: '2.0'
   description: |
-    This is an **example** API to demontstrate features of OpenAPI specification
     # Introduction
-    This specification is intended to to be a good starting point for describint your API in 
-    [OpenAPI/Swagger format](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md).
-    It also demonstrates features of [generator-openapi-repo](https://github.com/Rebilly/generator-openapi-repo) tool and 
-    [ReDoc](https://github.com/Rebilly/ReDoc) documentation engine. So beyond the standard OpenAPI syntax we use a few 
-    [vendor extensions](https://github.com/Rebilly/ReDoc/blob/master/docs/redoc-vendor-extensions.md).
-    
-    # OpenAPI Specification
-    The goal of The OpenAPI Specification is to define a standard, language-agnostic interface to REST APIs which
-    allows both humans and computers to discover and understand the capabilities of the service without access to source
-    code, documentation, or through network traffic inspection. When properly defined via OpenAPI, a consumer can 
-    understand and interact with the remote service with a minimal amount of implementation logic. Similar to what
-    interfaces have done for lower-level programming, OpenAPI removes the guesswork in calling the service.
-
-  version: '1.0.0' # Your API version
-  # It can be any string but it is better to use semantic versioning: http://semver.org/
-  # Warning: OpenAPI require version to be string, but without quotation YAML can recognize it as number.
-
-  title: Example.com # Replace with your API title
-  # Keep it simple. Don't add "API" or verison at the end of the string.
-
-  termsOfService: 'https://example.com/terms/' # [Optional] Replace with an URL to your ToS
+    The Xero Accounting API is a RESTful web service and uses the OAuth (v1.0a) protocol to authenticate 3rd party applications. The Accounting API exposes accounting and related functions of the main Xero application and can be used for a variety of purposes such as creating transactions like invoices and credit notes, right through to extracting accounting data via our reports endpoint.
   contact:
-    email: contact@example.com # [Optional] Replace with your contact email
-    url: 'http://example.com/contact' # [Optional] Replace with link to your contact form
-  license:
-    name: Apache 2.0
-    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+    name: Xero Developer Team
+    url: 'https://developer.xero.com'
   x-logo:
-    url: 'https://apis.guru/openapi-template/logo.png'
-externalDocs:
-  description: Find out how to create Github repo for your OpenAPI spec.
-  url: 'https://github.com/Rebilly/generator-openapi-repo'
-produces:
-  # List of mime types your API endpoins can return.
-  # This is a global default. You can OVERWRITE it in each specific operation.
-  # Remove the ones not used in your API
-  - application/json
-  - application/xml
-  - text/csv
-  # you can add any mime type your API produces to the list
+    url: 'https://lh3.googleusercontent.com/-_IQ9BNy118c/AAAAAAAAAAI/AAAAAAAAAB0/yvA2ZQSg_pk/s500-c-no/photo.jpg'
+host: api.xero.com
+basePath: /api.xro/2.0
+schemes:
+  - https
 consumes:
-  # List of mime types your API endpoins consumes.
-  # This is a global default. You can OVERWRITE it in each specific operation.
-  # Remove the ones not supported by your API
-  - application/json
   - application/xml
-  # you can add any mime type your API consumes to the list
-
-# A list of tags used by the specification with additional metadata.
-# The order of the tags can be used to reflect on their order by the parsing tools.
+produces:
+  - application/xml
+  - application/json
 tags:
-  - name: Echo
-    description: Example echo operations
-  - name: User
-    description: Operations about user
-# Security scheme definitions that can be used across the specification.
-securityDefinitions:
-  main_auth: # security definition name (you can name it as you want)
-    type: oauth2 # authorization type, one of: oauth2, basic, apiKey
-    # the following options are specific to oauth2 type
-    authorizationUrl: 'http://example.com/api/oauth/dialog'
-    flow: implicit
-    scopes:
-      'read:users': read users info
-      'write:users': modify or remove users
-  api_key: # security definition name (you can name it as you want)
-    type: apiKey
-    # The following options are specific to apiKey type
-    in: header # Where API key will be passed: header or query
-    name: api_key # API key paramteer name
-  basic_auth: # security definition name (you can name it as you want)
-    type: basic
-
-# Holds the relative paths to the individual endpoints. The path is appended to the
-# basePath in order to construct the full URL. 
+- name: "Accounts"
+  externalDocs: 
+    description: "Accounts"
+    url: "https://developer.xero.com/documentation/api/accounts/"
+- name: "BankTransactions"
+  externalDocs: 
+    description: "BankTransactions"
+    url: "https://developer.xero.com/documentation/api/banktransactions/"
+- name: "BankTransfers"
+  externalDocs: 
+    description: "BankTransfers"
+    url: "https://developer.xero.com/documentation/api/banktransfers/"
+- name: "BrandingThemes"
+  externalDocs: 
+    description: "BrandingThemes"
+    url: "https://developer.xero.com/documentation/api/brandingthemes/"
+- name: "Contacts"
+  externalDocs: 
+    description: "Contacts"
+    url: "https://developer.xero.com/documentation/api/contacts/"
+- name: "ContactGroups"
+  externalDocs: 
+    description: "ContactGroups"
+    url: "https://developer.xero.com/documentation/api/contactgroups/"
+- name: "CreditNotes"
+  externalDocs: 
+    description: "CreditNotes"
+    url: "https://developer.xero.com/documentation/api/creditnotes/"
+- name: "Currencies"
+  externalDocs: 
+    description: "Currencies"
+    url: "https://developer.xero.com/documentation/api/currencies/"
+- name: "Employees"
+  externalDocs: 
+    description: "Employees"
+    url: "https://developer.xero.com/documentation/api/employees/"
+- name: "ExpenseClaims"
+  externalDocs: 
+    description: "ExpenseClaims"
+    url: "https://developer.xero.com/documentation/api/expenseclaims/"
+- name: "Invoices"
+  externalDocs: 
+    description: "Invoices"
+    url: "https://developer.xero.com/documentation/api/invoices/"
+- name: "Items"
+  externalDocs: 
+    description: "Items"
+    url: "https://developer.xero.com/documentation/api/items/"
+- name: "LinkedTransactions"
+  externalDocs: 
+    description: "LinkedTransactions"
+    url: "https://developer.xero.com/documentation/api/Linked-Transactions/"  
+- name: "ManualJournals"
+  externalDocs: 
+    description: "ManualJournals"
+    url: "https://developer.xero.com/documentation/api/manual-journals/" 
+- name: "Organisations"
+  externalDocs: 
+    description: "Organsiations"
+    url: "https://developer.xero.com/documentation/api/organisation/"
+- name: "Overpayments"
+  externalDocs: 
+    description: "Overpayments"
+    url: "https://developer.xero.com/documentation/api/overpayments/"
+- name: "Payments"
+  externalDocs: 
+    description: "Payments"
+    url: "https://developer.xero.com/documentation/api/payments/"
+- name: "Prepayments"
+  externalDocs: 
+    description: "Prepayments"
+    url: "https://developer.xero.com/documentation/api/prepayments/"
+- name: "PurchaseOrders"
+  externalDocs: 
+    description: "PurchaseOrders"
+    url: "https://developer.xero.com/documentation/api/purchase-orders/"
+- name: "Receipts"
+  externalDocs: 
+    description: "Receipts"
+    url: "https://developer.xero.com/documentation/api/receipts/"  
+- name: "RepeatingInvoices"
+  externalDocs: 
+    description: "RepeatingInvoices"
+    url: "https://developer.xero.com/documentation/api/repeating-invoices/"
+- name: "Reports"
+  externalDocs: 
+    description: "Reports"
+    url: "https://developer.xero.com/documentation/api/reports/"
+- name: "TaxRates"
+  externalDocs: 
+    description: "TaxRates"
+    url: "https://developer.xero.com/documentation/api/tax-rates/"
+- name: "TrackingCategories"
+  externalDocs: 
+    description: "TrackingCategories"
+    url: "https://developer.xero.com/documentation/api/tracking-categories/"
+- name: "Users"
+  externalDocs: 
+    description: "Users"
+    url: "https://developer.xero.com/documentation/api/users/"
 paths:
-  '/users/{username}': # path parameter in curly braces
-    # documentation for GET operation for this path
-    
-    # parameters list that are used with each operation for this path
-    parameters:
-      - name: pretty_print
-        in: query # place where paramter is passed: path, header, query or body, formData
-        description: Pretty print response
-        # type of the paramter: string, number, integer, boolean, array
-        type: boolean
+  /Accounts:
+    x-related-model: Account
     get:
       tags:
-        - User
-      
-      # summary is up to 120 symbold but we recommend to be shortest as possible
-      summary: Get user by user name
-      
-      # you can use GFM in operation description too: https://guides.github.com/features/mastering-markdown
-      description: | 
-        Some description of the operation. 
-        You can use `markdown` here.
-      
-      # operationId should be unique across the whole specification
-      operationId: getUserByName
-      
-      # list of parameters for the operation
-      parameters:
-        - name: username
-          in: path
-          description: 'The name that needs to be fetched'
-          required: true
-          type: string
-        - name: with_email
-          in: query
-          description: Filter users without email
-          type: boolean
-      
-      # security schemas applied to this operation
-      security:
-        - main_auth:
-          - 'read:users' # for auth2 provide list of scopes here
-        - api_key: []
-      # overwriting default global produces
+        - "Accounts"
+      summary: Retrieve the full chart of accounts
+      description: Retrieve the chart of accounts
       produces:
+        - application/xml
         - application/json
-      responses: # list of responses
+      parameters:
+        - $ref: '#/parameters/If-Modified-Since'
+        - $ref: '#/parameters/where'
+        - $ref: '#/parameters/order'
+      responses:
         '200':
-          description: Success
-          schema: # response schema can be specified for each response
-            $ref: '#/definitions/User'
-          examples:
-          # repsonse samples for each type operation produces
-            application/json:
-              username: user1
-              email: user@example.com
-        '403':
-          description: Forbidden
-        '404':
-          description: User not found
-    # documentation for PUT operation for this path
+          description: A successful response
+          schema:
+            $ref: '#/definitions/AccountsResponse'
+        '500':
+          $ref: '#/responses/500ErrorResponse'
     put:
       tags:
-        - User
-      summary: Updated user
-      description: This can only be done by the logged in user.
-      operationId: updateUser
-      produces:
-        - application/json
+        - "Accounts"
+      summary: Create new accounts
       parameters:
-        - name: username
-          in: path
-          description: The name that needs to be updated
-          required: true
-          type: string
         - in: body
-          name: body
-          description: Updated user object
-          required: true
-          # for body parameter you should specify request schema instead of type
+          name: Accounts
           schema:
-            $ref: '#/definitions/User'
-      security:
-        - main_auth:
-          - 'write:users'
+            $ref: '#/definitions/Account'
+          required: true
       responses:
         '200':
-          description: OK
+          description: A successful request
+          schema:
+            $ref: '#/definitions/AccountsResponse'
         '400':
-          description: Invalid user supplied
-        '404':
-          description: User not found
-  
-  '/echo':
+          $ref: '#/responses/400ErrorResponse'    
     post:
       tags:
-        - Echo
-      summary: Echo test
-      description: Receive the exact message you've sent
-      operationId: echo
+        - "Accounts"
+      summary: Create or update accounts
       parameters:
-        - name: message
-          in: body
-          description: 'Echo payload'
-          required: true
+        - in: body
+          name: Accounts
           schema:
-            type: string
-            example: 'Hello world!'
-      security:
-        - api_key: []
+            $ref: '#/definitions/Account'
+          required: true
       responses:
         '200':
-          description: 'OK'
-          examples:
-            'application/json': 'Hello world!'
+          description: A successful request
           schema:
-            type: string
-          # docuemnt headers for this repsonse
-          headers:
-            X-Rate-Limit: # Header name
-              type: integer # Header value type
-              format: int32 # Header value format
-              description: calls per hour allowed by the user
-            X-Expires-After:
-              type: string
-              format: date-time
-              description: date in UTC when token expires
-# An object to hold data types that can be consumed and produced by operations.
-# These data types can be primitives, arrays or models.
+            $ref: '#/definitions/AccountsResponse'
+        '400':
+          $ref: '#/responses/400ErrorResponse'
+  '/Accounts/{AccountID}':
+    x-related-model: Account
+    get:
+      tags:
+        - "Accounts"
+      summary: Retrieve a single account
+      responses:
+        '200':
+          description: A successful request
+          schema:
+            $ref: '#/definitions/AccountsResponse'
+        '404':
+          $ref: '#/responses/404ErrorResponse'
+      parameters:
+        - required: true
+          in: path
+          name: AccountID
+          type: string
+          format: uuid
+    post:
+      tags:
+        - "Accounts"
+      summary: Update an account
+      parameters:
+        - in: body
+          name: Accounts
+          schema:
+            $ref: '#/definitions/Account'
+          required: true
+        - required: true
+          in: path
+          name: AccountID
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: A successful request
+          schema:
+            $ref: '#/definitions/AccountsResponse'
+        '400':
+          $ref: '#/responses/400ErrorResponse'
+        '404':
+          $ref: '#/responses/404ErrorResponse'
+    delete:
+      tags:
+        - "Accounts"
+      summary: Delete an account
+      responses:
+        '200':
+          description: A successful request
+        '404':
+          $ref: '#/responses/404ErrorResponse'
+      parameters:
+        - required: true
+          in: path
+          name: AccountID
+          type: string
+          format: uuid
+  '/Accounts/{AccountID}/Attachments':
+    get:
+      tags:
+      - "Accounts"
+      summary: Retrieve Attachments
+      description: Retrieve Attachments
+      produces:
+        - application/xml
+        - application/json
+      parameters:
+        - name: AccountID
+          in: path
+          description: >-
+            The Xero generated unique identifier for an account
+          required: true
+          type: string
+        - $ref: '#/parameters/If-Modified-Since'
+      responses:
+        '200':
+          description: Successful response
+          schema:
+            $ref: '#/definitions/Attachments'
+        '404':
+          $ref: '#/responses/404ErrorResponse'
+        '500':
+          $ref: '#/responses/500ErrorResponse'
+  '/Accounts/{AccountID}/Attachments/{FileName}':
+    get:
+      tags:
+      - "Accounts"
+      summary: Download an Attachment
+      description: Download an Attachment
+      produces:
+        - application/xml
+        - application/json
+      parameters:
+        - name: FileName
+          in: path
+          description: The filename of the attachment to be downloaded
+          required: true
+          type: string
+        - name: AccountID
+          in: path
+          description: >-
+            The Xero generated unique identifier for an account
+          required: true
+          type: string
+        - $ref: '#/parameters/If-Modified-Since'
+      responses:
+        '200':
+          description: >-
+            Successful response. The response message will contain the raw file
+            content that was originally uploaded. The response won’t contain any
+            xml or json encoded information
+        '404':
+          description: Attachment does not exist
+        '500':
+          $ref: '#/responses/500ErrorResponse'
+    post:
+      tags:
+      - "Accounts"
+      summary: Upload an Attachment
+      description: Upload an Attachment
+      produces:
+        - application/xml
+        - application/json
+      parameters:
+        - name: FileName
+          in: path
+          description: The filename of the attachment being uploaded
+          required: true
+          type: string
+        - name: AccountID
+          in: path
+          description: >-
+            The Xero generated unique identifier for an account
+          required: true
+          type: string
+        - name: Content
+          in: body
+          description: The raw content of the file to be uploaded
+          required: true
+          schema:
+            required:
+              - Content
+            properties:
+              Content:
+                type: string
+                description: The raw file content
+      responses:
+        '200':
+          description: Attachment succesfully created.
+          schema:
+            $ref: '#/definitions/Attachments'
+        '400':
+          description: Attachment couldn't be created.
+        '500':
+          $ref: '#/responses/500ErrorResponse'
+  /BankTransactions:
+    x-related-model: BankTransaction
+    get:
+      tags:
+        - "BankTransactions"
+      summary: Retrieve any spend or receive money transactions (inc. prepayments and overpayments)
+      responses:
+        '200':
+          description: A successful response
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/BankTransaction'
+        '500':
+          $ref: '#/responses/500ErrorResponse'
+      produces:
+        - application/xml
+        - application/json
+      parameters:
+        - $ref: '#/parameters/If-Modified-Since'
+        - $ref: '#/parameters/where'
+        - $ref: '#/parameters/order'
+        - $ref: '#/parameters/unitdp'
+    put:
+      tags:
+        - "BankTransactions"
+      summary: Create a new spend or receive money (inc. prepayments and overpayments)
+      parameters:
+        - in: body
+          name: BankTransactions
+          schema:
+            $ref: '#/definitions/BankTransaction'
+          required: true
+      responses:
+        '200':
+          description: A successful request
+          schema:
+            $ref: '#/definitions/BankTransaction'
+        '400':
+          $ref: '#/responses/400ErrorResponse'
+        '500':
+          $ref: '#/responses/500ErrorResponse'
+    post:
+      tags:
+        - "BankTransactions"
+      summary: Create a new spend or receive money (inc. prepayments and overpayments)
+      parameters:
+        - in: body
+          name: BankTransactions
+          schema:
+            $ref: '#/definitions/BankTransaction'
+          required: true
+        - $ref: '#/parameters/unitdp'
+      responses:
+        '200':
+          description: A successful request
+          schema:
+            $ref: '#/definitions/BankTransaction'
+        '400':
+          $ref: '#/responses/400ErrorResponse'
+        '500':
+          $ref: '#/responses/500ErrorResponse'
+  '/BankTransactions/{BankTransactionID}':
+    x-related-model: BankTransaction
+    get:
+      tags:
+       - "BankTransactions"
+      summary: Retrieve a spend or receive money (inc. prepayments and overpayments)
+      responses:
+        '200':
+          description: A successful request
+          schema:
+            $ref: '#/definitions/BankTransaction'
+        '404':
+          $ref: '#/responses/404ErrorResponse'
+        '500':
+          $ref: '#/responses/500ErrorResponse'
+      parameters:
+        - required: true
+          in: path
+          name: BankTransactionID
+          type: string
+          format: uuid
+        - $ref: '#/parameters/unitdp'
+    post:
+      tags:
+        - "BankTransactions"
+      summary: Update a spend or receive money
+      parameters:
+        - in: body
+          name: BankTransactions
+          schema:
+            $ref: '#/definitions/BankTransaction'
+          required: true
+        - required: true
+          in: path
+          name: BankTransactionID
+          type: string
+          format: uuid
+        - $ref: '#/parameters/unitdp'
+      responses:
+        '200':
+          description: A successful request
+          schema:
+            $ref: '#/definitions/BankTransaction'
+        '400':
+          $ref: '#/responses/400ErrorResponse'
+        '404':
+          $ref: '#/responses/404ErrorResponse'
+        '500':
+          $ref: '#/responses/500ErrorResponse'
+  '/BankTransactions/{BankTransactionID}/Attachments':
+    get:
+      tags:
+      - "BankTransactions"
+      summary: Retrieve Attachments
+      description: Retrieve Attachments
+      produces:
+        - application/xml
+        - application/json
+      parameters:
+        - name: BankTransactionID
+          in: path
+          description: >-
+            The Xero generated unique identifier for an bank transaction
+          required: true
+          type: string
+        - $ref: '#/parameters/If-Modified-Since'
+      responses:
+        '200':
+          description: Successful response
+          schema:
+            $ref: '#/definitions/Attachments'
+        '500':
+          $ref: '#/responses/500ErrorResponse'
+  '/BankTransactions/{BankTransactionID}/Attachments/{FileName}':
+    get:
+      tags:
+      - "BankTransactions"
+      summary: Download an Attachment
+      description: Download an Attachment
+      produces:
+        - application/xml
+        - application/json
+      parameters:
+        - name: FileName
+          in: path
+          description: The filename of the attachment to be downloaded
+          required: true
+          type: string
+        - name: BankTransactionID
+          in: path
+          description: >-
+            The Xero generated unique identifier for an bank transaction
+          required: true
+          type: string
+        - $ref: '#/parameters/If-Modified-Since'
+      responses:
+        '200':
+          description: >-
+            Successful response. The response message will contain the raw file
+            content that was originally uploaded. The response won’t contain any
+            xml or json encoded information
+        '404':
+          $ref: '#/responses/404ErrorResponse'
+        '500':
+          $ref: '#/responses/500ErrorResponse'
+    post:
+      tags:
+      - "BankTransactions"
+      summary: Upload an Attachment
+      description: Upload an Attachment
+      produces:
+        - application/xml
+        - application/json
+      parameters:
+        - name: FileName
+          in: path
+          description: The filename of the attachment being uploaded
+          required: true
+          type: string
+        - name: BankTransactionID
+          in: path
+          description: >-
+            The Xero generated unique identifier for an bank transaction
+          required: true
+          type: string
+        - name: Content
+          in: body
+          description: The raw content of the file to be uploaded
+          required: true
+          schema:
+            required:
+              - Content
+            properties:
+              Content:
+                type: string
+                description: The raw file content
+      responses:
+        '200':
+          description: Attachment succesfully created.
+          schema:
+            $ref: '#/definitions/Attachments'
+        '400':
+          $ref: '#/responses/400ErrorResponse'
+        '500':
+          $ref: '#/responses/500ErrorResponse'
+  /BankTransfers:
+    x-related-model: BankTransfer
+    get:
+      tags:
+        - "BankTransfers"
+      summary: Retrieve a colection of bank transfers
+      responses:
+        '200':
+          description: A successful response
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/BankTransfersResponse'
+        '500':
+          $ref: '#/responses/500ErrorResponse'
+      produces:
+        - application/xml
+        - application/json
+      parameters:
+        - $ref: '#/parameters/If-Modified-Since'
+        - $ref: '#/parameters/where'
+        - $ref: '#/parameters/order'      
+    put:
+      tags:
+        - "BankTransfers"
+      summary: Create a bank transfer
+      parameters:
+        - in: body
+          name: BankTransfers
+          schema:
+            $ref: '#/definitions/BankTransfer'
+          required: true
+      responses:
+        '200':
+          description: A successful request
+          schema:
+            $ref: '#/definitions/BankTransfersResponse'
+        '400':
+          $ref: '#/responses/400ErrorResponse'
+        '500':
+          $ref: '#/responses/500ErrorResponse'
+  '/BankTransfers/{BankTransferID}':
+    x-related-model: BankTransfer
+    get:
+      tags:
+        - "BankTransfers"
+      summary: Retrieve an individual bank transfer
+      responses:
+        '200':
+          description: A successful request
+          schema:
+            $ref: '#/definitions/BankTransfer'
+        '404':
+          $ref: '#/responses/404ErrorResponse'
+        '500':
+          $ref: '#/responses/500ErrorResponse'
+      parameters:
+        - required: true
+          in: path
+          name: BankTransferID
+          type: string
+          format: uuid
+  '/BankTransfers/{BankTransferID}/Attachments/{FileName}':
+    get:
+      tags:
+      - "BankTransfers"
+      summary: Download an Attachment
+      description: Download an Attachment
+      produces:
+        - application/xml
+        - application/json
+      parameters:
+        - name: FileName
+          in: path
+          description: The filename of the attachment to be downloaded
+          required: true
+          type: string
+        - name: BankTransferID
+          in: path
+          description: >-
+            The Xero generated unique identifier for an BankTransfer
+          required: true
+          type: string
+        - $ref: '#/parameters/If-Modified-Since'
+      responses:
+        '200':
+          description: >-
+            Successful response. The response message will contain the raw file
+            content that was originally uploaded. The response won’t contain any
+            xml or json encoded information
+        '404':
+          $ref: '#/responses/404ErrorResponse'
+        '500':
+          $ref: '#/responses/500ErrorResponse'
+    post:
+      tags:
+      - "BankTransfers"
+      summary: Upload an Attachment
+      description: Upload an Attachment
+      produces:
+        - application/xml
+        - application/json
+      parameters:
+        - name: FileName
+          in: path
+          description: The filename of the attachment being uploaded
+          required: true
+          type: string
+        - name: BankTransferID
+          in: path
+          description: >-
+            The Xero generated unique identifier for a BankTransfer
+          required: true
+          type: string
+        - name: Content
+          in: body
+          description: The raw content of the file to be uploaded
+          required: true
+          schema:
+            required:
+              - Content
+            properties:
+              Content:
+                type: string
+                description: The raw file content
+      responses:
+        '200':
+          description: Attachment succesfully created.
+          schema:
+            $ref: '#/definitions/Attachments'
+        '400':
+          $ref: '#/responses/400ErrorResponse'
+        '500':
+          $ref: '#/responses/500ErrorResponse'
+  /BrandingThemes:
+    x-related-model: BrandingTheme
+    get:
+      tags:
+        - "BrandingThemes"
+      summary: Retrieve a collection of BrandingThemes
+      responses:
+        '200':
+          description: A successful response
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/BrandingTheme'
+        '500':
+          $ref: '#/responses/500ErrorResponse'
+  '/BrandingThemes/{BrandingThemeID}':
+    x-related-model: BrandingTheme
+    get:
+      tags:
+        - "BrandingThemes"
+      summary: Retrieve an individual BrandingTheme
+      responses:
+        '200':
+          description: A successful request
+          schema:
+            $ref: '#/definitions/BrandingTheme'
+        '404':
+          $ref: '#/responses/404ErrorResponse'
+        '500':
+          $ref: '#/responses/500ErrorResponse'
+      parameters:
+        - required: true
+          in: path
+          name: BrandingThemeID
+          type: string
+          format: uuid
+  /Contacts:
+    x-related-model: Contact
+    get:
+      tags:
+        - "Contacts"
+      summary: 'Retrieve a collection of contacts'
+      responses:
+        '200':
+          description: A successful response
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/ContactsResponse'
+        '500':
+          $ref: '#/responses/500ErrorResponse'
+      produces:
+        - application/xml
+        - application/json
+      parameters:
+        - $ref: '#/parameters/If-Modified-Since'
+        - $ref: '#/parameters/where'
+        - $ref: '#/parameters/order'
+        - $ref: '#/parameters/includeArchived'
+        - name: IDs
+          in: query
+          description: >-
+            Filter by a comma-separated list of ContactIDs
+          type: string
+          required: false
+    put:
+      tags:
+        - "Contacts"
+      summary: Create a contact
+      parameters:
+        - in: body
+          name: Contacts
+          schema:
+            $ref: '#/definitions/Contact'
+          required: true
+      responses:
+        '200':
+          description: A successful request
+          schema:
+            $ref: '#/definitions/ContactsResponse'
+        '400':
+          $ref: '#/responses/400ErrorResponse'
+        '500':
+          $ref: '#/responses/500ErrorResponse'
+    post:
+      tags:
+        - "Contacts"
+      summary: Create or update a contact
+      parameters:
+        - in: body
+          name: Contacts
+          schema:
+            $ref: '#/definitions/Contact'
+          required: true
+      responses:
+        '200':
+          description: A successful request
+          schema:
+            $ref: '#/definitions/ContactsResponse'
+        '400':
+          $ref: '#/responses/400ErrorResponse'
+        '500':
+          $ref: '#/responses/500ErrorResponse'
+  '/Contacts/{ContactID}':
+    x-related-model: Contact
+    get:
+      tags:
+        - "Contacts"
+      summary: 'Retrieve an individual contact'
+      responses:
+        '200':
+          description: A successful request
+          schema:
+            $ref: '#/definitions/ContactsResponse'
+        '404':
+          $ref: '#/responses/404ErrorResponse'
+        '500':
+          $ref: '#/responses/500ErrorResponse'
+      parameters:
+        - required: true
+          in: path
+          name: ContactID
+          type: string
+          format: uuid
+    post:
+      tags:
+        - "Contacts"
+      summary: 'Update a contact'
+      parameters:
+        - in: body
+          name: Contacts
+          schema:
+            $ref: '#/definitions/Contact'
+          required: true
+        - required: true
+          in: path
+          name: ContactID
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: A successful request
+          schema:
+            $ref: '#/definitions/ContactsResponse'
+        '400':
+          $ref: '#/responses/400ErrorResponse'
+        '404':
+          $ref: '#/responses/404ErrorResponse'
+        '500':
+          $ref: '#/responses/500ErrorResponse'
+  '/Contacts/{ContactID}/Attachments':
+    get:
+      tags:
+      - "Contacts"
+      summary: Retrieve Attachments
+      description: Retrieve Attachments
+      produces:
+        - application/xml
+        - application/json
+      parameters:
+        - name: ContactID
+          in: path
+          description: >-
+            The Xero generated unique identifier for a Contact
+          required: true
+          type: string
+        - $ref: '#/parameters/If-Modified-Since'
+      responses:
+        '200':
+          description: Successful response
+          schema:
+            $ref: '#/definitions/Attachments'
+        '400':
+          $ref: '#/responses/400ErrorResponse'
+        '500':
+          $ref: '#/responses/500ErrorResponse'
+  '/Contacts/{ContactID}/Attachments/{FileName}':
+    get:
+      tags:
+      - "Contacts"
+      summary: Download an Attachment
+      description: Download an Attachment
+      produces:
+        - application/xml
+        - application/json
+      parameters:
+        - name: FileName
+          in: path
+          description: The filename of the attachment to be downloaded
+          required: true
+          type: string
+        - name: ContactID
+          in: path
+          description: >-
+            The Xero generated unique identifier for a Contact
+          required: true
+          type: string
+        - $ref: '#/parameters/If-Modified-Since'
+      responses:
+        '200':
+          description: >-
+            Successful response. The response message will contain the raw file
+            content that was originally uploaded. The response won’t contain any
+            xml or json encoded information
+        '404':
+          $ref: '#/responses/404ErrorResponse'
+        '500':
+          $ref: '#/responses/500ErrorResponse'
+    post:
+      tags:
+      - "Contacts"
+      summary: Upload an Attachment
+      description: Upload an Attachment
+      produces:
+        - application/xml
+        - application/json
+      parameters:
+        - name: FileName
+          in: path
+          description: The filename of the attachment being uploaded
+          required: true
+          type: string
+        - name: ContactID
+          in: path
+          description: >-
+            The Xero generated unique identifier for a Contact
+          required: true
+          type: string
+        - name: Content
+          in: body
+          description: The raw content of the file to be uploaded
+          required: true
+          schema:
+            required:
+              - Content
+            properties:
+              Content:
+                type: string
+                description: The raw file content
+      responses:
+        '200':
+          description: Attachment succesfully created.
+          schema:
+            $ref: '#/definitions/Attachments'
+        '400':
+          $ref: '#/responses/400ErrorResponse'
+        '500':
+          $ref: '#/responses/500ErrorResponse'
+  /ContactGroups:
+    x-related-model: ContactGroup
+    get:
+      tags:
+        - "ContactGroups"
+      summary: >-
+        Retrieve a collection of contact groups
+      responses:
+        '200':
+          description: A successful response
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/ContactGroupsResponse'
+        '500':
+          $ref: '#/responses/500ErrorResponse'
+      produces:
+        - application/xml
+        - application/json
+      parameters:
+        - $ref: '#/parameters/If-Modified-Since'
+        - $ref: '#/parameters/where'
+        - $ref: '#/parameters/order'
+    put:
+      tags:
+        - "ContactGroups"
+      summary: >-
+        Create a new contact group
+      parameters:
+        - in: body
+          name: ContactGroups
+          schema:
+            $ref: '#/definitions/ContactGroup'
+          required: true
+      responses:
+        '200':
+          description: A successful request
+          schema:
+            $ref: '#/definitions/ContactGroupsResponse'
+        '400':
+          $ref: '#/responses/400ErrorResponse'
+        '500':
+          $ref: '#/responses/500ErrorResponse'
+    post:
+      tags:
+        - "ContactGroups"
+      summary: >-
+        Create or update a contact group
+      parameters:
+        - in: body
+          name: ContactGroups
+          schema:
+            $ref: '#/definitions/ContactGroup'
+          required: true
+      responses:
+        '200':
+          description: A successful request
+          schema:
+            $ref: '#/definitions/ContactGroupsResponse'
+        '400':
+          $ref: '#/responses/400ErrorResponse'
+        '500':
+          $ref: '#/responses/500ErrorResponse'
+  '/ContactGroups/{ContactGroupID}':
+    x-related-model: ContactGroup
+    get:
+      tags:
+        - "ContactGroups"
+      summary: >-
+        Retrieve the ContactID and Name of all the contacts in a
+        contact group
+      responses:
+        '200':
+          description: A successful request
+          schema:
+            $ref: '#/definitions/ContactGroupsResponse'
+        '404':
+          $ref: '#/responses/404ErrorResponse'
+        '500':
+          $ref: '#/responses/500ErrorResponse'
+      parameters:
+        - required: true
+          in: path
+          name: ContactGroupID
+          type: string
+          format: uuid
+    post:
+      tags:
+        - "ContactGroups"
+      summary: >-
+        Update a contact group
+      parameters:
+        - in: body
+          name: ContactGroups
+          schema:
+            $ref: '#/definitions/ContactGroup'
+          required: true
+        - required: true
+          in: path
+          name: ContactGroupID
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: A successful request
+          schema:
+            $ref: '#/definitions/ContactGroupsResponse'
+        '400':
+          $ref: '#/responses/400ErrorResponse'
+        '404':
+          $ref: '#/responses/404ErrorResponse'
+        '500':
+          $ref: '#/responses/500ErrorResponse'
+    delete:
+      tags:
+        - "ContactGroups"
+      summary: >-
+        Delete a contact group
+      responses:
+        '200':
+          description: A successful request
+        '404':
+          $ref: '#/responses/404ErrorResponse'
+        '500':
+          $ref: '#/responses/500ErrorResponse'
+      parameters:
+        - required: true
+          in: path
+          name: ContactGroupID
+          type: string
+          format: uuid
+  '/ContactGroups/{ContactGroupID}/Contacts':
+    x-related-model: ContactGroup
+    put:
+      tags:
+        - "ContactGroups"
+      summary: >-
+        Add contacts to a contact group
+      parameters:
+        - in: body
+          name: Contacts
+          schema:
+            $ref: '#/definitions/Contact'
+          required: true
+        - required: true
+          in: path
+          name: ContactGroupID
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: A successful request
+          schema:
+            $ref: '#/definitions/ContactGroupsResponse'
+        '400':
+          $ref: '#/responses/400ErrorResponse'
+        '404':
+          $ref: '#/responses/404ErrorResponse'
+        '500':
+          $ref: '#/responses/500ErrorResponse'
+    delete:
+      tags:
+        - "ContactGroups"
+      summary: >-
+        Remove all contacts from a contact group
+      responses:
+        '200':
+          description: A successful request
+        '404':
+          $ref: '#/responses/404ErrorResponse'
+        '500':
+          $ref: '#/responses/500ErrorResponse'
+      parameters:
+        - required: true
+          in: path
+          name: ContactGroupID
+          type: string
+          format: uuid
+  '/ContactGroups/{ContactGroupID}/Contacts/{ContactID}':
+    x-related-model: ContactGroup
+    delete:
+      tags:
+        - "ContactGroups"
+      summary: >-
+        Remove a contact from a contact group
+      responses:
+        '200':
+          description: A successful request
+        '404':
+          $ref: '#/responses/404ErrorResponse'
+        '500':
+          $ref: '#/responses/500ErrorResponse'
+      parameters:
+        - required: true
+          in: path
+          name: ContactGroupID
+          type: string
+          format: uuid
+        - required: true
+          in: path
+          name: ContactID
+          type: string
+          format: uuid
+  /CreditNotes:
+    x-related-model: CreditNote
+    get:
+      tags:
+        - "CreditNotes"
+      summary: Retrieve a collection of credit notes
+      responses:
+        '200':
+          description: A successful response
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/CreditNote'
+        '500':
+          $ref: '#/responses/500ErrorResponse'
+      produces:
+        - application/xml
+        - application/json
+      parameters:
+        - $ref: '#/parameters/If-Modified-Since'
+        - $ref: '#/parameters/where'
+        - $ref: '#/parameters/order'
+        - $ref: '#/parameters/unitdp'
+    put:
+      tags:
+        - "CreditNotes"
+      summary: Create a credit note
+      parameters:
+        - in: body
+          name: CreditNotes
+          schema:
+            $ref: '#/definitions/CreditNote'
+          required: true
+        - $ref: '#/parameters/unitdp'
+      responses:
+        '200':
+          description: A successful request
+          schema:
+            $ref: '#/definitions/CreditNote'
+        '400':
+          $ref: '#/responses/400ErrorResponse'
+        '500':
+          $ref: '#/responses/500ErrorResponse'
+    post:
+      tags:
+        - "CreditNotes"
+      summary: Create or update a credit note
+      parameters:
+        - in: body
+          name: CreditNotes
+          schema:
+            $ref: '#/definitions/CreditNote'
+          required: true
+        - $ref: '#/parameters/unitdp'
+      responses:
+        '200':
+          description: A successful request
+          schema:
+            $ref: '#/definitions/CreditNote'
+        '400':
+          $ref: '#/responses/400ErrorResponse'
+        '500':
+          $ref: '#/responses/500ErrorResponse'
+  '/CreditNotes/{CreditNoteID}':
+    x-related-model: CreditNote
+    get:
+      tags:
+        - "CreditNotes"
+      summary: Retrieve an individual credit note
+      responses:
+        '200':
+          description: A successful request
+          schema:
+            $ref: '#/definitions/CreditNote'
+        '404':
+          $ref: '#/responses/404ErrorResponse'
+        '500':
+          $ref: '#/responses/500ErrorResponse'
+      parameters:
+        - required: true
+          in: path
+          name: CreditNoteID
+          type: string
+          format: uuid
+        - $ref: '#/parameters/unitdp'
+    post:
+      tags:
+        - "CreditNotes"
+      summary: Update a credit note
+      parameters:
+        - in: body
+          name: CreditNotes
+          schema:
+            $ref: '#/definitions/CreditNote'
+          required: true
+        - required: true
+          in: path
+          name: CreditNoteID
+          type: string
+          format: uuid
+        - $ref: '#/parameters/unitdp'
+      responses:
+        '200':
+          description: A successful request
+          schema:
+            $ref: '#/definitions/CreditNote'
+        '400':
+          $ref: '#/responses/400ErrorResponse'
+        '404':
+          $ref: '#/responses/404ErrorResponse'
+        '500':
+          $ref: '#/responses/500ErrorResponse'
+  '/CreditNotes/{CreditNoteID}/Allocations':
+    x-related-model: CreditNote
+    put:
+      tags:
+        - "CreditNotes"
+      summary: Allocate a credit note
+      parameters:
+        - in: body
+          name: Allocations
+          schema:
+            $ref: '#/definitions/Allocation'
+          required: true
+        - required: true
+          in: path
+          name: CreditNoteID
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: A successful request
+          schema:
+            $ref: '#/definitions/Allocation'
+        '404':
+          $ref: '#/responses/404ErrorResponse'
+        '500':
+          $ref: '#/responses/500ErrorResponse'
+  '/CreditNotes/{CreditNoteID}/Attachments':
+    get:
+      tags:
+      - "CreditNotes"
+      summary: Retrieve Attachments
+      description: Retrieve Attachments
+      produces:
+        - application/xml
+        - application/json
+      parameters:
+        - name: CreditNoteID
+          in: path
+          description: >-
+            The Xero generated unique identifier for a CreditNote
+          required: true
+          type: string
+        - $ref: '#/parameters/If-Modified-Since'
+      responses:
+        '200':
+          description: Successful response
+          schema:
+            $ref: '#/definitions/Attachments'
+        '404':
+          $ref: '#/responses/404ErrorResponse'
+        '500':
+          $ref: '#/responses/500ErrorResponse'
+  '/CreditNotes/{CreditNoteID}/Attachments/{FileName}':
+    get:
+      tags:
+      - "CreditNotes"
+      summary: Download an Attachment
+      description: Download an Attachment
+      produces:
+        - application/xml
+        - application/json
+      parameters:
+        - name: FileName
+          in: path
+          description: The filename of the attachment to be downloaded
+          required: true
+          type: string
+        - name: CreditNoteID
+          in: path
+          description: >-
+            The Xero generated unique identifier for a CreditNote
+          required: true
+          type: string
+        - $ref: '#/parameters/If-Modified-Since'
+      responses:
+        '200':
+          description: >-
+            Successful response. The response message will contain the raw file
+            content that was originally uploaded. The response won’t contain any
+            xml or json encoded information
+        '400':
+          $ref: '#/responses/400ErrorResponse'
+        '404':
+          $ref: '#/responses/404ErrorResponse'
+        '500':
+          $ref: '#/responses/500ErrorResponse'
+    post:
+      tags:
+      - "CreditNotes"
+      summary: Upload an Attachment
+      description: Upload an Attachment
+      produces:
+        - application/xml
+        - application/json
+      parameters:
+        - name: FileName
+          in: path
+          description: The filename of the attachment being uploaded
+          required: true
+          type: string
+        - name: CreditNoteID
+          in: path
+          description: >-
+            The Xero generated unique identifier for a CreditNote
+          required: true
+          type: string
+        - name: Content
+          in: body
+          description: The raw content of the file to be uploaded
+          required: true
+          schema:
+            required:
+              - Content
+            properties:
+              Content:
+                type: string
+                description: The raw file content
+      responses:
+        '200':
+          description: Attachment succesfully created.
+          schema:
+            $ref: '#/definitions/Attachments'
+        '400':
+          $ref: '#/responses/400ErrorResponse'
+        '404':
+          $ref: '#/responses/404ErrorResponse'
+        '500':
+          $ref: '#/responses/500ErrorResponse'
+  /Currencies:
+    x-related-model: Currency
+    get:
+      tags:
+        - "Currencies"
+      summary: Retrieve the currencies the organisation is subscribed to
+      responses:
+        '200':
+          description: A successful response
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Currency'
+        '500':
+          $ref: '#/responses/500ErrorResponse'
+      produces:
+        - application/xml
+        - application/json
+      parameters:
+        - $ref: '#/parameters/If-Modified-Since'
+        - $ref: '#/parameters/where'
+        - $ref: '#/parameters/order'
+  /Employees:
+    x-related-model: Employee
+    get:
+      tags:
+        - "Employees"
+      summary: >-
+        Retrieve a collection of employees
+      responses:
+        '200':
+          description: A successful response
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Employee'
+        '500':
+          $ref: '#/responses/500ErrorResponse'
+      produces:
+        - application/xml
+        - application/json
+      parameters:
+        - $ref: '#/parameters/If-Modified-Since'
+        - $ref: '#/parameters/where'
+        - $ref: '#/parameters/order'
+    put:
+      tags:
+        - "Employees"
+      summary: >-
+        Create employees
+      parameters:
+        - in: body
+          name: Employees
+          schema:
+            $ref: '#/definitions/Employee'
+          required: true
+      responses:
+        '200':
+          description: A successful request
+          schema:
+            $ref: '#/definitions/Employee'
+        '400':
+          $ref: '#/responses/400ErrorResponse'
+        '500':
+          $ref: '#/responses/500ErrorResponse'
+    post:
+      tags:
+        - "Employees"
+      summary: >-
+        Create or update employees
+      parameters:
+        - in: body
+          name: Employees
+          schema:
+            $ref: '#/definitions/Employee'
+          required: true
+      responses:
+        '200':
+          description: A successful request
+          schema:
+            $ref: '#/definitions/Employee'
+        '400':
+          $ref: '#/responses/400ErrorResponse'
+        '500':
+          $ref: '#/responses/500ErrorResponse'
+  '/Employees/{EmployeeID}':
+    x-related-model: Employee
+    get:
+      tags:
+        - "Employees"
+      summary: >-
+        Retrieve an individual employee
+      responses:
+        '200':
+          description: A successful request
+          schema:
+            $ref: '#/definitions/Employee'
+        '404':
+          $ref: '#/responses/404ErrorResponse'
+        '500':
+          $ref: '#/responses/500ErrorResponse'
+      parameters:
+        - required: true
+          in: path
+          name: EmployeeID
+          type: string
+          format: uuid
+    post:
+      tags:
+        - "Employees"
+      summary: >-
+        Update an employee
+      parameters:
+        - in: body
+          name: Employees
+          schema:
+            $ref: '#/definitions/Employee'
+          required: true
+        - required: true
+          in: path
+          name: EmployeeID
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: A successful request
+          schema:
+            $ref: '#/definitions/Employee'
+        '400':
+          $ref: '#/responses/400ErrorResponse'
+        '404':
+          $ref: '#/responses/404ErrorResponse'
+        '500':
+          $ref: '#/responses/500ErrorResponse'
+  /ExpenseClaims:
+    x-related-model: ExpenseClaim
+    get:
+      tags:
+        - "ExpenseClaims"
+      summary: Retrieve a collection of expense claims
+      responses:
+        '200':
+          description: A successful response
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/ExpenseClaim'
+        '500':
+          $ref: '#/responses/500ErrorResponse'
+      produces:
+        - application/xml
+        - application/json
+      parameters:
+        - $ref: '#/parameters/If-Modified-Since'
+        - $ref: '#/parameters/where'
+        - $ref: '#/parameters/order'
+    put:
+      tags:
+        - "ExpenseClaims"
+      summary: >-
+        Create an expense claim
+      parameters:
+        - in: body
+          name: ExpenseClaims
+          schema:
+            $ref: '#/definitions/ExpenseClaim'
+          required: true
+      responses:
+        '200':
+          description: A successful request
+          schema:
+            $ref: '#/definitions/ExpenseClaim'
+        '400':
+          $ref: '#/responses/400ErrorResponse'
+        '500':
+          $ref: '#/responses/500ErrorResponse'
+    post:
+      tags:
+        - "ExpenseClaims"
+      summary: >-
+        Create or update an expense claim
+      parameters:
+        - in: body
+          name: ExpenseClaims
+          schema:
+            $ref: '#/definitions/ExpenseClaim'
+          required: true
+      responses:
+        '200':
+          description: A successful request
+          schema:
+            $ref: '#/definitions/ExpenseClaim'
+        '400':
+          $ref: '#/responses/400ErrorResponse'
+        '500':
+          $ref: '#/responses/500ErrorResponse'
+  '/ExpenseClaims/{ExpenseClaimID}':
+    x-related-model: ExpenseClaim
+    get:
+      tags:
+        - "ExpenseClaims"
+      summary: Retrieve an individual expense claim
+      responses:
+        '200':
+          description: A successful request
+          schema:
+            $ref: '#/definitions/ExpenseClaim'
+        '404':
+          $ref: '#/responses/404ErrorResponse'
+        '500':
+          $ref: '#/responses/500ErrorResponse'
+      parameters:
+        - required: true
+          in: path
+          name: ExpenseClaimID
+          type: string
+          format: uuid
+    post:
+      tags:
+        - "ExpenseClaims"
+      summary: >-
+        Update an expense claim
+      parameters:
+        - in: body
+          name: ExpenseClaims
+          schema:
+            $ref: '#/definitions/ExpenseClaim'
+          required: true
+        - required: true
+          in: path
+          name: ExpenseClaimID
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: A successful request
+          schema:
+            $ref: '#/definitions/ExpenseClaim'
+        '400':
+          $ref: '#/responses/400ErrorResponse'
+        '404':
+          $ref: '#/responses/404ErrorResponse'
+        '500':
+          $ref: '#/responses/500ErrorResponse'
+  /Invoices:
+    x-related-model: Invoice
+    get:
+      tags:
+        - "Invoices"
+      summary: Retrieve a collection of invoices (sales invoices and bills)
+      responses:
+        '200':
+          description: A successful response
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Invoice'
+        '500':
+          $ref: '#/responses/500ErrorResponse'
+      produces:
+        - application/xml
+        - application/json
+      parameters:
+        - $ref: '#/parameters/If-Modified-Since'
+        - $ref: '#/parameters/where'
+        - $ref: '#/parameters/order'
+        - $ref: '#/parameters/unitdp'
+        - name: IDs
+          in: query
+          description: >-
+            Filter by a comma-separated list of InvoiceIDs
+          type: string
+          required: false
+        - name: ContactIDs
+          in: query
+          description: >-
+            Filter by a comma-separated list of ContactIDs
+          type: string
+          required: false 
+        - name: Statuses
+          in: query
+          description: >-
+            Filter by a comma-separated list of Statuses
+          type: string
+          required: false
+        - name: InvoiceNumbers
+          in: query
+          description: >-
+            Filter by a comma-separated list of InvoiceNumbers
+          type: string
+          required: false 
+    put:
+      tags:
+        - "Invoices"
+      summary: Create an Invoice (sales invoices or bills)
+      parameters:
+        - in: body
+          name: Invoices
+          schema:
+            $ref: '#/definitions/Invoice'
+          required: true
+        - $ref: '#/parameters/unitdp'
+      responses:
+        '200':
+          description: A successful request
+          schema:
+            $ref: '#/definitions/Invoice'
+        '400':
+          $ref: '#/responses/400ErrorResponse'
+        '500':
+          $ref: '#/responses/500ErrorResponse'
+    post:
+      tags:
+        - "Invoices"
+      summary: Create or update an Invoice (sales invoices or bills)
+      parameters:
+        - in: body
+          name: Invoices
+          schema:
+            $ref: '#/definitions/Invoice'
+          required: true
+        - $ref: '#/parameters/unitdp'
+      responses:
+        '200':
+          description: A successful request
+          schema:
+            $ref: '#/definitions/Invoice'
+        '400':
+          $ref: '#/responses/400ErrorResponse'
+        '500':
+          $ref: '#/responses/500ErrorResponse'
+  '/Invoices/{InvoiceID}':
+    x-related-model: Invoice
+    get:
+      tags:
+        - "Invoices"
+      summary: Retrieve an Invoice (sales invoice or bill)
+      responses:
+        '200':
+          description: A successful request
+          schema:
+            $ref: '#/definitions/Invoice'
+        '404':
+          $ref: '#/responses/404ErrorResponse'
+        '500':
+          $ref: '#/responses/500ErrorResponse'
+      parameters:
+        - required: true
+          in: path
+          name: InvoiceID
+          type: string
+          format: uuid
+        - $ref: '#/parameters/unitdp'
+    post:
+      tags:
+        - "Invoices"
+      summary: Update an Invoice (sales invoice or bill)
+      parameters:
+        - in: body
+          name: Invoices
+          schema:
+            $ref: '#/definitions/Invoice'
+          required: true
+        - required: true
+          in: path
+          name: InvoiceID
+          type: string
+          format: uuid
+        - $ref: '#/parameters/unitdp'
+      responses:
+        '200':
+          description: A successful request
+          schema:
+            $ref: '#/definitions/Invoice'
+        '400':
+          $ref: '#/responses/400ErrorResponse'
+        '404':
+          $ref: '#/responses/404ErrorResponse'
+        '500':
+          $ref: '#/responses/500ErrorResponse'
+  '/Invoices/{InvoiceID}/OnlineInvoice':
+    x-related-model: OnlineInvoice
+    get:
+      tags:
+        - "Invoices"
+      summary: Retrieve the URL to view the online invoice
+      responses:
+        '200':
+          description: A successful request
+          schema:
+            $ref: '#/definitions/OnlineInvoicesResponse'
+        '404':
+          $ref: '#/responses/404ErrorResponse'
+        '500':
+          $ref: '#/responses/500ErrorResponse'
+      parameters:
+        - required: true
+          in: path
+          name: InvoiceID
+          type: string
+          format: uuid
+  '/Invoices/{InvoiceID}/Attachments':
+    get:
+      tags:
+      - "Invoices"
+      summary: Retrieve Attachments
+      description: Retrieve Attachments
+      produces:
+        - application/xml
+        - application/json
+      parameters:
+        - name: InvoiceID
+          in: path
+          description: >-
+            The Xero generated unique identifier for an Invoice
+          required: true
+          type: string
+        - $ref: '#/parameters/If-Modified-Since'
+      responses:
+        '200':
+          description: Successful response
+          schema:
+            $ref: '#/definitions/Attachments'
+        '404':
+          $ref: '#/responses/404ErrorResponse'
+        '500':
+          $ref: '#/responses/500ErrorResponse'
+  '/Invoices/{InvoiceID}/Attachments/{FileName}':
+    get:
+      tags:
+      - "Invoices"
+      summary: Download an Attachment
+      description: Download an Attachment
+      produces:
+        - application/xml
+        - application/json
+      parameters:
+        - name: FileName
+          in: path
+          description: The filename of the attachment to be downloaded
+          required: true
+          type: string
+        - name: InvoiceID
+          in: path
+          description: >-
+            The Xero generated unique identifier for an Invoice
+          required: true
+          type: string
+        - $ref: '#/parameters/If-Modified-Since'
+      responses:
+        '200':
+          description: >-
+            Successful response. The response message will contain the raw file
+            content that was originally uploaded. The response won’t contain any
+            xml or json encoded information
+        '404':
+          $ref: '#/responses/404ErrorResponse'
+        '500':
+          $ref: '#/responses/500ErrorResponse'
+    post:
+      tags:
+      - "Invoices"
+      summary: Upload an Attachment
+      description: Upload an Attachment
+      produces:
+        - application/xml
+        - application/json
+      parameters:
+        - name: FileName
+          in: path
+          description: The filename of the attachment being uploaded
+          required: true
+          type: string
+        - name: InvoiceID
+          in: path
+          description: >-
+            The Xero generated unique identifier for an Invoice
+          required: true
+          type: string
+        - name: Content
+          in: body
+          description: The raw content of the file to be uploaded
+          required: true
+          schema:
+            required:
+              - Content
+            properties:
+              Content:
+                type: string
+                description: The raw file content
+      responses:
+        '200':
+          description: Attachment succesfully created.
+          schema:
+            $ref: '#/definitions/Attachments'
+        '404':
+          $ref: '#/responses/404ErrorResponse'
+        '500':
+          $ref: '#/responses/500ErrorResponse'
+  /Items:
+    x-related-model: Item
+    get:
+      tags:
+        - "Items"
+      summary: Retrieve a collection of items
+      responses:
+        '200':
+          description: A successful response
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Item'
+        '500':
+          $ref: '#/responses/500ErrorResponse'
+      produces:
+        - application/xml
+        - application/json
+      parameters:
+        - $ref: '#/parameters/If-Modified-Since'
+        - $ref: '#/parameters/where'
+        - $ref: '#/parameters/order'
+        - $ref: '#/parameters/unitdp'
+    put:
+      tags:
+        - "Items"
+      summary: Create an item
+      parameters:
+        - in: body
+          name: Items
+          schema:
+            $ref: '#/definitions/Item'
+          required: true
+        - $ref: '#/parameters/unitdp'
+      responses:
+        '200':
+          description: A successful request
+          schema:
+            $ref: '#/definitions/Item'
+        '400':
+          $ref: '#/responses/400ErrorResponse'
+        '500':
+          $ref: '#/responses/500ErrorResponse'
+    post:
+      tags:
+        - "Items"
+      summary: Create or update an item
+      parameters:
+        - in: body
+          name: Items
+          schema:
+            $ref: '#/definitions/Item'
+          required: true
+        - $ref: '#/parameters/unitdp'
+      responses:
+        '200':
+          description: A successful request
+          schema:
+            $ref: '#/definitions/Item'
+        '400':
+          $ref: '#/responses/400ErrorResponse'
+        '500':
+          $ref: '#/responses/500ErrorResponse'
+  '/Items/{ItemID}':
+    x-related-model: Item
+    get:
+      tags:
+        - "Items"
+      summary: Retrieve an item
+      responses:
+        '200':
+          description: A successful request
+          schema:
+            $ref: '#/definitions/Item'
+        '404':
+          $ref: '#/responses/404ErrorResponse'
+        '500':
+          $ref: '#/responses/500ErrorResponse'
+      parameters:
+        - required: true
+          in: path
+          name: ItemID
+          type: string
+          format: uuid
+        - $ref: '#/parameters/unitdp'
+    post:
+      tags:
+        - "Items"
+      summary: Update an item
+      parameters:
+        - in: body
+          name: Items
+          schema:
+            $ref: '#/definitions/Item'
+          required: true
+        - required: true
+          in: path
+          name: ItemID
+          type: string
+          format: uuid
+        - $ref: '#/parameters/unitdp'
+      responses:
+        '200':
+          description: A successful request
+          schema:
+            $ref: '#/definitions/Item'
+        '400':
+          $ref: '#/responses/400ErrorResponse'
+        '404':
+          $ref: '#/responses/404ErrorResponse'
+        '500':
+          $ref: '#/responses/500ErrorResponse'
+    delete:
+      tags:
+        - "Items"
+      summary: Delete an item
+      responses:
+        '200':
+          description: A successful request
+        '404':
+          $ref: '#/responses/404ErrorResponse'
+        '500':
+          $ref: '#/responses/500ErrorResponse'
+      parameters:
+        - required: true
+          in: path
+          name: ItemID
+          type: string
+          format: uuid
+  /Journals:
+    x-related-model: Journal
+    get:
+      tags:
+        - "Journals"
+      summary: Retrieve a collection of journals.
+      responses:
+        '200':
+          description: A successful response
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Journal'
+        '500':
+          $ref: '#/responses/500ErrorResponse'
+      produces:
+        - application/xml
+        - application/json
+      parameters:
+        - $ref: '#/parameters/If-Modified-Since'
+        - $ref: '#/parameters/paymentsOnly'
+        - $ref: '#/parameters/offset'
+  '/Journals/{JournalID}':
+    x-related-model: Journal
+    get:
+      tags:
+        - "Journals"
+      summary: Retrieve an individual journal.
+      responses:
+        '200':
+          description: A successful request
+          schema:
+            $ref: '#/definitions/Journal'
+        '404':
+          $ref: '#/responses/404ErrorResponse'
+        '500':
+          $ref: '#/responses/500ErrorResponse'
+      parameters:
+        - required: true
+          in: path
+          name: JournalID
+          type: string
+          format: uuid
+  /LinkedTransactions:
+    x-related-model: LinkedTransaction
+    get:
+      tags:
+        - "LinkedTransactions"
+      summary: Retrieve a collection of linked transactions (billable expenses)
+      responses:
+        '200':
+          description: A successful response
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/LinkedTransaction'
+      produces:
+        - application/xml
+        - application/json
+      parameters:
+        - $ref: '#/parameters/page'
+        - in: query
+          name: SourceTransactionID
+          description: Filter by the SourceTransactionID. Get all the linked transactions created from a particular ACCPAY invoice
+          type: string
+          format: uuid
+        - in: query
+          name: ContactID
+          description: Filter by the ContactID. Get all the linked transactions that have been assigned to a particular customer. 
+          type: string
+          format: uuid
+        - in: query
+          name: Status
+          description: Filter by the combination of ContactID and Status. Get all the linked transactions that have been assigned to a particular customer and have a particular status e.g. GET /LinkedTransactions?ContactID=4bb34b03-3378-4bb2-a0ed-6345abf3224e&Status=APPROVED. 
+          type: string
+          format: uuid
+        - in: query
+          name: TargetTransactionID
+          description: Filter by the TargetTransactionID. Get all the linked transactions allocated to a particular ACCREC invoice.
+          type: string
+          format: uuid
+    put:
+      tags:
+        - "LinkedTransactions"
+      summary: Create a linked transaction (billable expense)
+      parameters:
+        - in: body
+          name: LinkedTransactions
+          schema:
+            $ref: '#/definitions/LinkedTransaction'
+          required: true
+      responses:
+        '200':
+          description: A successful request
+          schema:
+            $ref: '#/definitions/LinkedTransaction'
+    post:
+      tags:
+        - "LinkedTransactions"
+      summary: Create or update a linked transaction (billable expense)
+      parameters:
+        - in: body
+          name: LinkedTransactions
+          schema:
+            $ref: '#/definitions/LinkedTransaction'
+          required: true
+      responses:
+        '200':
+          description: A successful request
+          schema:
+            $ref: '#/definitions/LinkedTransaction'
+  '/LinkedTransactions/{LinkedTransactionID}':
+    x-related-model: LinkedTransaction
+    get:
+      tags:
+        - "LinkedTransactions"
+      summary: Retrieve a linked transaction (billable expense)
+      responses:
+        '200':
+          description: A successful request
+          schema:
+            $ref: '#/definitions/LinkedTransaction'
+      parameters:
+        - required: true
+          in: path
+          name: LinkedTransactionID
+          type: string
+          format: uuid
+    post:
+      tags:
+        - "LinkedTransactions"
+      summary: Update a linked transaction (billable expense)
+      parameters:
+        - in: body
+          name: LinkedTransactions
+          schema:
+            $ref: '#/definitions/LinkedTransaction'
+          required: true
+        - required: true
+          in: path
+          name: LinkedTransactionID
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: A successful request
+          schema:
+            $ref: '#/definitions/LinkedTransaction'
+    delete:
+      tags:
+        - "LinkedTransactions"
+      summary: Delete a linked transaction (billable expense)
+      responses:
+        '200':
+          description: A successful request
+      parameters:
+        - required: true
+          in: path
+          name: LinkedTransactionID
+          type: string
+          format: uuid
+  /ManualJournals:
+    x-related-model: ManualJournal
+    get:
+      tags:
+        - "ManualJournals"
+      summary: Retrieve a collection of manual journals
+      responses:
+        '200':
+          description: A successful response
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/ManualJournal'
+      produces:
+        - application/xml
+        - application/json
+      parameters:
+        - $ref: '#/parameters/If-Modified-Since'
+        - $ref: '#/parameters/where'
+        - $ref: '#/parameters/order'
+        - $ref: '#/parameters/page'
+    put:
+      tags:
+        - "ManualJournals"
+      summary: Create a manual journal
+      parameters:
+        - in: body
+          name: ManualJournals
+          schema:
+            $ref: '#/definitions/ManualJournal'
+          required: true
+      responses:
+        '200':
+          description: A successful request
+          schema:
+            $ref: '#/definitions/ManualJournal'
+    post:
+      tags:
+        - "ManualJournals"
+      summary: Create or update a manual journal
+      parameters:
+        - in: body
+          name: ManualJournals
+          schema:
+            $ref: '#/definitions/ManualJournal'
+          required: true
+      responses:
+        '200':
+          description: A successful request
+          schema:
+            $ref: '#/definitions/ManualJournal'
+  '/ManualJournals/{JournalID}':
+    x-related-model: ManualJournal
+    get:
+      tags:
+        - "ManualJournals"
+      summary: Retrieve an individual manual journal
+      responses:
+        '200':
+          description: A successful request
+          schema:
+            $ref: '#/definitions/ManualJournal'
+      parameters:
+        - required: true
+          in: path
+          name: JournalID
+          type: string
+          format: uuid
+    post:
+      tags:
+        - "ManualJournals"
+      summary: Update a manual journal
+      parameters:
+        - in: body
+          name: ManualJournals
+          schema:
+            $ref: '#/definitions/ManualJournal'
+          required: true
+        - required: true
+          in: path
+          name: JournalID
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: A successful request
+          schema:
+            $ref: '#/definitions/ManualJournal'
+  '/ManualJournals/{ManualJournalID}/Attachments':
+    get:
+      tags:
+      - "ManualJournals"
+      summary: Retrieve Attachments
+      description: Retrieve Attachments
+      produces:
+        - application/xml
+        - application/json
+      parameters:
+        - name: ManualJournalID
+          in: path
+          description: >-
+            The Xero generated unique identifier for a Manual Journal
+          required: true
+          type: string
+        - $ref: '#/parameters/If-Modified-Since'
+      responses:
+        '200':
+          description: Successful response
+          schema:
+            $ref: '#/definitions/Attachments'
+        '500':
+          $ref: '#/responses/500ErrorResponse'
+  '/ManualJournals/{ManualJournalID}/Attachments/{FileName}':
+    get:
+      tags:
+      - "ManualJournals"
+      summary: Download an Attachment
+      description: Download an Attachment
+      produces:
+        - application/xml
+        - application/json
+      parameters:
+        - name: FileName
+          in: path
+          description: The filename of the attachment to be downloaded
+          required: true
+          type: string
+        - name: ManualJournalID
+          in: path
+          description: >-
+            The Xero generated unique identifier for a Manual Journal
+          required: true
+          type: string
+        - $ref: '#/parameters/If-Modified-Since'
+      responses:
+        '200':
+          description: >-
+            Successful response. The response message will contain the raw file
+            content that was originally uploaded. The response won’t contain any
+            xml or json encoded information
+        '404':
+          description: Attachment does not exist
+        '500':
+          $ref: '#/responses/500ErrorResponse'
+    post:
+      tags:
+      - "ManualJournals"
+      summary: Upload an Attachment
+      description: Upload an Attachment
+      produces:
+        - application/xml
+        - application/json
+      parameters:
+        - name: FileName
+          in: path
+          description: The filename of the attachment being uploaded
+          required: true
+          type: string
+        - name: ManualJournalID
+          in: path
+          description: >-
+            The Xero generated unique identifier for a Manual Journal
+          required: true
+          type: string
+        - name: Content
+          in: body
+          description: The raw content of the file to be uploaded
+          required: true
+          schema:
+            required:
+              - Content
+            properties:
+              Content:
+                type: string
+                description: The raw file content
+      responses:
+        '200':
+          description: Attachment succesfully created.
+          schema:
+            $ref: '#/definitions/Attachments'
+        '400':
+          description: Attachment couldn't be created.
+        '500':
+          $ref: '#/responses/500ErrorResponse'
+  /Organisation:
+    x-related-model: Organisation
+    get:
+      tags:
+        - "Organisations"
+      summary: Retrieve Organisation details
+      responses:
+        '200':
+          description: A successful response
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Organisation'
+  '/Organisation/{ShortCode}':
+    x-related-model: Organisation
+    get:
+      tags:
+        - "Organisations"
+      summary: Retrieve Organisation details
+      responses:
+        '200':
+          description: A successful request
+          schema:
+            $ref: '#/definitions/Organisation'
+      parameters:
+        - required: true
+          in: path
+          name: ShortCode
+          type: string
+          format: uuid
+  /Overpayments:
+    x-related-model: Overpayment
+    get:
+      tags:
+        - "Overpayments"
+      summary: Retrieve a collection of overpayments
+      responses:
+        '200':
+          description: A successful response
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Overpayment'
+      produces:
+        - application/xml
+        - application/json
+      parameters:
+        - $ref: '#/parameters/If-Modified-Since'
+        - $ref: '#/parameters/where'
+        - $ref: '#/parameters/order'
+        - $ref: '#/parameters/page'
+        - $ref: '#/parameters/unitdp'
+  '/Overpayments/{OverpaymentID}':
+    x-related-model: Overpayment
+    get:
+      tags:
+        - "Overpayments"
+      summary: Retrieve an overpayment
+      responses:
+        '200':
+          description: A successful request
+          schema:
+            $ref: '#/definitions/Overpayment'
+      parameters:
+        - required: true
+          in: path
+          name: OverpaymentID
+          type: string
+          format: uuid
+        - $ref: '#/parameters/unitdp'
+  '/Overpayments/{OverpaymentID}/Allocations':
+    x-related-model: Overpayment
+    put:
+      tags:
+        - "Overpayments"
+      summary: Allocate an overpayment
+      parameters:
+        - in: body
+          name: Allocations
+          schema:
+            $ref: '#/definitions/Allocation'
+          required: true
+        - required: true
+          in: path
+          name: OverpaymentID
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: A successful request
+          schema:
+            $ref: '#/definitions/Allocation'
+  /Payments:
+    x-related-model: Payment
+    get:
+      tags:
+        - "Payments"
+      summary: Retrieve a collection of payments for invoices, credit notes, prepayments and overpayments
+      responses:
+        '200':
+          description: A successful response
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Payment'
+      produces:
+        - application/xml
+        - application/json
+      parameters:
+        - $ref: '#/parameters/If-Modified-Since'
+        - $ref: '#/parameters/where'
+        - $ref: '#/parameters/order'
+    put:
+      tags:
+        - "Payments"
+      summary: Create a payment
+      parameters:
+        - in: body
+          name: Payments
+          schema:
+            $ref: '#/definitions/Payment'
+          required: true
+      responses:
+        '200':
+          description: A successful request
+          schema:
+            $ref: '#/definitions/Payment'
+    post:
+      tags:
+        - "Payments"
+      summary: Create a payment
+      parameters:
+        - in: body
+          name: Payments
+          schema:
+            $ref: '#/definitions/Payment'
+          required: true
+      responses:
+        '200':
+          description: A successful request
+          schema:
+            $ref: '#/definitions/Payment'
+  '/Payments/{PaymentID}':
+    x-related-model: Payment
+    get:
+      tags:
+        - "Payments"
+      summary: Retrieve a payment
+      responses:
+        '200':
+          description: A successful request
+          schema:
+            $ref: '#/definitions/Payment'
+      parameters:
+        - required: true
+          in: path
+          name: PaymentID
+          type: string
+          format: uuid
+    post:
+      tags:
+        - "Payments"
+      summary: Update a payment's status to deleted
+      parameters:
+        - in: body
+          name: Payments
+          schema:
+            $ref: '#/definitions/Payment'
+          required: true
+        - required: true
+          in: path
+          name: PaymentID
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: A successful request
+          schema:
+            $ref: '#/definitions/Payment'
+  /Prepayments:
+    x-related-model: Prepayment
+    get:
+      tags:
+        - "Prepayments"
+      summary: Retrieve a collection of prepayments
+      responses:
+        '200':
+          description: A successful response
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Prepayment'
+      produces:
+        - application/xml
+        - application/json
+      parameters:
+        - $ref: '#/parameters/If-Modified-Since'
+        - $ref: '#/parameters/where'
+        - $ref: '#/parameters/order'
+        - $ref: '#/parameters/page'
+        - $ref: '#/parameters/unitdp'
+  '/Prepayments/{PrepaymentID}':
+    x-related-model: Prepayment
+    get:
+      tags:
+        - "Prepayments"
+      summary: Retrieve an individual prepayment
+      responses:
+        '200':
+          description: A successful request
+          schema:
+            $ref: '#/definitions/Prepayment'
+      parameters:
+        - required: true
+          in: path
+          name: PrepaymentID
+          type: string
+          format: uuid
+        - $ref: '#/parameters/unitdp'
+  '/Prepayments/{PrepaymentID}/Allocations':
+    x-related-model: Prepayment
+    put:
+      tags:
+        - "Prepayments"
+      summary: Allocate a prepayment
+      parameters:
+        - in: body
+          name: Allocations
+          schema:
+            $ref: '#/definitions/Allocation'
+          required: true
+        - required: true
+          in: path
+          name: PrepaymentID
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: A successful request
+          schema:
+            $ref: '#/definitions/Allocation'
+  /PurchaseOrders:
+    x-related-model: PurchaseOrder
+    get:
+      tags:
+        - "PurchaseOrders"
+      summary: Retrieve a collection of purchase orders
+      responses:
+        '200':
+          description: A successful response
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/PurchaseOrder'
+      produces:
+        - application/xml
+        - application/json
+      parameters:
+        - $ref: '#/parameters/If-Modified-Since'
+        - $ref: '#/parameters/order'
+        - $ref: '#/parameters/page'
+        - required: false
+          in: query
+          name: DateFrom
+          type: string
+          format: date
+        - required: false
+          in: query
+          name: DateTo
+          type: string
+          format: date
+        - required: false
+          in: query
+          name: Status
+          type: string
+    put:
+      tags:
+        - "PurchaseOrders"
+      summary: Create purchase orders
+      parameters:
+        - in: body
+          name: PurchaseOrders
+          schema:
+            $ref: '#/definitions/PurchaseOrder'
+          required: true
+      responses:
+        '200':
+          description: A successful request
+          schema:
+            $ref: '#/definitions/PurchaseOrder'
+    post:
+      tags:
+        - "PurchaseOrders"
+      summary: Create and update purchase orders
+      parameters:
+        - in: body
+          name: PurchaseOrders
+          schema:
+            $ref: '#/definitions/PurchaseOrder'
+          required: true
+      responses:
+        '200':
+          description: A successful request
+          schema:
+            $ref: '#/definitions/PurchaseOrder'
+  '/PurchaseOrders/{PurchaseOrderID}':
+    x-related-model: PurchaseOrder
+    get:
+      tags:
+        - "PurchaseOrders"
+      summary: Retrieve a single purchase order
+      responses:
+        '200':
+          description: A successful request
+          schema:
+            $ref: '#/definitions/PurchaseOrder'
+      parameters:
+        - required: true
+          in: path
+          name: PurchaseOrderID
+          type: string
+          format: uuid
+    post:
+      tags:
+        - "PurchaseOrders"
+      summary: Update a purchase order
+      parameters:
+        - in: body
+          name: PurchaseOrders
+          schema:
+            $ref: '#/definitions/PurchaseOrder'
+          required: true
+        - required: true
+          in: path
+          name: PurchaseOrderID
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: A successful request
+          schema:
+            $ref: '#/definitions/PurchaseOrder'
+  '/PurchaseOrders/{PurchaseOrderID}/Attachments':
+    get:
+      tags:
+      - "PurchaseOrders"
+      summary: Retrieve Attachments
+      description: Retrieve Attachments
+      produces:
+        - application/xml
+        - application/json
+      parameters:
+        - name: PurchaseOrderID
+          in: path
+          description: >-
+            The Xero generated unique identifier for a purchase order
+          required: true
+          type: string
+        - $ref: '#/parameters/If-Modified-Since'
+      responses:
+        '200':
+          description: Successful response
+          schema:
+            $ref: '#/definitions/Attachments'
+        '500':
+          $ref: '#/responses/500ErrorResponse'
+  '/PurchaseOrders/{PurchaseOrderID}/Attachments/{FileName}':
+    get:
+      tags:
+      - "PurchaseOrders"
+      summary: Download an Attachment
+      description: Download an Attachment
+      produces:
+        - application/xml
+        - application/json
+      parameters:
+        - name: FileName
+          in: path
+          description: The filename of the attachment to be downloaded
+          required: true
+          type: string
+        - name: PurchaseOrderID
+          in: path
+          description: >-
+            The Xero generated unique identifier for a purchase order
+          required: true
+          type: string
+        - $ref: '#/parameters/If-Modified-Since'
+      responses:
+        '200':
+          description: >-
+            Successful response. The response message will contain the raw file
+            content that was originally uploaded. The response won’t contain any
+            xml or json encoded information
+        '404':
+          description: Attachment does not exist
+        '500':
+          $ref: '#/responses/500ErrorResponse'
+    post:
+      tags:
+      - "PurchaseOrders"
+      summary: Upload an Attachment
+      description: Upload an Attachment
+      produces:
+        - application/xml
+        - application/json
+      parameters:
+        - name: FileName
+          in: path
+          description: The filename of the attachment being uploaded
+          required: true
+          type: string
+        - name: PurchaseOrderID
+          in: path
+          description: >-
+            The Xero generated unique identifier for a purchase order
+          required: true
+          type: string
+        - name: Content
+          in: body
+          description: The raw content of the file to be uploaded
+          required: true
+          schema:
+            required:
+              - Content
+            properties:
+              Content:
+                type: string
+                description: The raw file content
+      responses:
+        '200':
+          description: Attachment succesfully created.
+          schema:
+            $ref: '#/definitions/Attachments'
+        '400':
+          description: Attachment couldn't be created.
+        '500':
+          $ref: '#/responses/500ErrorResponse'
+  /Receipts:
+    x-related-model: Receipt
+    get:
+      tags:
+        - "Receipts"
+      summary: Retrieve a collection of draft receipts
+      responses:
+        '200':
+          description: A successful response
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Receipt'
+      produces:
+        - application/xml
+        - application/json
+      parameters:
+        - $ref: '#/parameters/If-Modified-Since'
+        - $ref: '#/parameters/order'
+        - $ref: '#/parameters/where'
+        - $ref: '#/parameters/unitdp'
+    put:
+      tags:
+        - "Receipts"
+      summary: "Create a receipt"
+      parameters:
+        - in: body
+          name: Receipts
+          schema:
+            $ref: '#/definitions/Receipt'
+          required: true
+        - $ref: '#/parameters/unitdp'
+      responses:
+        '200':
+          description: A successful request
+          schema:
+            $ref: '#/definitions/Receipt'
+    post:
+      tags:
+        - "Receipts"
+      summary: "Create or update a receipt"
+      parameters:
+        - in: body
+          name: Receipts
+          schema:
+            $ref: '#/definitions/Receipt'
+          required: true
+        - $ref: '#/parameters/unitdp'
+      responses:
+        '200':
+          description: A successful request
+          schema:
+            $ref: '#/definitions/Receipt'
+  '/Receipts/{ReceiptID}':
+    x-related-model: Receipt
+    get:
+      tags:
+        - "Receipts"
+      summary: Retrieve an individual receipt
+      responses:
+        '200':
+          description: A successful request
+          schema:
+            $ref: '#/definitions/Receipt'
+      parameters:
+        - required: true
+          in: path
+          name: ReceiptID
+          type: string
+          format: uuid
+        - $ref: '#/parameters/unitdp'
+    post:
+      tags:
+        - "Receipts"
+      summary: Update a receipt
+      parameters:
+        - in: body
+          name: Receipts
+          schema:
+            $ref: '#/definitions/Receipt'
+          required: true
+        - required: true
+          in: path
+          name: ReceiptID
+          type: string
+          format: uuid
+        - $ref: '#/parameters/unitdp'
+      responses:
+        '200':
+          description: A successful request
+          schema:
+            $ref: '#/definitions/Receipt'
+  '/Receipts/{ReceiptID}/Attachments':
+    get:
+      tags:
+      - "Receipts"
+      summary: Retrieve Attachments
+      description: Retrieve Attachments
+      produces:
+        - application/xml
+        - application/json
+      parameters:
+        - name: ReceiptID
+          in: path
+          description: >-
+            The Xero generated unique identifier for a Receipt
+          required: true
+          type: string
+        - $ref: '#/parameters/If-Modified-Since'
+      responses:
+        '200':
+          description: Successful response
+          schema:
+            $ref: '#/definitions/Attachments'
+        '500':
+          $ref: '#/responses/500ErrorResponse'
+  '/Receipts/{ReceiptID}/Attachments/{FileName}':
+    get:
+      tags:
+      - "Receipts"
+      summary: Download an Attachment
+      description: Download an Attachment
+      produces:
+        - application/xml
+        - application/json
+      parameters:
+        - name: FileName
+          in: path
+          description: The filename of the attachment to be downloaded
+          required: true
+          type: string
+        - name: ReceiptID
+          in: path
+          description: >-
+            The Xero generated unique identifier for a Receipt
+          required: true
+          type: string
+        - $ref: '#/parameters/If-Modified-Since'
+      responses:
+        '200':
+          description: >-
+            Successful response. The response message will contain the raw file
+            content that was originally uploaded. The response won’t contain any
+            xml or json encoded information
+        '404':
+          description: Attachment does not exist
+        '500':
+          $ref: '#/responses/500ErrorResponse'
+    post:
+      tags:
+      - "Receipts"
+      summary: Upload an Attachment
+      description: Upload an Attachment
+      produces:
+        - application/xml
+        - application/json
+      parameters:
+        - name: FileName
+          in: path
+          description: The filename of the attachment being uploaded
+          required: true
+          type: string
+        - name: ReceiptID
+          in: path
+          description: >-
+            The Xero generated unique identifier for a Receipt
+          required: true
+          type: string
+        - name: Content
+          in: body
+          description: The raw content of the file to be uploaded
+          required: true
+          schema:
+            required:
+              - Content
+            properties:
+              Content:
+                type: string
+                description: The raw file content
+      responses:
+        '200':
+          description: Attachment succesfully created.
+          schema:
+            $ref: '#/definitions/Attachments'
+        '400':
+          description: Attachment couldn't be created.
+        '500':
+          $ref: '#/responses/500ErrorResponse'
+  /RepeatingInvoices:
+    x-related-model: RepeatingInvoice
+    get:
+      tags:
+        - "RepeatingInvoices"
+      summary: Retrieve a collection of repeating invoice templates
+      responses:
+        '200':
+          description: A successful response
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/RepeatingInvoice'
+      produces:
+        - application/xml
+        - application/json
+      parameters:
+        - $ref: '#/parameters/If-Modified-Since'
+        - $ref: '#/parameters/order'
+        - $ref: '#/parameters/where'
+  '/RepeatingInvoices/{RepeatingInvoiceID}':
+    x-related-model: RepeatingInvoice
+    get:
+      tags:
+        - "RepeatingInvoices"
+      summary: Retrieve an individual repeating invoice template
+      responses:
+        '200':
+          description: A successful request
+          schema:
+            $ref: '#/definitions/RepeatingInvoice'
+      parameters:
+        - required: true
+          in: path
+          name: RepeatingInvoiceID
+          type: string
+          format: uuid
+  '/RepeatingInvoices/{RepeatingInvoiceID}/Attachments':
+    get:
+      tags:
+      - "RepeatingInvoices"
+      summary: Retrieve Attachments
+      description: Retrieve Attachments
+      produces:
+        - application/xml
+        - application/json
+      parameters:
+        - name: RepeatingInvoiceID
+          in: path
+          description: >-
+            The Xero generated unique identifier for a RepeatingInvoice
+          required: true
+          type: string
+        - $ref: '#/parameters/If-Modified-Since'
+      responses:
+        '200':
+          description: Successful response
+          schema:
+            $ref: '#/definitions/Attachments'
+        '500':
+          $ref: '#/responses/500ErrorResponse'
+  '/RepeatingInvoices/{RepeatingInvoiceID}/Attachments/{FileName}':
+    get:
+      tags:
+      - "RepeatingInvoices"
+      summary: Download an Attachment
+      description: Download an Attachment
+      produces:
+        - application/xml
+        - application/json
+      parameters:
+        - name: FileName
+          in: path
+          description: The filename of the attachment to be downloaded
+          required: true
+          type: string
+        - name: RepeatingInvoiceID
+          in: path
+          description: >-
+            The Xero generated unique identifier for a RepeatingInvoice
+          required: true
+          type: string
+        - $ref: '#/parameters/If-Modified-Since'
+      responses:
+        '200':
+          description: >-
+            Successful response. The response message will contain the raw file
+            content that was originally uploaded. The response won’t contain any
+            xml or json encoded information
+        '404':
+          description: Attachment does not exist
+        '500':
+          $ref: '#/responses/500ErrorResponse'
+    post:
+      tags:
+      - "RepeatingInvoices"
+      summary: Upload an Attachment
+      description: Upload an Attachment
+      produces:
+        - application/xml
+        - application/json
+      parameters:
+        - name: FileName
+          in: path
+          description: The filename of the attachment being uploaded
+          required: true
+          type: string
+        - name: RepeatingInvoiceID
+          in: path
+          description: >-
+            The Xero generated unique identifier for a RepeatingInvoice
+          required: true
+          type: string
+        - name: Content
+          in: body
+          description: The raw content of the file to be uploaded
+          required: true
+          schema:
+            required:
+              - Content
+            properties:
+              Content:
+                type: string
+                description: The raw file content
+      responses:
+        '200':
+          description: Attachment succesfully created.
+          schema:
+            $ref: '#/definitions/Attachments'
+        '400':
+          description: Attachment couldn't be created.
+        '500':
+          $ref: '#/responses/500ErrorResponse'
+  /TaxRates:
+    x-related-model: TaxRate
+    get:
+      tags:
+        - "TaxRates"
+      summary: Retrieve a collection of tax rates
+      responses:
+        '200':
+          description: A successful response
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/TaxRate'
+      produces:
+        - application/xml
+        - application/json
+      parameters:
+        - $ref: '#/parameters/If-Modified-Since'
+        - $ref: '#/parameters/order'
+        - $ref: '#/parameters/where'
+    put:
+      tags:
+        - "TaxRates"
+      summary: Create tax rates
+      parameters:
+        - in: body
+          name: TaxRates
+          schema:
+            $ref: '#/definitions/TaxRate'
+          required: true
+      responses:
+        '200':
+          description: A successful request
+          schema:
+            $ref: '#/definitions/TaxRate'
+    post:
+      tags:
+        - "TaxRates"
+      summary: Create or update tax rates
+      parameters:
+        - in: body
+          name: TaxRates
+          schema:
+            $ref: '#/definitions/TaxRate'
+          required: true
+      responses:
+        '200':
+          description: A successful request
+          schema:
+            $ref: '#/definitions/TaxRate'
+  /TrackingCategories:
+    x-related-model: TrackingCategory
+    get:
+      tags:
+        - "TrackingCategories"
+      summary: Retrieve a collection of tracking categories and options
+      responses:
+        '200':
+          description: A successful response
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/TrackingCategory'
+      produces:
+        - application/xml
+        - application/json
+      parameters:
+        - $ref: '#/parameters/If-Modified-Since'
+        - $ref: '#/parameters/order'
+        - $ref: '#/parameters/where'
+        - $ref: '#/parameters/includeArchived'
+    put:
+      tags:
+        - "TrackingCategories"
+      summary: Create a tracking category
+      parameters:
+        - in: body
+          name: TrackingCategories
+          schema:
+            $ref: '#/definitions/TrackingCategory'
+          required: true
+      responses:
+        '200':
+          description: A successful request
+          schema:
+            $ref: '#/definitions/TrackingCategory'
+    post:
+      tags:
+        - "TrackingCategories"
+      summary: Create a tracking category
+      parameters:
+        - in: body
+          name: TrackingCategories
+          schema:
+            $ref: '#/definitions/TrackingCategory'
+          required: true
+      responses:
+        '200':
+          description: A successful request
+          schema:
+            $ref: '#/definitions/TrackingCategory'
+  '/TrackingCategories/{TrackingCategoryID}':
+    x-related-model: TrackingCategory
+    get:
+      tags:
+        - "TrackingCategories"
+      summary: Retrieve a tracking category and it's options
+      responses:
+        '200':
+          description: A successful request
+          schema:
+            $ref: '#/definitions/TrackingCategory'
+      parameters:
+        - required: true
+          in: path
+          name: TrackingCategoryID
+          type: string
+          format: uuid
+    post:
+      tags:
+        - "TrackingCategories"
+      summary: Create or update a tracking category
+      parameters:
+        - in: body
+          name: TrackingCategories
+          schema:
+            $ref: '#/definitions/TrackingCategory'
+          required: true
+        - required: true
+          in: path
+          name: TrackingCategoryID
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: A successful request
+          schema:
+            $ref: '#/definitions/TrackingCategory'
+    delete:
+      tags:
+        - "TrackingCategories"
+      summary: "Delete a Tracking Category"
+      responses:
+        '200':
+          description: A successful request
+      parameters:
+        - required: true
+          in: path
+          name: TrackingCategoryID
+          type: string
+          format: uuid
+  '/TrackingCategories/{TrackingCategoryID}/Options':
+    x-related-model: TrackingCategory
+    put:
+      tags:
+        - "TrackingCategories"
+      summary: "Add options to a tracking category"
+      parameters:
+        - in: body
+          name: TrackingOptions
+          schema:
+            $ref: '#/definitions/TrackingOption'
+          required: true
+        - required: true
+          in: path
+          name: TrackingCategoryID
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: A successful request
+          schema:
+            $ref: '#/definitions/TrackingOption'
+  '/TrackingCategories/{TrackingCategoryID}/Options/{TrackingOptionID}':
+    x-related-model: TrackingCategory
+    delete:
+      tags:
+        - "TrackingCategories"
+      summary: "Delete an option from a tracking category"
+      responses:
+        '200':
+          description: A successful request
+      parameters:
+        - required: true
+          in: path
+          name: TrackingCategoryID
+          type: string
+          format: uuid
+        - required: true
+          in: path
+          name: TrackingOptionID
+          type: string
+          format: uuid
+  /Users:
+    x-related-model: User
+    get:
+      tags:
+        - "Users"
+      summary: Retrieve a collection of Users
+      responses:
+        '200':
+          description: A successful response
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/User'
+      produces:
+        - application/xml
+        - application/json
+      parameters:
+        - $ref: '#/parameters/If-Modified-Since'
+        - $ref: '#/parameters/order'
+        - $ref: '#/parameters/where'
+  '/Users/{UserID}':
+    x-related-model: User
+    get:
+      tags:
+        - "Users"
+      summary: Retrieve an individual User
+      responses:
+        '200':
+          description: A successful request
+          schema:
+            $ref: '#/definitions/User'
+      parameters:
+        - required: true
+          in: path
+          name: UserID
+          type: string
+          format: uuid
 definitions:
-  Email:
-    description: User email address
-    type: string
-    format: email
-    example: john.smith@example.com
-  User:
+  Account:
+    externalDocs:
+      url: 'http://developer.xero.com/documentation/api/accounts/'
+    type: object
+    required:
+      - Code
+      - Name
+      - Type
+    properties:
+      Code:
+        type: string
+        description: Customer defined alpha numeric account code e.g 200 or SALES
+        maxLength: 10
+        example: 200
+      Name:
+        type: string
+        description: Name of account
+        maxLength: 150
+        example: Sales
+      Type:
+        type: string
+        description: Account type
+        example: CURRENT
+        enum:
+          - BANK
+          - CURRENT
+          - CURRLIAB
+          - DEPRECIATN
+          - DIRECTCOSTS
+          - EQUITY
+          - EXPENSE
+          - FIXED
+          - INVENTORY
+          - LIABILITY
+          - NONCURRENT
+          - OTHERINCOME
+          - OVERHEADS
+          - PREPAYMENT
+          - REVENUE
+          - SALES
+          - TERMLIAB
+          - PAYGLIABILITY
+          - SUPERANNUATIONEXPENSE
+          - SUPERANNUATIONLIABILITY
+          - WAGESEXPENSE
+          - WAGESPAYABLELIABILITY
+      BankAccountNumber:
+        type: string
+        description: For bank accounts only (Type BANK)
+        example: 1234353453453
+      Status:
+        type: string
+        description: Accounts with a status of ACTIVE can be updated to ARCHIVED
+        example: ACTIVE
+        enum:
+          - ACTIVE
+          - ARCHIVED
+      Description:
+        type: string
+        description: Description of the Account. Valid for all types of accounts except bank accounts 
+        maxLength: 4000
+        example: A sales account
+      BankAccountType:
+        type: string
+        description: For bank accounts only
+        example: CREDITCARD
+        enum:
+          - BANK
+          - CREDITCARD
+          - PAYPAL
+      CurrencyCode:
+        type: string
+        description: For bank accounts only
+        example: AUD
+      TaxType:
+        type: string
+        description: Default tax rate for the account
+        example: NONE
+      EnablePaymentsToAccount:
+        type: boolean
+        example: false
+        description: Describes whether account can have payments applied to it
+      ShowInExpenseClaims:
+        type: boolean
+        example: false
+        description: Describes whether account code is available for use with expense claims
+      AccountID:
+        type: string
+        format: uuid
+        description: Unique identifier for the account
+        readOnly: true
+        example: 50e845c3-464e-4a6d-8951-8794317c7893
+      Class:
+        type: string
+        description: The class of account
+        readOnly: true
+        example: ASSET
+        enum:
+          - ASSET
+          - EQUITY
+          - EXPENSE
+          - LIABILITY
+          - REVENUE
+      SystemAccount:
+        type: string
+        description: If this is a system account then this element is returned. See System
+          Account types. Note that non-system accounts may have this element set
+          as either “” or null.
+        readOnly: true
+        example: ROUNDING
+        enum: 
+          - DEBTORS
+          - CREDITORS
+          - BANKCURRENCYGAIN
+          - GST
+          - GSTONIMPORTS
+          - HISTORICAL
+          - REALISEDCURRENCYGAIN
+          - RETAINEDEARNINGS
+          - ROUNDING
+          - TRACKINGTRANSFERS
+          - UNPAIDEXPCLM
+          - UNREALISEDCURRENCYGAIN
+          - WAGEPAYABLES
+      ReportingCode:
+        type: string
+        description: Shown if set
+        example: ASS
+        readOnly: true
+      ReportingCodeName:
+        type: string
+        description: Shown if set
+        example: Asset
+        readOnly: true
+      HasAttachments:
+        type: boolean
+        description: Indicates if an account has an attachment
+        example: false
+        readOnly: true
+      UpdatedDateUTC:
+        type: string
+        format: date-time
+        description: Last modified date UTC format
+        readOnly: true
+  AccountsResponse:
+    type: object
+    xml:
+      name: Response
+    properties:
+      ID:
+        type: string
+        description: Unique identifier for each response
+        readOnly: true
+      Status:
+        type: string
+        description: OK for a successful response
+        readOnly: true
+      ProviderName:
+        type: string
+        description: Name of the application that made the request
+        readOnly: true
+      DateTimeUTC:
+        type: string
+        format: dateTime
+        description: DateTime of the request
+        readOnly: true
+      Accounts:
+        type: array
+        items:
+          $ref: '#/definitions/Account'
+  Address:
+    externalDocs:
+      url: 'https://developer.xero.com/documentation/api/types#addresses'
     type: object
     properties:
-      username:
-        description: User supplied username
+      AddressType:
         type: string
-        minLength: 4
-        example: John78
-      firstName:
-        description: User first name
+        description: The address type
+        example: POSTAL
+        enum:
+          - POBOX
+          - STREET
+          - POSTAL
+      AddressLine1:
         type: string
-        minLength: 1
-        example: John
-      lastName:
-        description: User last name
+        example: Apartment A
+        maxLength: 500
+      AddressLine2:
         type: string
-        minLength: 1
-        example: Smith
-      email:
-        $ref: '#/definitions/Email'
+        example: Building 20
+        maxLength: 500
+      AddressLine3:
+        type: string
+        example: 123 Main St
+        maxLength: 500
+      AddressLine4:
+        type: string
+        example: South
+        maxLength: 500
+      City:
+        type: string
+        example: New York City
+        maxLength: 255
+      Region:
+        type: string
+        example: New York
+        maxLength: 500
+      PostalCode:
+        type: string
+        example: 47483
+        maxLength: 50
+      Country:
+        type: string
+        example: United States
+        maxLength: 50
+      Attentionto:
+        type: string
+        example: Accounts Department
+        maxLength: 255
+  Addresses:
+    type: array
+    items:
+      $ref: '#/definitions/Address'
+  Attachment:
+    type: object
+    properties:
+      AttachmentId:
+        type: string
+        description: Xero generated unique identifier for attachment
+      Filename:
+        type: string
+        description: The filename of the attachemnt
+      Url:
+        type: string
+        description: The URL to where the attachment is located
+      MimeType:
+        type: string
+        description: The mimetype of the attachemnt
+      ContentLegth:
+        type: number
+        format: integer
+        description: The content length in bytes
+      IncludeOnline:
+        type: boolean
+        description: Determines whether the attachment is included with the online invoice
+  Attachments:
+    type: array
+    items:
+      $ref: '#/definitions/Attachment'
+  Balances:
+    type: array
+    description: The raw AccountsReceivable (sales invoices) and AccountsPayable (bills) outstanding and overdue amounts, not converted to base currency
+    items:
+      properties:
+        AccountsReceivable:
+          type: object
+          properties:
+            Outstanding:
+              type: number
+              format: double
+              description: AR outstanding balance
+              readOnly: true
+              example: 1000
+            Overdue:
+              type: number
+              format: double
+              description: AR overdue balance
+              readOnly: true
+              example: 500
+        AccountsPayable:
+          type: object
+          properties:
+            Outstanding:
+              type: number
+              format: double
+              description: AP outstanding balance
+              readOnly: true
+              example: 50
+            Overdue:
+              type: number
+              format: double
+              description: AP overdue balance
+              readOnly: true
+              example: 2
+  BankAccount:
+    type: object
+    properties:
+      Code:
+        type: string
+        description: Bank account code
+        example: 610
+      AccountID:
+        type: string
+        format: uuid
+        description: Account identifier
+        example: d1ebb97b-d207-4ccb-9ab6-8a466a8b4d39
+      Name:
+        description: The Name Bank Account
+        readOnly: true
+        type: string
+        example: Everyday Savings
+  FromBankAccount:
+    type: object
+    properties:
+      Code:
+        type: string
+        description: Bank account code
+        example: 610
+      AccountID:
+        type: string
+        description: Account identifier
+        example: ae8074e0-1ac1-4b37-8546-afa9fa6ace9e
+      Name:
+        type: string
+        description: Bank account name
+        example: Savings account
+  ToBankAccount:
+    type: object
+    properties:
+      Code:
+        type: string
+        description: Bank account code
+        example: 610
+      AccountID:
+        type: string
+        description: Account identifier
+        example: d7defb58-7028-480d-bd70-453770b0715d
+      Name:
+        type: string
+        description: Bank account name
+        example: Savings account
+  BankTransaction:
+    externalDocs:
+      url: 'http://developer.xero.com/documentation/api/banktransactions/'
+    type: object
+    required:
+      - Type
+      - Contact
+      - LineItems
+      - BankAccount
+    properties:
+      BankTransactionId:
+        type: string
+        description: Xero generated unique identifier for bank transactions
+        readOnly: true
+        example: 72f1dcfe-5d7d-4239-bf9d-e12469309716
+      Type:
+        type: string
+        description: The type of bank transaction
+        enum:
+          - RECEIVE
+          - RECEIVE-OVERPAYMENT
+          - RECEIVE-PREPAYMENT
+          - SPEND
+          - SPEND-OVERPAYMENT
+          - SPEND-PREPAYMENT
+          - RECEIVE-TRANSFER
+          - SPEND-TRANSFER
+        example: SPEND 
+      BankAccount:
+        $ref: '#/definitions/BankAccount'
+      IsReconciled:
+        type: boolean
+        description: Indicates if transaction has been reconciled
+        example: false
+      Reference:
+        type: string
+        description:   Reference for the transaction. Only supported for SPEND and RECEIVE transactions
+      Contact:
+        allOf:
+          - description: See Contacts
+          - $ref: '#/definitions/Contact'
+      Date:
+        type: string
+        format: date
+        description: Date bank transaction was made YYYY-MM-DD
+      Status:
+        type: string
+        enum:
+          - AUTHORISED
+          - DELETED
+        default: AUTHORISED
+        description: The status of the bank transaction
+      LineAmountTypes:
+        type: string
+        enum:
+          - Inclusive
+          - Exclusive
+          - NoTax
+        description: >-
+          Line amounts are exclusive of tax by default if you don’t specify this
+          element
+        default: NoTax
+      LineItems:
+        $ref: '#/definitions/LineItems'
+      Url:
+        type: string
+        description: >-
+          URL link to a source document – shown as “Go to [appName]” in the Xero
+          app
+      CurrencyCode:
+        type: string
+        description: The currency that bank transaction has been raised in
+      CurrencyRate:
+        type: number
+        format: double
+        description: >-
+          The currency rate for a multicurrency bank transaction. If no rate is
+          specified, the XE.com day rate is used.
+      SubTotal:
+        type: number
+        format: double
+        description: Total of bank transaction excluding taxes
+        readOnly: true
+      Totaltax:
+        type: number
+        format: double
+        description: Total tax on the bank transaction
+        readOnly: true
+      Total:
+        type: number
+        format: double
+        description: >-
+          Total of bank transaction tax inclusive (i.e. SubTotal + TotalTax). This will
+          be ignored if it doesn’t equal the sum of the LineAmounts
+        readOnly: true
+      PrepaymentID:
+        type: string
+        description: Xero generated unique identifier for a Prepayment. This will be returned on BankTransactions with a Type of SPEND-PREPAYMENT or RECEIVE-PREPAYMENT
+        example: d2c63bbd-bc9e-4fb4-9d1c-e5d15749aaa2
+        readOnly: true
+      OverpaymentID:
+        type: string
+        description: Xero generated unique identifier for an Overpayment. This will be returned on BankTransactions with a Type of SPEND-OVERPAYMENT or RECEIVE-OVERPAYMENT
+        example: 66fbdc01-e2e7-4ee3-ab10-2d5821d38fe4
+        readOnly: true
+      UpdatedDateUTC:
+        type: string
+        format: dateTime
+        description: Last modified date UTC format
+        readOnly: true
+      HasAttachments:
+        type: boolean
+        description: boolean to indicate if the bank transaction has an attachment
+        readOnly: true
+      Attachments:
+        $ref: '#/definitions/Attachments'
+    xml:
+      name: BankTransaction
+  BankTransfer:
+    externalDocs:
+      url: 'http://developer.xero.com/documentation/api/bank-transfers/'
+    type: object
+    required:
+      - FromBankAccount
+      - ToBankAccount
+      - Amount
+    properties:
+      BankTransferId:
+        type: string
+        description: Xero generated unique identifier for bank transfers
+        readOnly: true
+        example: 72f1dcfe-5d7d-4239-bf9d-e12469309716
+      FromBankAccount:
+        $ref: '#/definitions/FromBankAccount'
+      ToBankAccount:
+        $ref: '#/definitions/ToBankAccount'
+      Date:
+        type: string
+        format: date
+        description: Date bank transfer was made YYYY-MM-DD
+      CurrencyRate:
+        type: number
+        format: double
+        description: >-
+          The currency rate for a multicurrency bank transfer. If no rate is
+          specified, the XE.com day rate is used.
+      Amount:
+        type: number
+        format: double
+        description: >-
+          Total of the bank transfer
+      FromBankTransactionID:
+        type: string
+        description: The Bank Transaction ID for the source account
+        example: d2c63bbd-bc9e-4fb4-9d1c-e5d15749aaa2
+        readOnly: true
+      ToBankTransactionID:
+        type: string
+        description: The Bank Transaction ID for the destination account
+        example: 66fbdc01-e2e7-4ee3-ab10-2d5821d38fe4
+        readOnly: true
+      UpdatedDateUTC:
+        type: string
+        format: dateTime
+        description: Last modified date UTC format
+        readOnly: true
+      HasAttachments:
+        type: boolean
+        description: boolean to indicate if the bank transaction has an attachment
+        readOnly: true
+      Attachments:
+        $ref: '#/definitions/Attachments'
+    xml:
+      name: BankTransfer
+  BankTransfers:
+    type: array
+    items:
+      $ref: '#/definitions/BankTransfer'
+  BankTransfersResponse:
+    type: object
+    xml:
+      name: Response
+    properties:
+      ID:
+        type: string
+        description: Unique identifier for each response
+        readOnly: true
+      Status:
+        type: string
+        description: OK for a successful response
+        readOnly: true
+      ProviderName:
+        type: string
+        description: Name of the application that made the request
+        readOnly: true
+      DateTimeUTC:
+        type: string
+        format: dateTime
+        description: DateTime of the request
+        readOnly: true
+      BankTransfers:
+        $ref: '#/definitions/BankTransfers'  
+  BrandingTheme:
+    externalDocs:
+      url: 'http://developer.xero.com/documentation/api/branding-themes/'
+    properties:
+      BrandingThemeID:
+        description: Xero identifier
+        type: string
+        format: uuid
+      Name:
+        description: Name of branding theme
+        type: string
+      SortOrder:
+        description: >-
+          Integer – ranked order of branding theme. The default branding theme
+          has a value of 0
+        type: number
+        format: double
+      CreatedDateUTC:
+        description: UTC timestamp of creation date of branding theme
+        type: string
+        format: date-time
+  BatchPayments:
+    type: object
+    properties:
+      BankAccountNumber:
+        type: string
+        readOnly: true
+        example: 098765 123456
+      BankAccountName:
+        type: string
+        readOnly: true
+        example: Globo Bank
+      Details:
+        type: string
+        readOnly: true
+        example: Stuff about the account
+  Contact:
+    externalDocs:
+      url: 'http://developer.xero.com/documentation/api/contacts/'
+    type: object
+    required:
+      - Name
+    properties:
+      ContactID:
+        type: string
+        description: Xero identifier
+        example: "cc04bc53-f094-4ed6-8b3e-67297c37fae0"
+        readOnly: true
+      Name:
+        type: string
+        maxLength: 255
+        description: Full name of contact/organisation
+        example: Adam Moore
+      AccountNumber:
+        type: string
+        maxLength: 50
+        description: A user defined account number. This can be updated via the API and the Xero UI.
+        example: AM123
+      ContactStatus:
+        type: string
+        description: Current status of a contact 
+        enum:
+          - ACTIVE
+          - ARCHIVED
+        example: ACTIVE
+      FirstName:
+        type: string
+        description: First name of contact person
+        maxLength: 255
+        example: Adam
+      LastName:
+        type: string
+        description: Last name of contact person
+        maxLength: 255
+        example: Moore
+      EmailAddress:
+        type: string
+        description: Email address of contact person (umlauts not supported) 
+        maxLength: 255
+        example: adam@moore.com
+      SkypeUserName:
+        type: string
+        description: Skype user name of contact 
+        example: adamm
+      ContactPersons:
+        $ref: '#/definitions/ContactPersons'
+      BankAccountDetails:
+        type: string
+        description: Bank account number of contact
+        example: 061844 8474733
+      TaxNumber:
+        type: string
+        description: Tax number of contact – this is also known as the ABN (Australia), GST Number (New Zealand), VAT Number (UK) or Tax ID Number (US and global) in the Xero UI depending on which regionalized version of Xero you are using.
+        maxLength: 50
+        example: GB12345667
+      AccountsReceivableTaxType:
+        type: string
+        description: Default tax type used for contact on AR invoices
+        example: NONE
+      AccountsPayableTaxType:
+        type: string
+        description: Default tax type used for contact on AP invoices
+        example: NONE
+      Addresses:
+        $ref: '#/definitions/Addresses'
+      Phones:
+        $ref: '#/definitions/Phones'
+      IsSupplier:
+        type: boolean
+        description: Boolean that describes if a contact that has any AP invoices entered against them. Cannot be set via PUT or POST – it is automatically set when an accounts payable invoice is generated against this contact.
+        example: true
+        readOnly: true
+      IsCustomer:
+        type: boolean
+        description: Boolean that describes if a contact has any AR invoices entered against them. Cannot be set via PUT or POST – it is automatically set when an accounts receivable invoice is generated against this contact.
+        example: true
+        readOnly: true
+      DefaultCurrency:
+        type: string
+        description: Default currency for raising invoices against contact
+        example: AUD
+      XeroNetworkKey:
+        type: string
+        description: Store XeroNetworkKey for contacts.
+        example: J57MXL9Z3GULYFR9CUBSKZGVRTBCAL
+      SalesDefaultAccountCode:
+        type: string
+        description: The default sales account code for contacts
+        example: 200
+      PurchasesDefaultAccountCode:
+        type: string
+        description: The default purchases account code for contacts
+        example: 420
+      SalesTrackingCategories:
+        $ref: '#/definitions/SalesTrackingCategories'
+      PurchasesTrackingCategories:
+        $ref: '#/definitions/PurchasesTrackingCategories'
+      PaymentTerms:
+        $ref: '#/definitions/PaymentTerms'
+      UpdatedDateUTC:
+        type: string
+        format: dateTime
+        description: Last modified date UTC format
+        readOnly: true
+      ContactGroups:
+        $ref: '#/definitions/ContactGroups'
+      Website:
+        type: string
+        description: Website address for contact 
+        readOnly: true
+        example: www.contact.com
+      BrandingTheme:
+        $ref: '#/definitions/BrandingTheme'
+      BatchPayments:
+        $ref: '#/definitions/BatchPayments'
+      Balances:
+        $ref: '#/definitions/Balances' 
+      HasAttachments:
+        type: boolean
+        description: A boolean to indicate if a contact has an attachment
+        readOnly: true
+        example: true
+    xml:
+      name: Contact
+  Contacts:
+    type: array
+    items:
+      $ref: '#/definitions/Contact'
+  ContactsResponse:
+    type: object
+    xml:
+      name: Response
+    properties:
+      ID:
+        type: string
+        description: Unique identifier for each response
+        readOnly: true
+      Status:
+        type: string
+        description: OK for a successful response
+        readOnly: true
+      ProviderName:
+        type: string
+        description: Name of the application that made the request
+        readOnly: true
+      DateTimeUTC:
+        type: string
+        format: dateTime
+        description: DateTime of the request
+        readOnly: true
+      Contacts:
+        $ref: '#/definitions/Contacts' 
+  ContactGroup:
+    type: object
+    properties:
+      ContactGroupID:
+        type: string
+        description: Unique identifier for the contact group
+        readOnly: true
+        example: 50e845c3-464e-4a6d-8951-8794317c7893
+      Name:
+        type: string
+        description: Name of the contact group
+        example: Training
+      Status:
+        type: string
+        description: The status of the contact group
+        example: ACTIVE
+        enum:
+          - ACTIVE
+          - DELETED
+  ContactGroups:
+    type: array
+    items: 
+      $ref: '#/definitions/ContactGroup'
+  ContactGroupsResponse:
+    type: object
+    xml:
+      name: Response
+    properties:
+      ID:
+        type: string
+        description: Unique identifier for each response
+        readOnly: true
+      Status:
+        type: string
+        description: OK for a successful response
+        readOnly: true
+      ProviderName:
+        type: string
+        description: Name of the application that made the request
+        readOnly: true
+      DateTimeUTC:
+        type: string
+        format: dateTime
+        description: DateTime of the request
+        readOnly: true
+      ContactGroups:
+        $ref: '#/definitions/ContactGroups'   
+  ContactPerson:
+    type: object
+    properties:
+      FirstName:
+        type: string
+        description: First name of person
+        example: Aaron
+      LastName:
+        type: string
+        description: Last name of person
+        example: Muir
+      EmailAddress:
+        type: string
+        description: Email address of person
+        example: aaron@muir.com
+      IncludeInEmails:
+        type: boolean
+        description: Boolean to indicate whether contact should be included on emails with invoices etc.
+        example: true
+  ContactPersons:
+    type: array
+    items:
+      $ref: '#/definitions/ContactPerson'
+  CreditNote:
+    externalDocs:
+      url: 'http://developer.xero.com/documentation/api/credit-notes/'
+    properties:
+      Type:
+        description: See Credit Note Types
+        type: string
+      Contact:
+        allOf:
+          - description: See Contacts
+          - $ref: '#/definitions/Contact'
+      Date:
+        description: >-
+          The date the credit note is issued YYYY-MM-DD. If the Date element is
+          not specified then it will default to the current date based on the
+          timezone setting of the organisation
+        type: string
+        format: date
+      Status:
+        description: See Credit Note Status Codes
+        type: string
+      LineAmountTypes:
+        description: See Invoice Line Amount Types
+        type: string
+      LineItems:
+        description: See Invoice Line Items
+        type: array
+        items:
+          $ref: '#/definitions/LineItem'
+      SubTotal:
+        description: The subtotal of the credit note excluding taxes
+        type: number
+        format: float
+      TotalTax:
+        description: The total tax on the credit note
+        type: number
+        format: float
+      Total:
+        description: The total of the Credit Note(subtotal + total tax)
+        type: number
+        format: float
+      UpdatedDateUTC:
+        description: UTC timestamp of last update to the credit note
+        type: string
+        format: date-time
+      CurrencyCode:
+        description: Currency used for the Credit Note
+        type: string
+      FullyPaidOnDate:
+        description: Date when credit note was fully paid(UTC format)
+        type: string
+        format: date
+      CreditNoteID:
+        description: Xero generated unique identifier
+        type: string
+        format: uuid
+      CreditNoteNumber:
+        description: >-
+          ACCRECCREDIT – Unique alpha numeric code identifying credit note (when
+          missing will auto-generate from your Organisation Invoice Settings)
+        type: string
+      Reference:
+        description: ACCRECCREDIT only – additional reference number
+        type: string
+      SentToContact:
+        description: >-
+          boolean to indicate if a credit note has been sent to a contact via
+          the Xero app (currently read only)
+        readOnly: true
+        type: boolean
+      CurrencyRate:
+        description: >-
+          The currency rate for a multicurrency invoice. If no rate is
+          specified, the XE.com day rate is used
+        type: number
+        format: float
+      RemainingCredit:
+        description: The remaining credit balance on the Credit Note
+        type: string
+      Allocations:
+        description: See Allocations
+        type: array
+        items:
+          $ref: '#/definitions/Allocation'
+      BrandingThemeID:
+        description: See BrandingThemes
+        type: string
+        format: uuid
+      HasAttachments:
+        description: boolean to indicate if a credit note has an attachment
+        type: boolean
+  Allocation:
+    externalDocs:
+      url: 'http://developer.xero.com/documentation/api/prepayments/'
+    properties:
+      Invoice:
+        allOf:
+          - description: the invoice the prepayment is being allocated against
+          - $ref: '#/definitions/Invoice'
+      AppliedAmount:
+        description: the amount being applied to the invoice
+        type: number
+        format: float
+      Date:
+        description: >-
+          the date the prepayment is applied YYYY-MM-DD (read-only). This will
+          be the latter of the invoice date and the prepayment date.
+        type: string
+        format: date
+  Currency:
+    externalDocs:
+      url: 'http://developer.xero.com/documentation/api/currencies/'
+    properties:
+      Code:
+        description: 3 letter alpha code for the currency – see list of currency codes
+        type: string
+      Description:
+        description: Name of Currency
+        type: string
+  Employee:
+    externalDocs:
+      url: 'http://developer.xero.com/documentation/api/employees/'
+    properties:
+      EmployeeID:
+        description: |-
+          The Xero identifier for an employee
+          e.g. 297c2dc5-cc47-4afd-8ec8-74990b8761e9
+        type: string
+        format: uuid
+      Status:
+        description: Current status of an employee – see contact status types
+        type: string
+      FirstName:
+        description: First name of an employee (max length = 255)
+        maxLength: 255
+        type: string
+      LastName:
+        description: Last name of an employee (max length = 255)
+        maxLength: 255
+        type: string
+      ExternalLink:
+        allOf:
+          - description: >-
+              Link to an external resource, for example, an employee record in
+              an external system. You can specify the URL element.
+
+              The description of the link is auto-generated in the form “Go to
+              <App name>”. <App name> refers to the Xero application name that
+              is making the API call.
+          - $ref: '#/definitions/ExternalLink'
+  ExpenseClaim:
+    externalDocs:
+      url: 'http://developer.xero.com/documentation/api/expense-claims/'
+    properties:
+      User:
+        allOf:
+          - description: See Users
+          - $ref: '#/definitions/User'
+      Receipts:
+        description: See Receipts
+        type: array
+        items:
+          $ref: '#/definitions/Receipt'
+      ExpenseClaimID:
+        description: Xero generated unique identifier for an expense claim
+        readOnly: true
+        type: string
+        format: uuid
+      Payments:
+        description: See Payments
+        readOnly: true
+        type: array
+        items:
+          $ref: '#/definitions/Payment'
+      Status:
+        description: Current status of an expense claim – see status types
+        readOnly: true
+        type: string
+      UpdatedDateUTC:
+        description: Last modified date UTC format
+        readOnly: true
+        type: string
+        format: date-time
+      Total:
+        description: The total of an expense claim being paid
+        readOnly: true
+        type: number
+        format: float
+      AmountDue:
+        description: The amount due to be paid for an expense claim
+        readOnly: true
+        type: number
+        format: float
+      AmountPaid:
+        description: The amount still to pay for an expense claim
+        readOnly: true
+        type: number
+        format: float
+      PaymentDueDate:
+        description: The date when the expense claim is due to be paid YYYY-MM-DD
+        readOnly: true
+        type: string
+        format: date
+      ReportingDate:
+        description: The date the expense claim will be reported in Xero YYYY-MM-DD
+        readOnly: true
+        type: string
+        format: date
+      ReceiptID:
+        description: >-
+          The Xero identifier for the Receipt e.g.
+          e59a2c7f-1306-4078-a0f3-73537afcbba9
+        type: string
+        format: uuid
+    required:
+      - User
+      - Receipts
+      - ReceiptID
+  ExternalLink:
+    externalDocs:
+      url: 'http://developer.xero.com/documentation/api/organisation/'
+    properties:
+      LinkType:
+        description: See External link types
+        type: string
+        enum:
+          - Facebook
+          - GooglePlus
+          - LinkedIn
+          - Twitter
+          - Website
+      Url:
+        description: 'URL for service e.g. http://twitter.com/xeroapi'
+        type: string
+  Invoice:
+    externalDocs:
+      url: 'http://developer.xero.com/documentation/api/invoices/'
+    properties:
+      Type:
+        description: See Invoice Types
+        type: string
+      Contact:
+        allOf:
+          - description: See Contacts
+          - $ref: '#/definitions/Contact'
+      LineItems:
+        description: See LineItems
+        type: array
+        items:
+          $ref: '#/definitions/LineItem'
+      Date:
+        description: >-
+          Date invoice was issued – YYYY-MM-DD. If the Date element is not
+          specified it will default to the current date based on the timezone
+          setting of the organisation
+        type: string
+        format: date
+      DueDate:
+        description: Date invoice is due – YYYY-MM-DD
+        type: string
+        format: date
+      LineAmountTypes:
+        description: >-
+          Line amounts are exclusive of tax by default if you don’t specify this
+          element. See Line Amount Types
+        type: string
+        enum:
+          - Exclusive
+          - Inclusive
+          - NoTax
+      InvoiceNumber:
+        description: >-
+          ACCREC – Unique alpha numeric code identifying invoice (when missing
+          will auto-generate from your Organisation Invoice Settings) (max
+          length = 255)
+        maxLength: 255
+        type: string
+      Reference:
+        description: ACCREC only – additional reference number (max length = 255)
+        maxLength: 255
+        type: string
+      BrandingThemeID:
+        description: See BrandingThemes
+        type: string
+        format: uuid
+      Url:
+        description: >-
+          URL link to a source document – shown as “Go to [appName]” in the Xero
+          app
+        type: string
+      CurrencyCode:
+        description: The currency that invoice has been raised in (see Currencies)
+        type: string
+      CurrencyRate:
+        description: >-
+          The currency rate for a multicurrency invoice. If no rate is
+          specified, the XE.com day rate is used. (max length = [18].[6])
+        type: number
+        format: float
+      Status:
+        description: See Invoice Status Codes
+        type: string
+        enum:
+          - DRAFT
+          - SUBMITTED
+          - DELETED
+          - AUTHORISED
+          - PAID
+          - VOIDED
+      SentToContact:
+        description: >-
+          Boolean to set whether the invoice in the Xero app should be marked as
+          “sent”. This can be set only on invoices that have been approved
+        type: boolean
+      ExpectedPaymentDate:
+        description: Shown on sales invoices (Accounts Receivable) when this has been set
+        type: string
+      PlannedPaymentDate:
+        description: Shown on bills (Accounts Payable) when this has been set
+        type: string
+      SubTotal:
+        description: Total of invoice excluding taxes
+        readOnly: true
+        type: number
+        format: float
+      TotalTax:
+        description: Total tax on invoice
+        readOnly: true
+        type: number
+        format: float
+      Total:
+        description: >-
+          Total of Invoice tax inclusive (i.e. SubTotal + TotalTax). This will
+          be ignored if it doesn’t equal the sum of the LineAmounts
+        readOnly: true
+        type: number
+        format: float
+      TotalDiscount:
+        description: Total of discounts applied on the invoice line items
+        readOnly: true
+        type: number
+        format: float
+      InvoiceID:
+        description: Xero generated unique identifier for invoice
+        readOnly: true
+        type: string
+        format: uuid
+      HasAttachments:
+        description: boolean to indicate if an invoice has an attachment
+        readOnly: true
+        type: boolean
+      Payments:
+        description: See Payments
+        readOnly: true
+        type: array
+        items:
+          $ref: '#/definitions/Payment'
+      Prepayments:
+        description: See Prepayments
+        readOnly: true
+        type: array
+        items:
+          $ref: '#/definitions/Prepayment'
+      Overpayments:
+        description: See Overpayments
+        readOnly: true
+        type: array
+        items:
+          $ref: '#/definitions/Overpayment'
+      AmountDue:
+        description: Amount remaining to be paid on invoice
+        readOnly: true
+        type: number
+        format: float
+      AmountPaid:
+        description: Sum of payments received for invoice
+        readOnly: true
+        type: number
+        format: float
+      FullyPaidOnDate:
+        description: >-
+          The date the invoice was fully paid. Only returned on fully paid
+          invoices
+        readOnly: true
+        type: string
+        format: date
+      AmountCredited:
+        description: >-
+          Sum of all credit notes, over-payments and pre-payments applied to
+          invoice
+        readOnly: true
+        type: number
+        format: float
+      UpdatedDateUTC:
+        description: Last modified date UTC format
+        readOnly: true
+        type: string
+        format: date-time
+      CreditNotes:
+        description: Details of credit notes that have been applied to an invoice
+        readOnly: true
+        type: array
+        items:
+          $ref: '#/definitions/CreditNote'
+    required:
+      - Type
+      - Contact
+      - LineItems
+  Item:
+    externalDocs:
+      url: 'http://developer.xero.com/documentation/api/items/'
+    properties:
+      Code:
+        description: User defined item code (max length = 30)
+        maxLength: 30
+        type: string
+      InventoryAssetAccountCode:
+        description: >-
+          The inventory asset account for the item. The account must be of type
+          INVENTORY. The  COGSAccountCode in PurchaseDetails is also required to
+          create a tracked item
+        type: string
+      Name:
+        description: The name of the item (max length = 50)
+        maxLength: 50
+        type: string
+      IsSold:
+        description: >-
+          Boolean value, defaults to true. When IsSold is true the item will be
+          available on sales transactions in the Xero UI. If IsSold is updated
+          to false then Description and SalesDetails values will be nulled.
+        type: boolean
+      IsPurchased:
+        description: >-
+          Boolean value, defaults to true. When IsPurchased is true the item is
+          available for purchase transactions in the Xero UI. If IsPurchased is
+          updated to false then PurchaseDescription and PurchaseDetails values
+          will be nulled.
+        type: boolean
+      Description:
+        description: The sales description of the item (max length = 4000)
+        maxLength: 4000
+        type: string
+      PurchaseDescription:
+        description: The purchase description of the item (max length = 4000)
+        maxLength: 4000
+        type: string
+      PurchaseDetails:
+        description: See Purchases & Sales
+        type: array
+        items:
+          $ref: '#/definitions/Purchase'
+      SalesDetails:
+        description: See Purchases & Sales
+        type: string
+      IsTrackedAsInventory:
+        description: >-
+          True for items that are tracked as inventory. An item will be tracked
+          as inventory if the InventoryAssetAccountCode and COGSAccountCode are
+          set.
+        type: boolean
+      TotalCostPool:
+        description: >-
+          The value of the item on hand. Calculated using average cost
+          accounting.
+        type: string
+      QuantityOnHand:
+        description: The quantity of the item on hand
+        type: string
+      UpdatedDateUTC:
+        description: Last modified date in UTC format
+        type: string
+        format: date-time
+      ItemID:
+        description: The Xero identifier for an Item
+        type: string
+        format: uuid
+    required:
+      - Code
+      - InventoryAssetAccountCode
+  Purchase:
+    externalDocs:
+      url: 'http://developer.xero.com/documentation/api/items/'
+    properties:
+      UnitPrice:
+        description: >-
+          Unit Price of the item. By default UnitPrice is rounded to two decimal
+          places. You can use 4 decimal places by adding the unitdp=4
+          querystring parameter to your request.
+        type: number
+        format: float
+      AccountCode:
+        description: >-
+          Default account code to be used for purchased/sale. Not applicable to
+          the purchase details of tracked items
+        type: string
+      COGSAccountCode:
+        description: >-
+          Cost of goods sold account. Only applicable to the purchase details of
+          tracked items.
+        type: string
+      TaxType:
+        description: >-
+          Used as an override if the default Tax Code for the selected
+          <AccountCode> is not correct – see TaxTypes.
+        type: string
+  Journal:
+    externalDocs:
+      url: 'http://developer.xero.com/documentation/api/journals/'
+    properties:
+      JournalID:
+        description: Xero identifier
+        type: string
+        format: uuid
+      JournalDate:
+        description: Date the journal was posted
+        type: string
+        format: date
+      JournalNumber:
+        description: Xero generated journal number
+        type: string
+      CreatedDateUTC:
+        description: Created date UTC format
+        type: string
+        format: date-time
+      Reference:
+        description: "\_"
+        type: string
+      SourceID:
+        description: The identifier for the source transaction (e.g. InvoiceID)
+        type: string
+        format: uuid
+      SourceType:
+        description: >-
+          The journal source type. The type of transaction that created the
+          journal
+        type: string
+      JournalLines:
+        description: See JournalLines
+        type: array
+        items:
+          $ref: '#/definitions/JournalLine'
+  JournalLine:
+    externalDocs:
+      url: 'http://developer.xero.com/documentation/api/manual-journals/'
+    properties:
+      LineAmount:
+        description: 'total for line. Debits are positive, credits are negative value'
+        type: string
+      AccountCode:
+        description: See Accounts
+        type: string
+      Description:
+        description: Description for journal line
+        type: string
+      TaxType:
+        description: >-
+          Used as an override if the default Tax Code for the selected
+          <AccountCode> is not correct – see TaxTypes.
+        type: string
+      Tracking:
+        description: >-
+          Optional Tracking Category – see Tracking. Any JournalLine can have a
+          maximum of 2 <TrackingCategory> elements.
+        type: array
+        items:
+          $ref: '#/definitions/TrackingCategory'
+      TaxAmount:
+        description: The calculated tax amount based on the TaxType and LineAmount
+        readOnly: true
+        type: number
+        format: float
+    required:
+      - LineAmount
+      - AccountCode
+  LineItem:
+    type: object
+    required:
+      - Description
+    properties:
+      Description:
+        type: string
+        description: >-
+          Description needs to be at least 1 char long. A line item with just a
+          description (i.e no unit amount or quantity) can be created by
+          specifying just a <Description> element that contains at least 1
+          character
+      Quantity:
+        type: number
+        format: double
+        description: LineItem Quantity
+      UnitAmount:
+        type: number
+        format: double
+        description: >-
+          Lineitem unit amount. By default, unit amount will be rounded to two
+          decimal places. You can opt in to use four decimal places by adding
+          the querystring parameter unitdp=4 to your query. See the Rounding in
+          Xero guide for more information.
+      ItemCode:
+        type: string
+        description: Code of the item
+      AccountCode:
+        type: string
+        description: The account that the lineitem is being coded to
+      LineItemID:
+        type: string
+        description: >-
+          The Xero generated identifier for a LineItem. If LineItemIDs are not
+          included with line items in an update request then the line items are
+          deleted and recreated.
+      TaxType:
+        type: string
+        description: >-
+          Used as an override if the default Tax Code for the selected
+          <AccountCode> is not correct
+      TaxAmount:
+        type: number
+        format: double
+        description: >-
+          The tax amount is auto calculated as a percentage of the line amount
+          (see below) based on the tax rate. This value can be overriden if the
+          calculated <TaxAmount> is not correct.
+      LineAmount:
+        type: number
+        format: double
+        description: >-
+          The line amount reflects the discounted price if a DiscountRate has
+          been used i.e LineAmount = Quantity * Unit Amount * ((100 –
+          DiscountRate)/100)
+      DiscountRate:
+        type: number
+        format: double
+        description: >-
+          Percentage discount being applied to a line item (only supported on
+          ACCREC invoices – ACC PAY invoices and credit notes in Xero do not
+          support discounts
+      Tracking:
+        $ref: '#/definitions/Tracking'
+  LineItems:
+    type: array
+    items:
+      $ref: '#/definitions/LineItem'
+  LinkedTransaction:
+    externalDocs:
+      url: 'http://developer.xero.com/documentation/api/linked-transactions/'
+    properties:
+      SourceTransactionID:
+        description: >-
+          Filter by the SourceTransactionID. Get all the linked transactions
+          created from a particular ACCPAY invoice
+        type: string
+        format: uuid
+      SourceLineItemID:
+        description: The line item identifier from the source transaction.
+        type: string
+        format: uuid
+      ContactID:
+        description: >-
+          Filter by the combination of ContactID and Status. Get all the linked
+          transactions that have been assigned to a particular customer and have
+          a particular status e.g. GET
+          /LinkedTransactions?ContactID=4bb34b03-3378-4bb2-a0ed-6345abf3224e&Status=APPROVED.
+        type: string
+        format: uuid
+      TargetTransactionID:
+        description: >-
+          Filter by the TargetTransactionID. Get all the linked transactions
+          allocated to a particular ACCREC invoice
+        type: string
+        format: uuid
+      TargetLineItemID:
+        description: >-
+          The line item identifier from the target transaction. It is possible
+          to link multiple billable expenses to the same TargetLineItemID.
+        type: string
+        format: uuid
+      LinkedTransactionID:
+        description: >-
+          The Xero identifier for an Linked Transaction e.g.
+          /LinkedTransactions/297c2dc5-cc47-4afd-8ec8-74990b8761e9
+        type: string
+        format: uuid
+      Status:
+        description: >-
+          Filter by the combination of ContactID and Status. Get all the linked
+          transactions that have been assigned to a particular customer and have
+          a particular status e.g. GET
+          /LinkedTransactions?ContactID=4bb34b03-3378-4bb2-a0ed-6345abf3224e&Status=APPROVED.
+        type: string
+      Type:
+        description: >-
+          This will always be BILLABLEEXPENSE. More types may be added in
+          future.
+        type: string
+      UpdatedDateUTC:
+        description: The last modified date in UTC format
+        type: string
+        format: date-time
+      SourceTransactionTypeCode:
+        description: >-
+          The Type of the source tranasction. This will be ACCPAY if the linked
+          transaction was created from an invoice and SPEND if it was created
+          from a bank transaction.
+        type: string
+    required:
+      - SourceLineItemID
+  ManualJournal:
+    externalDocs:
+      url: 'http://developer.xero.com/documentation/api/manual-journals/'
+    properties:
+      Narration:
+        description: Description of journal being posted
+        type: string
+      JournalLines:
+        description: See JournalLines
+        type: array
+        items:
+          $ref: '#/definitions/JournalLine'
+      Date:
+        description: Date journal was posted – YYYY-MM-DD
+        type: string
+        format: date
+      LineAmountTypes:
+        description: >-
+          NoTax by default if you don’t specify this element. See Line Amount
+          Types
+        type: string
+      Status:
+        description: See Manual Journal Status Codes
+        type: string
+      Url:
+        description: >-
+          Url link to a source document – shown as “Go to [appName]” in the Xero
+          app
+        type: string
+      ShowOnCashBasisReports:
+        description: Boolean – default is true if not specified
+        type: boolean
+      HasAttachments:
+        description: Boolean to indicate if a manual journal has an attachment
+        readOnly: true
+        type: boolean
+      UpdatedDateUTC:
+        description: Last modified date UTC format
+        readOnly: true
+        type: string
+        format: date-time
+      JournalID:
+        description: The Xero identifier for a Manual Journal
+        type: string
+        format: uuid
+    required:
+      - Narration
+      - JournalLines
+  OnlineInvoice:
+    externalDocs:
+      url: 'http://developer.xero.com/documentation/api/invoices/'
+    properties:
+      OnlineInvoiceUrl:
+        description: >-
+          The URL to view the online invoice
+        type: string
+  OnlineInvoices:
+    type: array
+    items:
+      $ref: '#/definitions/OnlineInvoice'
+  OnlineInvoicesResponse:
+    type: object
+    xml:
+      name: Response
+    properties:
+      ID:
+        type: string
+        description: Unique identifier for each response
+        readOnly: true
+      Status:
+        type: string
+        description: OK for a successful response
+        readOnly: true
+      ProviderName:
+        type: string
+        description: Name of the application that made the request
+        readOnly: true
+      DateTimeUTC:
+        type: string
+        format: dateTime
+        description: DateTime of the request
+        readOnly: true
+      Accounts:
+        $ref: '#/definitions/OnlineInvoices'
+  Organisation:
+    externalDocs:
+      url: 'http://developer.xero.com/documentation/api/organisation/'
+    properties:
+      APIKey:
+        description: Display a unique key used for Xero-to-Xero transactions
+        type: string
+      Name:
+        description: Display name of organisation shown in Xero
+        type: string
+      LegalName:
+        description: Organisation name shown on Reports
+        type: string
+      PaysTax:
+        description: >-
+          Boolean to describe if organisation is registered with a local tax
+          authority i.e. true, false
+        type: boolean
+      Version:
+        description: See Version Types
+        type: string
+        enum:
+          - AU
+          - NZ
+          - GLOBAL
+          - UK
+          - US
+          - AUONRAMP
+          - NZONRAMP
+          - GLOBALONRAMP
+          - UKONRAMP
+          - USONRAMP
+      OrganisationType:
+        description: Organisation Type
+        type: string
+        enum:
+          - COMPANY
+          - CHARITY
+          - CLUBSOCIETY
+          - PARTNERSHIP
+          - PRACTICE
+          - PERSON
+          - SOLETRADER
+          - TRUST
+      BaseCurrency:
+        description: Default currency for organisation. See ISO 4217 Currency Codes
+        type: string
+      CountryCode:
+        description: Country code for organisation. See ISO 3166-2 Country Codes
+        type: string
+      IsDemoCompany:
+        description: Boolean to describe if organisation is a demo company.
+        type: boolean
+      OrganisationStatus:
+        description: >-
+          Will be set to ACTIVE if you can connect to organisation via the Xero
+          API
+        type: string
+      RegistrationNumber:
+        description: 'Shows for New Zealand, Australian and UK organisations'
+        type: string
+      TaxNumber:
+        description: >-
+          Shown if set. Displays in the Xero UI as Tax File Number (AU), GST
+          Number (NZ), VAT Number (UK) and Tax ID Number (US & Global).
+        type: string
+      FinancialYearEndDay:
+        description: Calendar day e.g. 0-31
+        type: string
+      FinancialYearEndMonth:
+        description: Calendar Month e.g. 1-12
+        type: string
+      SalesTaxBasis:
+        description: The accounting basis used for tax returns. See Sales Tax Basis
+        type: string
+      SalesTaxPeriod:
+        description: >-
+          The frequency with which tax returns are processed. See Sales Tax
+          Period
+        type: string
+      DefaultSalesTax:
+        description: The default for LineAmountTypes on sales transactions
+        type: string
+      DefaultPurchasesTax:
+        description: The default for LineAmountTypes on purchase transactions
+        type: string
+      PeriodLockDate:
+        description: Shown if set. See lock dates
+        type: string
+      EndOfYearLockDate:
+        description: Shown if set. See lock dates
+        type: string
+      CreatedDateUTC:
+        description: Timestamp when the organisation was created in Xero
+        type: string
+        format: date-time
+      Timezone:
+        description: Timezone specifications
+        type: string
+      OrganisationEntityType:
+        description: Organisation Type
+        type: string
+        enum:
+          - COMPANY
+          - CHARITY
+          - CLUBSOCIETY
+          - PARTNERSHIP
+          - PRACTICE
+          - PERSON
+          - SOLETRADER
+          - TRUST
+      ShortCode:
+        description: A unique identifier for the organisation. Potential uses.
+        type: string
+      LineOfBusiness:
+        description: Description of business type as defined in Organisation settings
+        type: string
+      Addresses:
+        description: Address details for organisation – see Addresses
+        type: array
+        items:
+          $ref: '#/definitions/Address'
+      Phones:
+        description: Phones details for organisation – see Phones
+        type: array
+        items:
+          $ref: '#/definitions/Phone'
+      ExternalLinks:
+        description: >-
+          Organisation profile links for popular services such as Facebook,
+          Twitter, GooglePlus and LinkedIn. You can also add link to your
+          website here. Shown if Organisation settings  is updated in Xero. See
+          ExternalLinks below
+        type: array
+        items:
+          $ref: '#/definitions/ExternalLink'
+      PaymentTerms:
+        allOf:
+          - description: >-
+              Default payment terms for the organisation if set – See Payment
+              Terms below
+          - $ref: '#/definitions/PaymentTerms'
+  PaymentTerms:
+    type: array
+    items:
+      properties:
+        Sales:
+         type: object
+         properties:
+            Days:
+              type: string
+              example: 30
+            Type:
+              type: string
+              example: DAYSAFTERBILLDATE
+              enum:
+                - DAYSAFTERBILLDATE
+                - DAYSAFTERBILLMONTH
+                - OFCURRENTMONTH
+                - OFFOLLOWINGMONTH
+        Bills:
+         type: object
+         properties:
+            Days:
+              type: string
+              example: 1
+            Type:
+              type: string
+              example: OFFOLLOWINGMONTH
+              enum:
+                - DAYSAFTERBILLDATE
+                - DAYSAFTERBILLMONTH
+                - OFCURRENTMONTH
+                - OFFOLLOWINGMONTH  
+  Phone:
+    type: object
+    properties:
+      PhoneType:
+        type: string
+        description: The phone type
+        example: DDI
+        enum:
+          - DEFAULT
+          - DDI
+          - MOBILE
+          - FAX
+      PhoneNumber:
+        type: string
+        example: 9885 4589
+        maxLength: 50
+      PhoneAreaCode:
+        type: string
+        example: 03
+        maxLength: 10
+      PhoneCountryCode:
+        type: string
+        example: 01
+        maxLength: 20
+  Phones:
+    externalDocs:
+      url: 'http://developer.xero.com/documentation/api/types#phones'
+    type: array
+    items:
+      $ref: '#/definitions/Phone'  
+  Overpayment:
+    externalDocs:
+      url: 'http://developer.xero.com/documentation/api/overpayments/'
+    properties:
+      Type:
+        description: See Overpayment Types
+        type: string
+      Contact:
+        allOf:
+          - description: See Contacts
+          - $ref: '#/definitions/Contact'
+      Date:
+        description: The date the overpayment is created YYYY-MM-DD
+        type: string
+        format: date
+      Status:
+        description: See Overpayment Status Codes
+        type: string
+        enum:
+          - AUTHORISED
+          - PAID
+          - VOIDED
+      LineAmountTypes:
+        description: See Overpayment Line Amount Types
+        type: string
+      LineItems:
+        description: See Overpayment Line Items
+        type: array
+        items:
+          $ref: '#/definitions/LineItem'
+      SubTotal:
+        description: The subtotal of the overpayment excluding taxes
+        type: number
+        format: float
+      TotalTax:
+        description: The total tax on the overpayment
+        type: number
+        format: float
+      Total:
+        description: The total of the overpayment (subtotal + total tax)
+        type: number
+        format: float
+      UpdatedDateUTC:
+        description: UTC timestamp of last update to the overpayment
+        type: string
+        format: date-time
+      CurrencyCode:
+        description: Currency used for the overpayment
+        type: string
+      OverpaymentID:
+        description: Xero generated unique identifier
+        type: string
+        format: uuid
+      CurrencyRate:
+        description: >-
+          The currency rate for a multicurrency overpayment. If no rate is
+          specified, the XE.com day rate is used
+        type: number
+        format: float
+      RemainingCredit:
+        description: The remaining credit balance on the overpayment
+        type: string
+      Allocations:
+        description: See Allocations
+        type: array
+        items:
+          $ref: '#/definitions/Allocation'
+      Payments:
+        description: See Payments
+        type: array
+        items:
+          $ref: '#/definitions/Payment'
+      HasAttachments:
+        description: boolean to indicate if a overpayment has an attachment
+        type: boolean
+  Payment:
+    externalDocs:
+      url: 'http://developer.xero.com/documentation/api/payments/'
+    properties:
+      Invoice:
+        allOf:
+          - description: ''
+          - $ref: '#/definitions/Invoice'
+      CreditNote:
+        allOf:
+          - description: ''
+          - $ref: '#/definitions/CreditNote'
+      Prepayment:
+        allOf:
+          - description: ''
+          - $ref: '#/definitions/Prepayment'
+      Overpayment:
+        allOf:
+          - description: ''
+          - $ref: '#/definitions/Overpayment'
+      InvoiceNumber:
+        description: >-
+          Number of invoice or credit note you are applying payment to e.g.
+          INV-4003
+        type: string
+      CreditNoteNumber:
+        description: >-
+          Number of invoice or credit note you are applying payment to e.g.
+          INV-4003
+        type: string
+      Account:
+        allOf:
+          - description: ''
+          - $ref: '#/definitions/Account'
+      Code:
+        description: >-
+          Code of account you are using to make the payment e.g. 001 (note: not
+          all accounts have a code value)
+        type: string
+      Date:
+        description: Date the payment is being made (YYYY-MM-DD) e.g. 2009-09-06
+        type: string
+        format: date
+      CurrencyRate:
+        description: >-
+          Exchange rate when payment is received. Only used for non base
+          currency invoices and credit notes e.g. 0.7500
+        type: number
+        format: float
+      Amount:
+        description: >-
+          The amount of the payment. Must be less than or equal to the
+          outstanding amount owing on the invoice e.g. 200.00
+        type: number
+        format: float
+      Reference:
+        description: An optional description for the payment e.g. Direct Debit
+        type: string
+      IsReconciled:
+        description: >-
+          An optional parameter for the payment. A boolean indicating whether
+          you would like the payment to be created as reconciled when using PUT,
+          or whether a payment has been reconciled when using GET
+        type: string
+      Status:
+        description: The status of the payment.
+        type: string
+        enum:
+          - AUTHORISED
+          - DELETED
+      PaymentType:
+        description: See Payment Types.
+        readOnly: true
+        type: string
+        enum:
+          - ACCRECPAYMENT
+          - ACCPAYPAYMENT
+          - ARCREDITPAYMENT
+          - APCREDITPAYMENT
+          - AROVERPAYMENTPAYMENT
+          - ARPREPAYMENTPAYMENT
+          - APPREPAYMENTPAYMENT
+          - APOVERPAYMENTPAYMENT
+      UpdatedDateUTC:
+        description: UTC timestamp of last update to the payment
+        readOnly: true
+        type: string
+        format: date-time
+      PaymentID:
+        description: >-
+          The Xero identifier for an Payment e.g.
+          297c2dc5-cc47-4afd-8ec8-74990b8761e9
+        type: string
+        format: uuid
+  Prepayment:
+    externalDocs:
+      url: 'http://developer.xero.com/documentation/api/prepayments/'
+    properties:
+      Type:
+        description: See Prepayment Types
+        type: string
+        enum:
+          - RECEIVE-PREPAYMENT
+          - SPEND-PREPAYMENT
+      Contact:
+        allOf:
+          - description: See Contacts
+          - $ref: '#/definitions/Contact'
+      Date:
+        description: The date the prepayment is created YYYY-MM-DD
+        type: string
+        format: date
+      Status:
+        description: See Prepayment Status Codes
+        type: string
+        enum:
+          - AUTHORISED
+          - PAID
+          - VOIDED
+      LineAmountTypes:
+        description: See Prepayment Line Amount Types
+        type: string
+      LineItems:
+        description: See Prepayment Line Items
+        type: array
+        items:
+          $ref: '#/definitions/LineItem'
+      SubTotal:
+        description: The subtotal of the prepayment excluding taxes
+        type: number
+        format: float
+      TotalTax:
+        description: The total tax on the prepayment
+        type: number
+        format: float
+      Total:
+        description: The total of the prepayment(subtotal + total tax)
+        type: number
+        format: float
+      UpdatedDateUTC:
+        description: UTC timestamp of last update to the prepayment
+        type: string
+        format: date-time
+      CurrencyCode:
+        description: Currency used for the prepayment
+        type: string
+      PrepaymentID:
+        description: Xero generated unique identifier
+        type: string
+        format: uuid
+      CurrencyRate:
+        description: >-
+          The currency rate for a multicurrency prepayment. If no rate is
+          specified, the XE.com day rate is used
+        type: number
+        format: float
+      RemainingCredit:
+        description: The remaining credit balance on the prepayment
+        type: string
+      Allocations:
+        description: See Allocations
+        type: array
+        items:
+          $ref: '#/definitions/Allocation'
+      HasAttachments:
+        description: boolean to indicate if a prepayment has an attachment
+        type: boolean
+  PurchaseOrder:
+    externalDocs:
+      url: 'http://developer.xero.com/documentation/api/purchase-orders/'
+    properties:
+      Contact:
+        allOf:
+          - description: >-
+              The PurchaseOrders endpoint does not create new contacts. You need
+              to provide the ContactID or ContactNumber of an existing contact.
+              For more information on creating contacts see Contacts.
+          - $ref: '#/definitions/Contact'
+      LineItems:
+        description: See LineItems
+        type: array
+        items:
+          $ref: '#/definitions/LineItem'
+      Date:
+        description: >-
+          Date purchase order was issued – YYYY-MM-DD. If the Date element is
+          not specified then it will default to the current date based on the
+          timezone setting of the organisation
+        type: string
+        format: date
+      DeliveryDate:
+        description: Date the goods are to be delivered – YYYY-MM-DD
+        type: string
+        format: date
+      LineAmountTypes:
+        description: >-
+          Line amounts are exclusive of tax by default if you don’t specify this
+          element. See Line Amount Types
+        type: string
+      PurchaseOrderNumber:
+        description: >-
+          Unique alpha numeric code identifying purchase order (when missing
+          will auto-generate from your Organisation Invoice Settings)
+        type: string
+      Reference:
+        description: Additional reference number
+        type: string
+      BrandingThemeID:
+        description: See BrandingThemes
+        type: string
+        format: uuid
+      CurrencyCode:
+        description: The currency that purchase order has been raised in (see Currencies)
+        type: string
+      Status:
+        description: See Purchase Order Status Codes
+        type: string
+      SentToContact:
+        description: >-
+          Boolean to set whether the purchase order should be marked as “sent”.
+          This can be set only on purchase orders that have been approved or
+          billed
+        type: boolean
+      DeliveryAddress:
+        description: The address the goods are to be delivered to
+        type: string
+      AttentionTo:
+        description: The person that the delivery is going to
+        type: string
+      Telephone:
+        description: The phone number for the person accepting the delivery
+        type: string
+      DeliveryInstructions:
+        description: A free text feild for instructions (500 characters max)
+        type: string
+      ExpectedArrivalDate:
+        description: The date the goods are expected to arrive.
+        type: string
+        format: date
+      PurchaseOrderID:
+        description: Xero generated unique identifier for purchase order
+        type: string
+        format: uuid
+      CurrencyRate:
+        description: >-
+          The currency rate for a multicurrency purchase order. As no rate can
+          be specified, the XE.com day rate is used.
+        readOnly: true
+        type: number
+        format: float
+      SubTotal:
+        description: Total of purchase order excluding taxes
+        readOnly: true
+        type: number
+        format: float
+      TotalTax:
+        description: Total tax on purchase order
+        readOnly: true
+        type: number
+        format: float
+      Total:
+        description: Total of Purchase Order tax inclusive (i.e. SubTotal + TotalTax)
+        readOnly: true
+        type: number
+        format: float
+      TotalDiscount:
+        description: Total of discounts applied on the purchase order line items
+        readOnly: true
+        type: number
+        format: float
+      HasAttachments:
+        description: boolean to indicate if a purchase order has an attachment
+        readOnly: true
+        type: boolean
+      UpdatedDateUTC:
+        description: Last modified date UTC format
+        readOnly: true
+        type: string
+        format: date-time
+    required:
+      - Contact
+      - LineItems
+  Receipt:
+    externalDocs:
+      url: 'http://developer.xero.com/documentation/api/receipts/'
+    properties:
+      Date:
+        description: Date of receipt – YYYY-MM-DD
+        type: string
+        format: date
+      Contact:
+        allOf:
+          - description: See Contacts
+          - $ref: '#/definitions/Contact'
+      Lineitems:
+        description: See LineItems
+        type: array
+        items:
+          $ref: '#/definitions/LineItem'
+      User:
+        allOf:
+          - description: >-
+              The user in the organisation that the expense claim receipt is
+              for. See Users
+          - $ref: '#/definitions/User'
+      Reference:
+        description: Additional reference number
+        type: string
+      LineAmountTypes:
+        description: See Line Amount Types
+        type: string
+      SubTotal:
+        description: Total of receipt excluding taxes
+        type: number
+        format: float
+      TotalTax:
+        description: Total tax on receipt
+        type: number
+        format: float
+      Total:
+        description: Total of receipt tax inclusive (i.e. SubTotal + TotalTax)
+        type: number
+        format: float
+      ReceiptID:
+        description: Xero generated unique identifier for receipt
+        readOnly: true
+        type: string
+        format: uuid
+      Status:
+        description: Current status of receipt – see status types
+        readOnly: true
+        type: string
+      ReceiptNumber:
+        description: >-
+          Xero generated sequence number for receipt in current claim for a
+          given user
+        readOnly: true
+        type: string
+      UpdatedDateUTC:
+        description: Last modified date UTC format
+        readOnly: true
+        type: string
+        format: date-time
+      HasAttachments:
+        description: boolean to indicate if a receipt has an attachment
+        readOnly: true
+        type: boolean
+      Url:
+        description: >-
+          URL link to a source document – shown as “Go to [appName]” in the Xero
+          app
+        readOnly: true
+        type: string
+    required:
+      - Date
+      - Contact
+      - Lineitems
+      - User
+  RepeatingInvoice:
+    externalDocs:
+      url: 'http://developer.xero.com/documentation/api/repeating-invoices/'
+    properties:
+      Type:
+        description: See Invoice Types
+        type: string
+      Contact:
+        allOf:
+          - description: See Contacts
+          - $ref: '#/definitions/Contact'
+      Schedule:
+        allOf:
+          - description: See Schedule
+          - $ref: '#/definitions/Schedule'
+      LineItems:
+        description: See LineItems
+        type: array
+        items:
+          $ref: '#/definitions/LineItem'
+      LineAmountTypes:
+        description: >-
+          Line amounts are exclusive of tax by default if you don’t specify this
+          element. See Line Amount Types
+        type: string
+      Reference:
+        description: ACCREC only – additional reference number
+        type: string
+      BrandingThemeID:
+        description: See BrandingThemes
+        type: string
+        format: uuid
+      CurrencyCode:
+        description: The currency that invoice has been raised in (see Currencies)
+        type: string
+      Status:
+        description: 'One of the following : DRAFT or AUTHORISED – See Invoice Status Codes'
+        type: string
+      SubTotal:
+        description: Total of invoice excluding taxes
+        type: number
+        format: float
+      TotalTax:
+        description: Total tax on invoice
+        type: number
+        format: float
+      Total:
+        description: Total of Invoice tax inclusive (i.e. SubTotal + TotalTax)
+        type: number
+        format: float
+      RepeatingInvoiceID:
+        description: Xero generated unique identifier for repeating invoice template
+        type: string
+        format: uuid
+      HasAttachments:
+        description: boolean to indicate if an invoice has an attachment
+        type: boolean
+  Schedule:
+    externalDocs:
+      url: 'http://developer.xero.com/documentation/api/repeating-invoices/'
+    properties:
+      Period:
+        description: 'Integer used with the unit e.g. 1 (every 1 week), 2 (every 2 months)'
+        type: number
+        format: double
+      Unit:
+        description: 'One of the following : WEEKLY or MONTHLY'
+        type: string
+      DueDate:
+        description: >-
+          Integer used with due date type e.g 20 (of following month), 31 (of
+          current month)
+        type: number
+        format: integer
+      DueDateType:
+        description: >-
+          Used with due date to describe when the invoice is due
+        example: DAYSAFTERBILLDATE
+        enum:
+          - DAYSAFTERBILLDATE
+          - DAYSAFTERBILLMONTH
+          - OFCURRENTMONTH
+          - OFFOLLOWINGMONTH
+      StartDate:
+        description: >-
+          Date the first invoice of the current version of the repeating
+          schedule was generated (changes when repeating invoice is edited)
+        type: string
+        format: date
+      NextScheduledDate:
+        description: The calendar date of the next invoice in the schedule to be generated
+        type: string
+        format: date
+      EndDate:
+        description: Invoice end date – only returned if the template has an end date set
+        type: string
+        format: date
+  TaxRate:
+    externalDocs:
+      url: 'http://developer.xero.com/documentation/api/tax-rates/'
+    properties:
+      Name:
+        description: Name of tax rate
+        type: string
+      TaxType:
+        description: See Tax Types – can only be used on update calls
+        type: string
+      TaxComponents:
+        description: See TaxComponents
+        type: array
+        items:
+          $ref: '#/definitions/TaxComponent'
+      Status:
+        description: See Status Codes
+        type: string
+        enum:
+          - ACTIVE
+          - DELETED
+          - ARCHIVED
+      ReportTaxType:
+        description: See ReportTaxTypes
+        type: string
+      CanApplyToAssets:
+        description: >-
+          Boolean to describe if tax rate can be used for asset accounts i.e.
+          true,false
+        readOnly: true
+        type: number
+        format: float
+      CanApplyToEquity:
+        description: >-
+          Boolean to describe if tax rate can be used for equity accounts i.e.
+          true,false
+        readOnly: true
+        type: number
+        format: float
+      CanApplyToExpenses:
+        description: >-
+          Boolean to describe if tax rate can be used for expense accounts i.e.
+          true,false
+        readOnly: true
+        type: number
+        format: float
+      CanApplyToLiabilities:
+        description: >-
+          Boolean to describe if tax rate can be used for liability accounts
+          i.e. true,false
+        readOnly: true
+        type: number
+        format: float
+      CanApplyToRevenue:
+        description: >-
+          Boolean to describe if tax rate can be used for revenue accounts i.e.
+          true,false
+        readOnly: true
+        type: number
+        format: float
+      DisplayTaxRate:
+        description: Tax Rate (decimal to 4dp) e.g 12.5000
+        readOnly: true
+        type: number
+        format: float
+      EffectiveRate:
+        description: Effective Tax Rate (decimal to 4dp) e.g 12.5000
+        readOnly: true
+        type: number
+        format: float
+    required:
+      - ReportTaxType
+  TaxComponent:
+    externalDocs:
+      url: 'http://developer.xero.com/documentation/api/tax-rates/'
+    properties:
+      Name:
+        description: Name of Tax Component
+        type: string
+      Rate:
+        description: Tax Rate (up to 4dp)
+        type: number
+        format: float
+      IsCompound:
+        description: Boolean to describe if Tax rate is compounded.Learn more
+        type: number
+        format: float
+      TaxType:
+        description: Filter by a Tax Type
+        type: string
+  TrackingCategory:
+    externalDocs:
+      url: 'http://developer.xero.com/documentation/api/tracking-categories/'
+    properties:
+      TrackingCategoryID:
+        description: >-
+          The Xero identifier for a tracking categorye.g.
+          297c2dc5-cc47-4afd-8ec8-74990b8761e9
+        type: string
+        format: uuid
+      Name:
+        description: >-
+          The name of the tracking category e.g. Department, Region (max length
+          = 100)
+        maxLength: 100
+        type: string
+      Status:
+        description: The status of a tracking category
+        type: string
+      Options:
+        description: See Tracking Options
+        type: array
+        items:
+          $ref: '#/definitions/TrackingOption'
+  TrackingOption:
+    externalDocs:
+      url: 'http://developer.xero.com/documentation/api/tracking-categories/'
+    properties:
+      TrackingOptionID:
+        description: >-
+          The Xero identifier for a tracking optione.g.
+          ae777a87-5ef3-4fa0-a4f0-d10e1f13073a
+        type: string
+        format: uuid
+      Name:
+        description: 'The name of the tracking option e.g. Marketing, East (max length = 50)'
+        maxLength: 50
+        type: string
+      Status:
+        description: The status of a tracking option
+        type: string
+      TrackingCategoryID:
+        description: Filter by a tracking categorye.g. 297c2dc5-cc47-4afd-8ec8-74990b8761e9
+        type: string
+        format: uuid
+  PurchasesTrackingCategory:
+    type: object
+    properties:
+      TrackingCategoryID:
+        type: string
+      Name:
+        type: string
+      Option:
+        type: string
+  PurchasesTrackingCategories:
+    type: array
+    items:
+      $ref: '#/definitions/PurchasesTrackingCategory'
+  SalesTrackingCategory:
+    type: object
+    properties:
+      TrackingCategoryID:
+        type: string
+      Name:
+        type: string
+      Option:
+        type: string
+  SalesTrackingCategories:
+    type: array
+    items:
+      $ref: '#/definitions/SalesTrackingCategory'
+  Tracking:
+    type: array
+    items:
+      $ref: '#/definitions/TrackingCategory'
+  User:
+    externalDocs:
+      url: 'http://developer.xero.com/documentation/api/users/'
+    properties:
+      UserID:
+        description: Xero identifier
+        type: string
+        format: uuid
+      EmailAddress:
+        description: Email address of user
+        type: string
+      FirstName:
+        description: First name of user
+        type: string
+      LastName:
+        description: Last name of user
+        type: string
+      UpdatedDateUTC:
+        description: Timestamp of last change to user
+        type: string
+        format: date-time
+      IsSubscriber:
+        description: Boolean to indicate if user is the subscriber
+        type: boolean
+      OrganisationRole:
+        description: User role (see Types)
+        type: string
+parameters:
+  If-Modified-Since:
+    name: If-Modified-Since
+    in: header
+    description: >-
+      A UTC timestamp (yyyy-mm-ddThh:mm:ss) . Only invoices created or modified
+      since this timestamp will be returned e.g. 2009-11-12T00:00:00
+    required: false
+    type: string
+    format: date-time
+  page:
+    name: page
+    in: query
+    description: >-
+      Page number e.g. page=1. Page size is 100. When using the page parameter full resource details will be returned (including line items).
+    type: integer
+    required: false
+  offset:
+    name: offset
+    in: query
+    description: >-
+      Offset by a specified journal number. e.g. journals with a JournalNumber greater than the offset will be returned.
+    type: integer
+    required: false
+  paymentsOnly:
+    name: paymentsOnly
+    in: query
+    description: >-
+      Return results on a the cash basis
+    type: boolean
+    required: false
+  includeArchived:
+    name: includeArchived
+    in: query
+    description: >-
+      Include archived records in the response 
+    type: boolean
+    required: false
+  where:
+    name: where
+    in: query
+    description: Filter by an any element
+    required: false
+    type: string
+  order:
+    name: order
+    in: query
+    description: Order by any element returned
+    required: false
+    type: string
+  unitdp:
+    name: unitdp
+    in: query
+    description: Determines the decimal places accepted/returned on the UnitAmount. UnitAmount is 2 decimal places by default but can be increased to 4 decimal places by supplying the unitdp=4 parameter.
+    required: false
+    type: integer
+responses:
+  500ErrorResponse:
+    description: An unexpected error occured.
+    schema:
+      type: object
+      xml:
+        name: APIException
+      properties:
+        ErrorNumber:
+          type: string
+          description: The HTTP error code
+          example: 500
+        Type:
+          type: string
+          description: The type of exception
+          example: UnknownErrorException
+        Message:
+          type: string
+          description: The exception description
+          example: >-
+              An error occurred in Xero. Check the API Status page for current service status. Contact the API support team at api@xero.com for more assistance.
+  400ErrorResponse:
+    description: An validation exception occured.
+    schema:
+      type: object
+      xml:
+        name: APIException
+      properties:
+        ErrorNumber:
+          type: string
+          description: Please ignore (doesn't really mean anything) 
+          example: 10
+        Type:
+          type: string
+          description: The type of exception
+          example: ValidationException
+        Message:
+          type: string
+          description: The exception description
+          example: >-
+              A validation exception occurred
+        Elements:
+          type: object
+          properties:
+            DataContractBase:
+              type: object
+              properties:
+                ValidationErrors:
+                  type: array
+                  items:
+                    properties:
+                      ValidationError:
+                       type: object
+                       properties:
+                        Message:
+                          type: string
+                          description: The validation error message
+                          example: You did something silly
+  404ErrorResponse:
+    description: The resource you're looking for cannot be found
+
+  

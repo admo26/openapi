@@ -1,0 +1,10 @@
+{
+  "generator-openapi-repo": {
+    "importExistingSpec": false,
+    "name": "accounting",
+    "repo": "admo26/xero-accounting",
+    "splitSpec": false,
+    "samples": true,
+    "installSwaggerUI": true
+  }
+}

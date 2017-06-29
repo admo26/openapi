@@ -3472,6 +3472,10 @@ definitions:
         format: date-time
         description: Last modified date UTC format
         readOnly: true
+  Accounts:
+        type: array
+        items:
+          $ref: '#/definitions/Account'
   AccountsResponse:
     type: object
     xml:
@@ -3495,9 +3499,7 @@ definitions:
         description: DateTime of the request
         readOnly: true
       Accounts:
-        type: array
-        items:
-          $ref: '#/definitions/Account'
+        $ref: '#/definitions/Accounts'
   Address:
     externalDocs:
       url: 'https://developer.xero.com/documentation/api/types#addresses'

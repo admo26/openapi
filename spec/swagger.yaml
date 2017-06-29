@@ -1147,6 +1147,7 @@ paths:
         - $ref: '#/parameters/where'
         - $ref: '#/parameters/order'
         - $ref: '#/parameters/unitdp'
+        - $ref: '#/parameters/page'
     put:
       tags:
         - "CreditNotes"
@@ -2379,7 +2380,7 @@ paths:
           schema:
             type: array
             items:
-              $ref: '#/definitions/Overpayment'
+              $ref: '#/definitions/OverpaymentsResponse'
       produces:
         - application/xml
         - application/json
@@ -2399,7 +2400,7 @@ paths:
         '200':
           description: A successful request
           schema:
-            $ref: '#/definitions/Overpayment'
+            $ref: '#/definitions/OverpaymentsResponse'
       parameters:
         - required: true
           in: path
@@ -2441,7 +2442,7 @@ paths:
           schema:
             type: array
             items:
-              $ref: '#/definitions/Payment'
+              $ref: '#/definitions/PaymentsResponse'
       produces:
         - application/xml
         - application/json
@@ -2463,7 +2464,7 @@ paths:
         '200':
           description: A successful request
           schema:
-            $ref: '#/definitions/Payment'
+            $ref: '#/definitions/PaymentsResponse'
     post:
       tags:
         - "Payments"
@@ -2478,7 +2479,7 @@ paths:
         '200':
           description: A successful request
           schema:
-            $ref: '#/definitions/Payment'
+            $ref: '#/definitions/PaymentsResponse'
   '/Payments/{PaymentID}':
     x-related-model: Payment
     get:
@@ -2489,7 +2490,7 @@ paths:
         '200':
           description: A successful request
           schema:
-            $ref: '#/definitions/Payment'
+            $ref: '#/definitions/PaymentsResponse'
       parameters:
         - required: true
           in: path
@@ -2515,7 +2516,7 @@ paths:
         '200':
           description: A successful request
           schema:
-            $ref: '#/definitions/Payment'
+            $ref: '#/definitions/PaymentsResponse'
   /Prepayments:
     x-related-model: Prepayment
     get:
@@ -2528,7 +2529,7 @@ paths:
           schema:
             type: array
             items:
-              $ref: '#/definitions/Prepayment'
+              $ref: '#/definitions/PrepaymentsResponse'
       produces:
         - application/xml
         - application/json
@@ -2548,7 +2549,7 @@ paths:
         '200':
           description: A successful request
           schema:
-            $ref: '#/definitions/Prepayment'
+            $ref: '#/definitions/PrepaymentsResponse'
       parameters:
         - required: true
           in: path
@@ -4585,19 +4586,77 @@ definitions:
       Payments:
         $ref: '#/definitions/Payments'
   Prepayment:
+    externalDocs:
+      url: 'http://developer.xero.com/documentation/api/prepayments/'
     type: object
     properties:
-      PrepaymentID:
-        type: string
       Date:
+        description: The date the prepayment is created YYYY-MM-DD
         type: string
         format: date
+      Type:
+        description: See Prepayment Types
+        type: string
+        enum:
+          - RECEIVE-PREPAYMENT
+          - SPEND-PREPAYMENT
+      Contact:
+        $ref: '#/definitions/Contact'
+      Status:
+        description: See Prepayment Status Codes
+        type: string
+        enum:
+          - AUTHORISED
+          - PAID
+          - VOIDED
+      LineAmountTypes:
+        description: See Prepayment Line Amount Types
+        type: string
+      LineItems:
+        description: See Prepayment Line Items
+        type: array
+        items:
+          $ref: '#/definitions/LineItem'
+      SubTotal:
+        description: The subtotal of the prepayment excluding taxes
+        type: number
+        format: float
+      TotalTax:
+        description: The total tax on the prepayment
+        type: number
+        format: float
       Total:
+        description: The total of the prepayment(subtotal + total tax)
         type: number
-        format: double
-      AppliedAmount:
+        format: float
+      UpdatedDateUTC:
+        description: UTC timestamp of last update to the prepayment
+        type: string
+        format: date-time
+      CurrencyCode:
+        description: Currency used for the prepayment
+        type: string
+      PrepaymentID:
+        description: Xero generated unique identifier
+        type: string
+        format: uuid
+      CurrencyRate:
+        description: >-
+          The currency rate for a multicurrency prepayment. If no rate is
+          specified, the XE.com day rate is used
         type: number
-        format: double
+        format: float
+      RemainingCredit:
+        description: The remaining credit balance on the prepayment
+        type: string
+      Allocations:
+        description: See Allocations
+        type: array
+        items:
+          $ref: '#/definitions/Allocation'
+      HasAttachments:
+        description: boolean to indicate if a prepayment has an attachment
+        type: boolean
   Prepayments:
     type: array
     items:

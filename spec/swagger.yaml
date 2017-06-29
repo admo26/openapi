@@ -3554,6 +3554,7 @@ definitions:
     items:
       $ref: '#/definitions/Address'
   Allocation:
+    type: object
     properties:
       Invoice:
         type: object
@@ -3883,6 +3884,7 @@ definitions:
   BrandingTheme:
     externalDocs:
       url: 'http://developer.xero.com/documentation/api/branding-themes/'
+    type: object
     properties:
       BrandingThemeID:
         description: Xero identifier
@@ -4175,6 +4177,7 @@ definitions:
   Employee:
     externalDocs:
       url: 'http://developer.xero.com/documentation/api/employees/'
+    type: object
     properties:
       EmployeeID:
         description: |-
@@ -4194,6 +4197,7 @@ definitions:
         maxLength: 255
         type: string
       ExternalLink:
+        type: object
         allOf:
           - description: >-
               Link to an external resource, for example, an employee record in
@@ -4206,6 +4210,7 @@ definitions:
   ExpenseClaim:
     externalDocs:
       url: 'http://developer.xero.com/documentation/api/expense-claims/'
+    type: object
     properties:
       User:
         $ref: '#/definitions/User'
@@ -4272,6 +4277,7 @@ definitions:
   ExternalLink:
     externalDocs:
       url: 'http://developer.xero.com/documentation/api/organisation/'
+    type: object
     properties:
       LinkType:
         description: See External link types
@@ -4476,6 +4482,7 @@ definitions:
   Item:
     externalDocs:
       url: 'http://developer.xero.com/documentation/api/items/'
+    type: object
     properties:
       Code:
         description: User defined item code (max length = 30)
@@ -4895,6 +4902,7 @@ definitions:
   LinkedTransaction:
     externalDocs:
       url: 'http://developer.xero.com/documentation/api/linked-transactions/'
+    type: object
     properties:
       SourceTransactionID:
         description: >-
@@ -4959,6 +4967,7 @@ definitions:
   ManualJournal:
     externalDocs:
       url: 'http://developer.xero.com/documentation/api/manual-journals/'
+    type: object
     properties:
       Narration:
         description: Description of journal being posted
@@ -5247,6 +5256,7 @@ definitions:
   PurchaseOrder:
     externalDocs:
       url: 'http://developer.xero.com/documentation/api/purchase-orders/'
+    type: object
     properties:
       Contact:
         allOf:
@@ -5362,6 +5372,7 @@ definitions:
   Receipt:
     externalDocs:
       url: 'http://developer.xero.com/documentation/api/receipts/'
+    type: object
     properties:
       Date:
         description: Date of receipt – YYYY-MM-DD
@@ -5535,6 +5546,7 @@ definitions:
   TaxRate:
     externalDocs:
       url: 'http://developer.xero.com/documentation/api/tax-rates/'
+    type: object
     properties:
       Name:
         description: Name of tax rate
@@ -5625,6 +5637,7 @@ definitions:
   TrackingCategory:
     externalDocs:
       url: 'http://developer.xero.com/documentation/api/tracking-categories/'
+    type: object
     properties:
       TrackingCategoryID:
         description: >-
@@ -5647,6 +5660,7 @@ definitions:
         items:
           $ref: '#/definitions/TrackingOption'
   TrackingOption:
+    type: object
     externalDocs:
       url: 'http://developer.xero.com/documentation/api/tracking-categories/'
     properties:
@@ -5700,6 +5714,7 @@ definitions:
   User:
     externalDocs:
       url: 'http://developer.xero.com/documentation/api/users/'
+    type: object
     properties:
       UserID:
         description: Xero identifier

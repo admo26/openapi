@@ -1620,7 +1620,7 @@ paths:
           schema:
             type: array
             items:
-              $ref: '#/definitions/Invoice'
+              $ref: '#/definitions/InvoicesResponse'
         '500':
           $ref: '#/responses/500ErrorResponse'
       produces:
@@ -1670,7 +1670,7 @@ paths:
         '200':
           description: A successful request
           schema:
-            $ref: '#/definitions/Invoice'
+            $ref: '#/definitions/InvoicesResponse'
         '400':
           $ref: '#/responses/400ErrorResponse'
         '500':
@@ -1690,7 +1690,7 @@ paths:
         '200':
           description: A successful request
           schema:
-            $ref: '#/definitions/Invoice'
+            $ref: '#/definitions/InvoicesResponse'
         '400':
           $ref: '#/responses/400ErrorResponse'
         '500':
@@ -1705,7 +1705,7 @@ paths:
         '200':
           description: A successful request
           schema:
-            $ref: '#/definitions/Invoice'
+            $ref: '#/definitions/InvoicesResponse'
         '404':
           $ref: '#/responses/404ErrorResponse'
         '500':
@@ -1737,7 +1737,7 @@ paths:
         '200':
           description: A successful request
           schema:
-            $ref: '#/definitions/Invoice'
+            $ref: '#/definitions/InvoicesResponse'
         '400':
           $ref: '#/responses/400ErrorResponse'
         '404':

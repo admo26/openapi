@@ -315,14 +315,9 @@ paths:
         - name: Content
           in: body
           description: The raw content of the file to be uploaded
-          required: true
           schema:
-            required:
-              - Content
-            properties:
-              Content:
-                type: object
-                description: The raw file content
+            $ref: '#/definitions/Content'
+          required: true
       responses:
         '200':
           description: Attachment succesfully created.
@@ -522,14 +517,9 @@ paths:
         - name: Content
           in: body
           description: The raw content of the file to be uploaded
-          required: true
           schema:
-            required:
-              - Content
-            properties:
-              Content:
-                type: string
-                description: The raw file content
+            $ref: '#/definitions/Content'
+          required: true
       responses:
         '200':
           description: Attachment succesfully created.
@@ -656,14 +646,9 @@ paths:
         - name: Content
           in: body
           description: The raw content of the file to be uploaded
-          required: true
           schema:
-            required:
-              - Content
-            properties:
-              Content:
-                type: string
-                description: The raw file content
+            $ref: '#/definitions/Content'
+          required: true
       responses:
         '200':
           description: Attachment succesfully created.
@@ -904,14 +889,9 @@ paths:
         - name: Content
           in: body
           description: The raw content of the file to be uploaded
-          required: true
           schema:
-            required:
-              - Content
-            properties:
-              Content:
-                type: string
-                description: The raw file content
+            $ref: '#/definitions/Content'
+          required: true
       responses:
         '200':
           description: Attachment succesfully created.
@@ -1346,14 +1326,9 @@ paths:
         - name: Content
           in: body
           description: The raw content of the file to be uploaded
-          required: true
           schema:
-            required:
-              - Content
-            properties:
-              Content:
-                type: string
-                description: The raw file content
+            $ref: '#/definitions/Content'
+          required: true
       responses:
         '200':
           description: Attachment succesfully created.
@@ -1847,14 +1822,9 @@ paths:
         - name: Content
           in: body
           description: The raw content of the file to be uploaded
-          required: true
           schema:
-            required:
-              - Content
-            properties:
-              Content:
-                type: string
-                description: The raw file content
+            $ref: '#/definitions/Content'
+          required: true
       responses:
         '200':
           description: Attachment succesfully created.
@@ -2321,14 +2291,9 @@ paths:
         - name: Content
           in: body
           description: The raw content of the file to be uploaded
-          required: true
           schema:
-            required:
-              - Content
-            properties:
-              Content:
-                type: string
-                description: The raw file content
+            $ref: '#/definitions/Content'
+          required: true
       responses:
         '200':
           description: Attachment succesfully created.
@@ -2759,14 +2724,9 @@ paths:
         - name: Content
           in: body
           description: The raw content of the file to be uploaded
-          required: true
           schema:
-            required:
-              - Content
-            properties:
-              Content:
-                type: string
-                description: The raw file content
+            $ref: '#/definitions/Content'
+          required: true
       responses:
         '200':
           description: Attachment succesfully created.
@@ -2947,14 +2907,9 @@ paths:
         - name: Content
           in: body
           description: The raw content of the file to be uploaded
-          required: true
           schema:
-            required:
-              - Content
-            properties:
-              Content:
-                type: string
-                description: The raw file content
+            $ref: '#/definitions/Content'
+          required: true
       responses:
         '200':
           description: Attachment succesfully created.
@@ -3080,14 +3035,9 @@ paths:
         - name: Content
           in: body
           description: The raw content of the file to be uploaded
-          required: true
           schema:
-            required:
-              - Content
-            properties:
-              Content:
-                type: string
-                description: The raw file content
+            $ref: '#/definitions/Content'
+          required: true
       responses:
         '200':
           description: Attachment succesfully created.
@@ -4170,6 +4120,18 @@ definitions:
       AppliedAmount:
         type: number
         format: double
+  Content:
+    externalDocs:
+      url: 'http://developer.xero.com/documentation/api/contacts/'
+    type: object
+    required:
+      - Content
+    properties:
+      Content:
+        type: string
+        description: The raw file content
+        example: "cc04bc53-f094-4ed6-8b3e-67297c37fae0"
+        readOnly: true
   CreditNotes:
     type: array
     items:

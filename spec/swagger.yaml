@@ -16,6 +16,7 @@ schemes:
   - https
 consumes:
   - application/xml
+  - application/json
 produces:
   - application/xml
   - application/json
@@ -68,6 +69,10 @@ tags:
   externalDocs: 
     description: "Items"
     url: "https://developer.xero.com/documentation/api/items/"
+- name: "Journals"
+  externalDocs: 
+    description: "Journals"
+    url: "https://developer.xero.com/documentation/api/journals/"
 - name: "LinkedTransactions"
   externalDocs: 
     description: "LinkedTransactions"
@@ -137,9 +142,7 @@ paths:
         - $ref: '#/parameters/order'
       responses:
         '200':
-          description: A successful response
-          schema:
-            $ref: '#/definitions/AccountsResponse'
+          $ref: '#/responses/AccountsResponse'
         '500':
           $ref: '#/responses/500ErrorResponse'
     put:
@@ -154,9 +157,7 @@ paths:
           required: true
       responses:
         '200':
-          description: A successful request
-          schema:
-            $ref: '#/definitions/AccountsResponse'
+          $ref: '#/responses/AccountsResponse'
         '400':
           $ref: '#/responses/400ErrorResponse'    
     post:
@@ -171,9 +172,7 @@ paths:
           required: true
       responses:
         '200':
-          description: A successful request
-          schema:
-            $ref: '#/definitions/AccountsResponse'
+          $ref: '#/responses/AccountsResponse'
         '400':
           $ref: '#/responses/400ErrorResponse'
   '/Accounts/{AccountID}':
@@ -184,9 +183,7 @@ paths:
       summary: Retrieve a single account
       responses:
         '200':
-          description: A successful request
-          schema:
-            $ref: '#/definitions/AccountsResponse'
+          $ref: '#/responses/AccountsResponse'
         '404':
           $ref: '#/responses/404ErrorResponse'
       parameters:
@@ -212,9 +209,7 @@ paths:
           format: uuid
       responses:
         '200':
-          description: A successful request
-          schema:
-            $ref: '#/definitions/AccountsResponse'
+          $ref: '#/responses/AccountsResponse'
         '400':
           $ref: '#/responses/400ErrorResponse'
         '404':
@@ -253,9 +248,7 @@ paths:
         - $ref: '#/parameters/If-Modified-Since'
       responses:
         '200':
-          description: Successful response
-          schema:
-            $ref: '#/definitions/Attachments'
+          $ref: '#/responses/AttachmentsResponse'
         '404':
           $ref: '#/responses/404ErrorResponse'
         '500':
@@ -320,9 +313,7 @@ paths:
           required: true
       responses:
         '200':
-          description: Attachment succesfully created.
-          schema:
-            $ref: '#/definitions/Attachments'
+          $ref: '#/responses/AttachmentsResponse'
         '400':
           description: Attachment couldn't be created.
         '500':
@@ -335,11 +326,7 @@ paths:
       summary: Retrieve any spend or receive money transactions (inc. prepayments and overpayments)
       responses:
         '200':
-          description: A successful response
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/BankTransaction'
+          $ref: '#/responses/BankTransactionsResponse'
         '500':
           $ref: '#/responses/500ErrorResponse'
       produces:
@@ -362,9 +349,7 @@ paths:
           required: true
       responses:
         '200':
-          description: A successful request
-          schema:
-            $ref: '#/definitions/BankTransaction'
+          $ref: '#/responses/BankTransactionsResponse'
         '400':
           $ref: '#/responses/400ErrorResponse'
         '500':
@@ -382,9 +367,7 @@ paths:
         - $ref: '#/parameters/unitdp'
       responses:
         '200':
-          description: A successful request
-          schema:
-            $ref: '#/definitions/BankTransaction'
+          $ref: '#/responses/BankTransactionsResponse'
         '400':
           $ref: '#/responses/400ErrorResponse'
         '500':
@@ -397,9 +380,7 @@ paths:
       summary: Retrieve a spend or receive money (inc. prepayments and overpayments)
       responses:
         '200':
-          description: A successful request
-          schema:
-            $ref: '#/definitions/BankTransaction'
+          $ref: '#/responses/BankTransactionsResponse'
         '404':
           $ref: '#/responses/404ErrorResponse'
         '500':
@@ -429,9 +410,7 @@ paths:
         - $ref: '#/parameters/unitdp'
       responses:
         '200':
-          description: A successful request
-          schema:
-            $ref: '#/definitions/BankTransaction'
+          $ref: '#/responses/BankTransactionsResponse'
         '400':
           $ref: '#/responses/400ErrorResponse'
         '404':
@@ -457,9 +436,7 @@ paths:
         - $ref: '#/parameters/If-Modified-Since'
       responses:
         '200':
-          description: Successful response
-          schema:
-            $ref: '#/definitions/Attachments'
+          $ref: '#/responses/AttachmentsResponse'
         '500':
           $ref: '#/responses/500ErrorResponse'
   '/BankTransactions/{BankTransactionID}/Attachments/{FileName}':
@@ -522,9 +499,7 @@ paths:
           required: true
       responses:
         '200':
-          description: Attachment succesfully created.
-          schema:
-            $ref: '#/definitions/Attachments'
+          $ref: '#/responses/AttachmentsResponse'
         '400':
           $ref: '#/responses/400ErrorResponse'
         '500':
@@ -537,11 +512,7 @@ paths:
       summary: Retrieve a colection of bank transfers
       responses:
         '200':
-          description: A successful response
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/BankTransfersResponse'
+          $ref: '#/responses/BankTransfersResponse'
         '500':
           $ref: '#/responses/500ErrorResponse'
       produces:
@@ -563,9 +534,7 @@ paths:
           required: true
       responses:
         '200':
-          description: A successful request
-          schema:
-            $ref: '#/definitions/BankTransfersResponse'
+          $ref: '#/responses/BankTransfersResponse'
         '400':
           $ref: '#/responses/400ErrorResponse'
         '500':
@@ -578,9 +547,7 @@ paths:
       summary: Retrieve an individual bank transfer
       responses:
         '200':
-          description: A successful request
-          schema:
-            $ref: '#/definitions/BankTransfer'
+          $ref: '#/responses/BankTransfersResponse'
         '404':
           $ref: '#/responses/404ErrorResponse'
         '500':
@@ -651,9 +618,7 @@ paths:
           required: true
       responses:
         '200':
-          description: Attachment succesfully created.
-          schema:
-            $ref: '#/definitions/Attachments'
+          $ref: '#/responses/AttachmentsResponse'
         '400':
           $ref: '#/responses/400ErrorResponse'
         '500':
@@ -666,11 +631,7 @@ paths:
       summary: Retrieve a collection of BrandingThemes
       responses:
         '200':
-          description: A successful response
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/BrandingTheme'
+          $ref: '#/responses/BrandingThemesResponse'
         '500':
           $ref: '#/responses/500ErrorResponse'
   '/BrandingThemes/{BrandingThemeID}':
@@ -681,9 +642,7 @@ paths:
       summary: Retrieve an individual BrandingTheme
       responses:
         '200':
-          description: A successful request
-          schema:
-            $ref: '#/definitions/BrandingTheme'
+          $ref: '#/responses/BrandingThemesResponse'
         '404':
           $ref: '#/responses/404ErrorResponse'
         '500':
@@ -702,11 +661,7 @@ paths:
       summary: 'Retrieve a collection of contacts'
       responses:
         '200':
-          description: A successful response
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/ContactsResponse'
+          $ref: '#/responses/ContactsResponse'
         '500':
           $ref: '#/responses/500ErrorResponse'
       produces:
@@ -735,9 +690,7 @@ paths:
           required: true
       responses:
         '200':
-          description: A successful request
-          schema:
-            $ref: '#/definitions/ContactsResponse'
+          $ref: '#/responses/ContactsResponse'
         '400':
           $ref: '#/responses/400ErrorResponse'
         '500':
@@ -754,9 +707,7 @@ paths:
           required: true
       responses:
         '200':
-          description: A successful request
-          schema:
-            $ref: '#/definitions/ContactsResponse'
+          $ref: '#/responses/ContactsResponse'
         '400':
           $ref: '#/responses/400ErrorResponse'
         '500':
@@ -769,9 +720,7 @@ paths:
       summary: 'Retrieve an individual contact'
       responses:
         '200':
-          description: A successful request
-          schema:
-            $ref: '#/definitions/ContactsResponse'
+          $ref: '#/responses/ContactsResponse'
         '404':
           $ref: '#/responses/404ErrorResponse'
         '500':
@@ -799,9 +748,7 @@ paths:
           format: uuid
       responses:
         '200':
-          description: A successful request
-          schema:
-            $ref: '#/definitions/ContactsResponse'
+          $ref: '#/responses/ContactsResponse'
         '400':
           $ref: '#/responses/400ErrorResponse'
         '404':
@@ -827,9 +774,7 @@ paths:
         - $ref: '#/parameters/If-Modified-Since'
       responses:
         '200':
-          description: Successful response
-          schema:
-            $ref: '#/definitions/Attachments'
+          $ref: '#/responses/AttachmentsResponse'
         '400':
           $ref: '#/responses/400ErrorResponse'
         '500':
@@ -894,9 +839,7 @@ paths:
           required: true
       responses:
         '200':
-          description: Attachment succesfully created.
-          schema:
-            $ref: '#/definitions/Attachments'
+          $ref: '#/responses/AttachmentsResponse'
         '400':
           $ref: '#/responses/400ErrorResponse'
         '500':
@@ -910,11 +853,7 @@ paths:
         Retrieve a collection of contact groups
       responses:
         '200':
-          description: A successful response
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/ContactGroupsResponse'
+          $ref: '#/responses/ContactGroupsResponse'
         '500':
           $ref: '#/responses/500ErrorResponse'
       produces:
@@ -937,9 +876,7 @@ paths:
           required: true
       responses:
         '200':
-          description: A successful request
-          schema:
-            $ref: '#/definitions/ContactGroupsResponse'
+          $ref: '#/responses/ContactGroupsResponse'
         '400':
           $ref: '#/responses/400ErrorResponse'
         '500':
@@ -957,9 +894,7 @@ paths:
           required: true
       responses:
         '200':
-          description: A successful request
-          schema:
-            $ref: '#/definitions/ContactGroupsResponse'
+          $ref: '#/responses/ContactGroupsResponse'
         '400':
           $ref: '#/responses/400ErrorResponse'
         '500':
@@ -974,9 +909,7 @@ paths:
         contact group
       responses:
         '200':
-          description: A successful request
-          schema:
-            $ref: '#/definitions/ContactGroupsResponse'
+          $ref: '#/responses/ContactGroupsResponse'
         '404':
           $ref: '#/responses/404ErrorResponse'
         '500':
@@ -1005,9 +938,7 @@ paths:
           format: uuid
       responses:
         '200':
-          description: A successful request
-          schema:
-            $ref: '#/definitions/ContactGroupsResponse'
+          $ref: '#/responses/ContactGroupsResponse'
         '400':
           $ref: '#/responses/400ErrorResponse'
         '404':
@@ -1052,9 +983,7 @@ paths:
           format: uuid
       responses:
         '200':
-          description: A successful request
-          schema:
-            $ref: '#/definitions/ContactGroupsResponse'
+          $ref: '#/responses/ContactGroupsResponse'
         '400':
           $ref: '#/responses/400ErrorResponse'
         '404':
@@ -1112,11 +1041,7 @@ paths:
       summary: Retrieve a collection of credit notes
       responses:
         '200':
-          description: A successful response
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/CreditNote'
+          $ref: '#/responses/CreditNotesResponse'
         '500':
           $ref: '#/responses/500ErrorResponse'
       produces:
@@ -1141,9 +1066,7 @@ paths:
         - $ref: '#/parameters/unitdp'
       responses:
         '200':
-          description: A successful request
-          schema:
-            $ref: '#/definitions/CreditNote'
+          $ref: '#/responses/CreditNotesResponse'
         '400':
           $ref: '#/responses/400ErrorResponse'
         '500':
@@ -1161,9 +1084,7 @@ paths:
         - $ref: '#/parameters/unitdp'
       responses:
         '200':
-          description: A successful request
-          schema:
-            $ref: '#/definitions/CreditNote'
+          $ref: '#/responses/CreditNotesResponse'
         '400':
           $ref: '#/responses/400ErrorResponse'
         '500':
@@ -1176,9 +1097,7 @@ paths:
       summary: Retrieve an individual credit note
       responses:
         '200':
-          description: A successful request
-          schema:
-            $ref: '#/definitions/CreditNote'
+          $ref: '#/responses/CreditNotesResponse'
         '404':
           $ref: '#/responses/404ErrorResponse'
         '500':
@@ -1208,9 +1127,7 @@ paths:
         - $ref: '#/parameters/unitdp'
       responses:
         '200':
-          description: A successful request
-          schema:
-            $ref: '#/definitions/CreditNote'
+          $ref: '#/responses/CreditNotesResponse'
         '400':
           $ref: '#/responses/400ErrorResponse'
         '404':
@@ -1236,9 +1153,7 @@ paths:
           format: uuid
       responses:
         '200':
-          description: A successful request
-          schema:
-            $ref: '#/definitions/Allocation'
+          $ref: '#/responses/CreditNotesResponse'
         '404':
           $ref: '#/responses/404ErrorResponse'
         '500':
@@ -1262,9 +1177,7 @@ paths:
         - $ref: '#/parameters/If-Modified-Since'
       responses:
         '200':
-          description: Successful response
-          schema:
-            $ref: '#/definitions/Attachments'
+          $ref: '#/responses/AttachmentsResponse'
         '404':
           $ref: '#/responses/404ErrorResponse'
         '500':
@@ -1331,9 +1244,7 @@ paths:
           required: true
       responses:
         '200':
-          description: Attachment succesfully created.
-          schema:
-            $ref: '#/definitions/Attachments'
+          $ref: '#/responses/AttachmentsResponse'
         '400':
           $ref: '#/responses/400ErrorResponse'
         '404':
@@ -1348,11 +1259,7 @@ paths:
       summary: Retrieve the currencies the organisation is subscribed to
       responses:
         '200':
-          description: A successful response
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/Currency'
+          $ref: '#/responses/CurrenciesResponse'
         '500':
           $ref: '#/responses/500ErrorResponse'
       produces:
@@ -1371,11 +1278,7 @@ paths:
         Retrieve a collection of employees
       responses:
         '200':
-          description: A successful response
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/Employee'
+          $ref: '#/responses/EmployeesResponse'
         '500':
           $ref: '#/responses/500ErrorResponse'
       produces:
@@ -1398,9 +1301,7 @@ paths:
           required: true
       responses:
         '200':
-          description: A successful request
-          schema:
-            $ref: '#/definitions/Employee'
+          $ref: '#/responses/EmployeesResponse'
         '400':
           $ref: '#/responses/400ErrorResponse'
         '500':
@@ -1418,9 +1319,7 @@ paths:
           required: true
       responses:
         '200':
-          description: A successful request
-          schema:
-            $ref: '#/definitions/Employee'
+          $ref: '#/responses/EmployeesResponse'
         '400':
           $ref: '#/responses/400ErrorResponse'
         '500':
@@ -1434,9 +1333,7 @@ paths:
         Retrieve an individual employee
       responses:
         '200':
-          description: A successful request
-          schema:
-            $ref: '#/definitions/Employee'
+          $ref: '#/responses/EmployeesResponse'
         '404':
           $ref: '#/responses/404ErrorResponse'
         '500':
@@ -1465,9 +1362,7 @@ paths:
           format: uuid
       responses:
         '200':
-          description: A successful request
-          schema:
-            $ref: '#/definitions/Employee'
+          $ref: '#/responses/EmployeesResponse'
         '400':
           $ref: '#/responses/400ErrorResponse'
         '404':
@@ -1482,11 +1377,7 @@ paths:
       summary: Retrieve a collection of expense claims
       responses:
         '200':
-          description: A successful response
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/ExpenseClaim'
+          $ref: '#/responses/ExpenseClaimsResponse'
         '500':
           $ref: '#/responses/500ErrorResponse'
       produces:
@@ -1509,9 +1400,7 @@ paths:
           required: true
       responses:
         '200':
-          description: A successful request
-          schema:
-            $ref: '#/definitions/ExpenseClaim'
+          $ref: '#/responses/ExpenseClaimsResponse'
         '400':
           $ref: '#/responses/400ErrorResponse'
         '500':
@@ -1529,9 +1418,7 @@ paths:
           required: true
       responses:
         '200':
-          description: A successful request
-          schema:
-            $ref: '#/definitions/ExpenseClaim'
+          $ref: '#/responses/ExpenseClaimsResponse'
         '400':
           $ref: '#/responses/400ErrorResponse'
         '500':
@@ -1544,9 +1431,7 @@ paths:
       summary: Retrieve an individual expense claim
       responses:
         '200':
-          description: A successful request
-          schema:
-            $ref: '#/definitions/ExpenseClaim'
+          $ref: '#/responses/ExpenseClaimsResponse'
         '404':
           $ref: '#/responses/404ErrorResponse'
         '500':
@@ -1575,9 +1460,7 @@ paths:
           format: uuid
       responses:
         '200':
-          description: A successful request
-          schema:
-            $ref: '#/definitions/ExpenseClaim'
+          $ref: '#/responses/ExpenseClaimsResponse'
         '400':
           $ref: '#/responses/400ErrorResponse'
         '404':
@@ -1592,11 +1475,7 @@ paths:
       summary: Retrieve a collection of invoices (sales invoices and bills)
       responses:
         '200':
-          description: A successful response
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/InvoicesResponse'
+          $ref: '#/responses/InvoicesResponse'
         '500':
           $ref: '#/responses/500ErrorResponse'
       produces:
@@ -1644,9 +1523,7 @@ paths:
         - $ref: '#/parameters/unitdp'
       responses:
         '200':
-          description: A successful request
-          schema:
-            $ref: '#/definitions/InvoicesResponse'
+          $ref: '#/responses/InvoicesResponse'
         '400':
           $ref: '#/responses/400ErrorResponse'
         '500':
@@ -1664,9 +1541,7 @@ paths:
         - $ref: '#/parameters/unitdp'
       responses:
         '200':
-          description: A successful request
-          schema:
-            $ref: '#/definitions/InvoicesResponse'
+          $ref: '#/responses/InvoicesResponse'
         '400':
           $ref: '#/responses/400ErrorResponse'
         '500':
@@ -1679,9 +1554,7 @@ paths:
       summary: Retrieve an Invoice (sales invoice or bill)
       responses:
         '200':
-          description: A successful request
-          schema:
-            $ref: '#/definitions/InvoicesResponse'
+          $ref: '#/responses/InvoicesResponse'
         '404':
           $ref: '#/responses/404ErrorResponse'
         '500':
@@ -1711,9 +1584,7 @@ paths:
         - $ref: '#/parameters/unitdp'
       responses:
         '200':
-          description: A successful request
-          schema:
-            $ref: '#/definitions/InvoicesResponse'
+          $ref: '#/responses/InvoicesResponse'
         '400':
           $ref: '#/responses/400ErrorResponse'
         '404':
@@ -1728,9 +1599,7 @@ paths:
       summary: Retrieve the URL to view the online invoice
       responses:
         '200':
-          description: A successful request
-          schema:
-            $ref: '#/definitions/OnlineInvoicesResponse'
+          $ref: '#/responses/OnlineInvoicesResponse'
         '404':
           $ref: '#/responses/404ErrorResponse'
         '500':
@@ -1760,9 +1629,7 @@ paths:
         - $ref: '#/parameters/If-Modified-Since'
       responses:
         '200':
-          description: Successful response
-          schema:
-            $ref: '#/definitions/Attachments'
+          $ref: '#/responses/AttachmentsResponse'
         '404':
           $ref: '#/responses/404ErrorResponse'
         '500':
@@ -1827,9 +1694,7 @@ paths:
           required: true
       responses:
         '200':
-          description: Attachment succesfully created.
-          schema:
-            $ref: '#/definitions/Attachments'
+          $ref: '#/responses/AttachmentsResponse'
         '404':
           $ref: '#/responses/404ErrorResponse'
         '500':
@@ -1842,11 +1707,7 @@ paths:
       summary: Retrieve a collection of items
       responses:
         '200':
-          description: A successful response
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/Item'
+          $ref: '#/responses/ItemsResponse'
         '500':
           $ref: '#/responses/500ErrorResponse'
       produces:
@@ -1870,9 +1731,7 @@ paths:
         - $ref: '#/parameters/unitdp'
       responses:
         '200':
-          description: A successful request
-          schema:
-            $ref: '#/definitions/Item'
+          $ref: '#/responses/ItemsResponse'
         '400':
           $ref: '#/responses/400ErrorResponse'
         '500':
@@ -1890,9 +1749,7 @@ paths:
         - $ref: '#/parameters/unitdp'
       responses:
         '200':
-          description: A successful request
-          schema:
-            $ref: '#/definitions/Item'
+          $ref: '#/responses/ItemsResponse'
         '400':
           $ref: '#/responses/400ErrorResponse'
         '500':
@@ -1905,9 +1762,7 @@ paths:
       summary: Retrieve an item
       responses:
         '200':
-          description: A successful request
-          schema:
-            $ref: '#/definitions/Item'
+          $ref: '#/responses/ItemsResponse'
         '404':
           $ref: '#/responses/404ErrorResponse'
         '500':
@@ -1937,9 +1792,7 @@ paths:
         - $ref: '#/parameters/unitdp'
       responses:
         '200':
-          description: A successful request
-          schema:
-            $ref: '#/definitions/Item'
+          $ref: '#/responses/ItemsResponse'
         '400':
           $ref: '#/responses/400ErrorResponse'
         '404':
@@ -1971,11 +1824,7 @@ paths:
       summary: Retrieve a collection of journals.
       responses:
         '200':
-          description: A successful response
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/Journal'
+          $ref: '#/responses/JournalsResponse'
         '500':
           $ref: '#/responses/500ErrorResponse'
       produces:
@@ -1993,9 +1842,7 @@ paths:
       summary: Retrieve an individual journal.
       responses:
         '200':
-          description: A successful request
-          schema:
-            $ref: '#/definitions/Journal'
+          $ref: '#/responses/JournalsResponse'
         '404':
           $ref: '#/responses/404ErrorResponse'
         '500':
@@ -2014,11 +1861,7 @@ paths:
       summary: Retrieve a collection of linked transactions (billable expenses)
       responses:
         '200':
-          description: A successful response
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/LinkedTransaction'
+          $ref: '#/responses/LinkedTransactionsResponse'
       produces:
         - application/xml
         - application/json
@@ -2056,9 +1899,7 @@ paths:
           required: true
       responses:
         '200':
-          description: A successful request
-          schema:
-            $ref: '#/definitions/LinkedTransaction'
+          $ref: '#/responses/LinkedTransactionsResponse'
     post:
       tags:
         - "LinkedTransactions"
@@ -2071,9 +1912,7 @@ paths:
           required: true
       responses:
         '200':
-          description: A successful request
-          schema:
-            $ref: '#/definitions/LinkedTransaction'
+          $ref: '#/responses/LinkedTransactionsResponse'
   '/LinkedTransactions/{LinkedTransactionID}':
     x-related-model: LinkedTransaction
     get:
@@ -2082,9 +1921,7 @@ paths:
       summary: Retrieve a linked transaction (billable expense)
       responses:
         '200':
-          description: A successful request
-          schema:
-            $ref: '#/definitions/LinkedTransaction'
+          $ref: '#/responses/LinkedTransactionsResponse'
       parameters:
         - required: true
           in: path
@@ -2108,9 +1945,7 @@ paths:
           format: uuid
       responses:
         '200':
-          description: A successful request
-          schema:
-            $ref: '#/definitions/LinkedTransaction'
+          $ref: '#/responses/LinkedTransactionsResponse'
     delete:
       tags:
         - "LinkedTransactions"
@@ -2132,11 +1967,7 @@ paths:
       summary: Retrieve a collection of manual journals
       responses:
         '200':
-          description: A successful response
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/ManualJournal'
+          $ref: '#/responses/ManualJournalsResponse'
       produces:
         - application/xml
         - application/json
@@ -2157,9 +1988,7 @@ paths:
           required: true
       responses:
         '200':
-          description: A successful request
-          schema:
-            $ref: '#/definitions/ManualJournal'
+          $ref: '#/responses/ManualJournalsResponse'
     post:
       tags:
         - "ManualJournals"
@@ -2172,10 +2001,8 @@ paths:
           required: true
       responses:
         '200':
-          description: A successful request
-          schema:
-            $ref: '#/definitions/ManualJournal'
-  '/ManualJournals/{JournalID}':
+          $ref: '#/responses/ManualJournalsResponse'
+  '/ManualJournals/{ManualJournalID}':
     x-related-model: ManualJournal
     get:
       tags:
@@ -2183,13 +2010,11 @@ paths:
       summary: Retrieve an individual manual journal
       responses:
         '200':
-          description: A successful request
-          schema:
-            $ref: '#/definitions/ManualJournal'
+          $ref: '#/responses/ManualJournalsResponse'
       parameters:
         - required: true
           in: path
-          name: JournalID
+          name: ManualJournalID
           type: string
           format: uuid
     post:
@@ -2204,14 +2029,12 @@ paths:
           required: true
         - required: true
           in: path
-          name: JournalID
+          name: ManualJournalID
           type: string
           format: uuid
       responses:
         '200':
-          description: A successful request
-          schema:
-            $ref: '#/definitions/ManualJournal'
+          $ref: '#/responses/ManualJournalsResponse'
   '/ManualJournals/{ManualJournalID}/Attachments':
     get:
       tags:
@@ -2231,9 +2054,7 @@ paths:
         - $ref: '#/parameters/If-Modified-Since'
       responses:
         '200':
-          description: Successful response
-          schema:
-            $ref: '#/definitions/Attachments'
+          $ref: '#/responses/AttachmentsResponse'
         '500':
           $ref: '#/responses/500ErrorResponse'
   '/ManualJournals/{ManualJournalID}/Attachments/{FileName}':
@@ -2296,9 +2117,7 @@ paths:
           required: true
       responses:
         '200':
-          description: Attachment succesfully created.
-          schema:
-            $ref: '#/definitions/Attachments'
+          $ref: '#/responses/AttachmentsResponse'
         '400':
           description: Attachment couldn't be created.
         '500':
@@ -2311,11 +2130,7 @@ paths:
       summary: Retrieve Organisation details
       responses:
         '200':
-          description: A successful response
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/Organisation'
+          $ref: '#/responses/OrganisationsResponse'
   '/Organisation/{ShortCode}':
     x-related-model: Organisation
     get:
@@ -2324,9 +2139,7 @@ paths:
       summary: Retrieve Organisation details
       responses:
         '200':
-          description: A successful request
-          schema:
-            $ref: '#/definitions/Organisation'
+          $ref: '#/responses/OrganisationsResponse'
       parameters:
         - required: true
           in: path
@@ -2341,11 +2154,7 @@ paths:
       summary: Retrieve a collection of overpayments
       responses:
         '200':
-          description: A successful response
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/OverpaymentsResponse'
+          $ref: '#/responses/OverpaymentsResponse'
       produces:
         - application/xml
         - application/json
@@ -2363,9 +2172,7 @@ paths:
       summary: Retrieve an overpayment
       responses:
         '200':
-          description: A successful request
-          schema:
-            $ref: '#/definitions/OverpaymentsResponse'
+          $ref: '#/responses/OverpaymentsResponse'
       parameters:
         - required: true
           in: path
@@ -2392,9 +2199,7 @@ paths:
           format: uuid
       responses:
         '200':
-          description: A successful request
-          schema:
-            $ref: '#/definitions/Allocation'
+          $ref: '#/responses/OverpaymentsResponse'
   /Payments:
     x-related-model: Payment
     get:
@@ -2403,11 +2208,7 @@ paths:
       summary: Retrieve a collection of payments for invoices, credit notes, prepayments and overpayments
       responses:
         '200':
-          description: A successful response
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/PaymentsResponse'
+          $ref: '#/responses/PaymentsResponse'
       produces:
         - application/xml
         - application/json
@@ -2427,9 +2228,7 @@ paths:
           required: true
       responses:
         '200':
-          description: A successful request
-          schema:
-            $ref: '#/definitions/PaymentsResponse'
+          $ref: '#/responses/PaymentsResponse'
     post:
       tags:
         - "Payments"
@@ -2442,9 +2241,7 @@ paths:
           required: true
       responses:
         '200':
-          description: A successful request
-          schema:
-            $ref: '#/definitions/PaymentsResponse'
+          $ref: '#/responses/PaymentsResponse'
   '/Payments/{PaymentID}':
     x-related-model: Payment
     get:
@@ -2453,9 +2250,7 @@ paths:
       summary: Retrieve a payment
       responses:
         '200':
-          description: A successful request
-          schema:
-            $ref: '#/definitions/PaymentsResponse'
+          $ref: '#/responses/PaymentsResponse'
       parameters:
         - required: true
           in: path
@@ -2479,9 +2274,7 @@ paths:
           format: uuid
       responses:
         '200':
-          description: A successful request
-          schema:
-            $ref: '#/definitions/PaymentsResponse'
+          $ref: '#/responses/PaymentsResponse'
   /Prepayments:
     x-related-model: Prepayment
     get:
@@ -2490,11 +2283,7 @@ paths:
       summary: Retrieve a collection of prepayments
       responses:
         '200':
-          description: A successful response
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/PrepaymentsResponse'
+          $ref: '#/responses/PrepaymentsResponse'
       produces:
         - application/xml
         - application/json
@@ -2512,9 +2301,7 @@ paths:
       summary: Retrieve an individual prepayment
       responses:
         '200':
-          description: A successful request
-          schema:
-            $ref: '#/definitions/PrepaymentsResponse'
+          $ref: '#/responses/PrepaymentsResponse'
       parameters:
         - required: true
           in: path
@@ -2541,9 +2328,7 @@ paths:
           format: uuid
       responses:
         '200':
-          description: A successful request
-          schema:
-            $ref: '#/definitions/Allocation'
+          $ref: '#/responses/PrepaymentsResponse'
   /PurchaseOrders:
     x-related-model: PurchaseOrder
     get:
@@ -2552,11 +2337,7 @@ paths:
       summary: Retrieve a collection of purchase orders
       responses:
         '200':
-          description: A successful response
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/PurchaseOrder'
+          $ref: '#/responses/PurchaseOrdersResponse'
       produces:
         - application/xml
         - application/json
@@ -2590,9 +2371,7 @@ paths:
           required: true
       responses:
         '200':
-          description: A successful request
-          schema:
-            $ref: '#/definitions/PurchaseOrder'
+          $ref: '#/responses/PurchaseOrdersResponse'
     post:
       tags:
         - "PurchaseOrders"
@@ -2605,9 +2384,7 @@ paths:
           required: true
       responses:
         '200':
-          description: A successful request
-          schema:
-            $ref: '#/definitions/PurchaseOrder'
+          $ref: '#/responses/PurchaseOrdersResponse'
   '/PurchaseOrders/{PurchaseOrderID}':
     x-related-model: PurchaseOrder
     get:
@@ -2616,9 +2393,7 @@ paths:
       summary: Retrieve a single purchase order
       responses:
         '200':
-          description: A successful request
-          schema:
-            $ref: '#/definitions/PurchaseOrder'
+          $ref: '#/responses/PurchaseOrdersResponse'
       parameters:
         - required: true
           in: path
@@ -2642,9 +2417,7 @@ paths:
           format: uuid
       responses:
         '200':
-          description: A successful request
-          schema:
-            $ref: '#/definitions/PurchaseOrder'
+          $ref: '#/responses/PurchaseOrdersResponse'
   '/PurchaseOrders/{PurchaseOrderID}/Attachments':
     get:
       tags:
@@ -2664,9 +2437,7 @@ paths:
         - $ref: '#/parameters/If-Modified-Since'
       responses:
         '200':
-          description: Successful response
-          schema:
-            $ref: '#/definitions/Attachments'
+          $ref: '#/responses/AttachmentsResponse'
         '500':
           $ref: '#/responses/500ErrorResponse'
   '/PurchaseOrders/{PurchaseOrderID}/Attachments/{FileName}':
@@ -2729,9 +2500,7 @@ paths:
           required: true
       responses:
         '200':
-          description: Attachment succesfully created.
-          schema:
-            $ref: '#/definitions/Attachments'
+          $ref: '#/responses/AttachmentsResponse'
         '400':
           description: Attachment couldn't be created.
         '500':
@@ -2744,11 +2513,7 @@ paths:
       summary: Retrieve a collection of draft receipts
       responses:
         '200':
-          description: A successful response
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/Receipt'
+          $ref: '#/responses/ReceiptsResponse'
       produces:
         - application/xml
         - application/json
@@ -2770,9 +2535,7 @@ paths:
         - $ref: '#/parameters/unitdp'
       responses:
         '200':
-          description: A successful request
-          schema:
-            $ref: '#/definitions/Receipt'
+          $ref: '#/responses/ReceiptsResponse'
     post:
       tags:
         - "Receipts"
@@ -2786,9 +2549,7 @@ paths:
         - $ref: '#/parameters/unitdp'
       responses:
         '200':
-          description: A successful request
-          schema:
-            $ref: '#/definitions/Receipt'
+          $ref: '#/responses/ReceiptsResponse'
   '/Receipts/{ReceiptID}':
     x-related-model: Receipt
     get:
@@ -2797,9 +2558,7 @@ paths:
       summary: Retrieve an individual receipt
       responses:
         '200':
-          description: A successful request
-          schema:
-            $ref: '#/definitions/Receipt'
+          $ref: '#/responses/ReceiptsResponse'
       parameters:
         - required: true
           in: path
@@ -2825,9 +2584,7 @@ paths:
         - $ref: '#/parameters/unitdp'
       responses:
         '200':
-          description: A successful request
-          schema:
-            $ref: '#/definitions/Receipt'
+          $ref: '#/responses/ReceiptsResponse'
   '/Receipts/{ReceiptID}/Attachments':
     get:
       tags:
@@ -2847,9 +2604,7 @@ paths:
         - $ref: '#/parameters/If-Modified-Since'
       responses:
         '200':
-          description: Successful response
-          schema:
-            $ref: '#/definitions/Attachments'
+          $ref: '#/responses/AttachmentsResponse'
         '500':
           $ref: '#/responses/500ErrorResponse'
   '/Receipts/{ReceiptID}/Attachments/{FileName}':
@@ -2912,9 +2667,7 @@ paths:
           required: true
       responses:
         '200':
-          description: Attachment succesfully created.
-          schema:
-            $ref: '#/definitions/Attachments'
+          $ref: '#/responses/AttachmentsResponse'
         '400':
           description: Attachment couldn't be created.
         '500':
@@ -2927,11 +2680,7 @@ paths:
       summary: Retrieve a collection of repeating invoice templates
       responses:
         '200':
-          description: A successful response
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/RepeatingInvoice'
+          $ref: '#/responses/RepeatingInvoicesResponse'
       produces:
         - application/xml
         - application/json
@@ -2947,9 +2696,7 @@ paths:
       summary: Retrieve an individual repeating invoice template
       responses:
         '200':
-          description: A successful request
-          schema:
-            $ref: '#/definitions/RepeatingInvoice'
+          $ref: '#/responses/RepeatingInvoicesResponse'
       parameters:
         - required: true
           in: path
@@ -2975,9 +2722,7 @@ paths:
         - $ref: '#/parameters/If-Modified-Since'
       responses:
         '200':
-          description: Successful response
-          schema:
-            $ref: '#/definitions/Attachments'
+          $ref: '#/responses/AttachmentsResponse'
         '500':
           $ref: '#/responses/500ErrorResponse'
   '/RepeatingInvoices/{RepeatingInvoiceID}/Attachments/{FileName}':
@@ -3012,41 +2757,6 @@ paths:
           description: Attachment does not exist
         '500':
           $ref: '#/responses/500ErrorResponse'
-    post:
-      tags:
-      - "RepeatingInvoices"
-      summary: Upload an Attachment
-      description: Upload an Attachment
-      produces:
-        - application/xml
-        - application/json
-      parameters:
-        - name: FileName
-          in: path
-          description: The filename of the attachment being uploaded
-          required: true
-          type: string
-        - name: RepeatingInvoiceID
-          in: path
-          description: >-
-            The Xero generated unique identifier for a RepeatingInvoice
-          required: true
-          type: string
-        - name: Content
-          in: body
-          description: The raw content of the file to be uploaded
-          schema:
-            $ref: '#/definitions/Content'
-          required: true
-      responses:
-        '200':
-          description: Attachment succesfully created.
-          schema:
-            $ref: '#/definitions/Attachments'
-        '400':
-          description: Attachment couldn't be created.
-        '500':
-          $ref: '#/responses/500ErrorResponse'
   /TaxRates:
     x-related-model: TaxRate
     get:
@@ -3055,11 +2765,7 @@ paths:
       summary: Retrieve a collection of tax rates
       responses:
         '200':
-          description: A successful response
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/TaxRate'
+          $ref: '#/responses/TaxRatesResponse'
       produces:
         - application/xml
         - application/json
@@ -3079,9 +2785,7 @@ paths:
           required: true
       responses:
         '200':
-          description: A successful request
-          schema:
-            $ref: '#/definitions/TaxRate'
+          $ref: '#/responses/TaxRatesResponse'
     post:
       tags:
         - "TaxRates"
@@ -3094,9 +2798,7 @@ paths:
           required: true
       responses:
         '200':
-          description: A successful request
-          schema:
-            $ref: '#/definitions/TaxRate'
+          $ref: '#/responses/TaxRatesResponse'
   /TrackingCategories:
     x-related-model: TrackingCategory
     get:
@@ -3105,11 +2807,7 @@ paths:
       summary: Retrieve a collection of tracking categories and options
       responses:
         '200':
-          description: A successful response
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/TrackingCategory'
+          $ref: '#/responses/TrackingCategoriesResponse'
       produces:
         - application/xml
         - application/json
@@ -3130,9 +2828,7 @@ paths:
           required: true
       responses:
         '200':
-          description: A successful request
-          schema:
-            $ref: '#/definitions/TrackingCategory'
+          $ref: '#/responses/TrackingCategoriesResponse'
     post:
       tags:
         - "TrackingCategories"
@@ -3145,9 +2841,7 @@ paths:
           required: true
       responses:
         '200':
-          description: A successful request
-          schema:
-            $ref: '#/definitions/TrackingCategory'
+          $ref: '#/responses/TrackingCategoriesResponse'
   '/TrackingCategories/{TrackingCategoryID}':
     x-related-model: TrackingCategory
     get:
@@ -3156,9 +2850,7 @@ paths:
       summary: Retrieve a tracking category and it's options
       responses:
         '200':
-          description: A successful request
-          schema:
-            $ref: '#/definitions/TrackingCategory'
+          $ref: '#/responses/TrackingCategoriesResponse'
       parameters:
         - required: true
           in: path
@@ -3182,9 +2874,7 @@ paths:
           format: uuid
       responses:
         '200':
-          description: A successful request
-          schema:
-            $ref: '#/definitions/TrackingCategory'
+          $ref: '#/responses/TrackingCategoriesResponse'
     delete:
       tags:
         - "TrackingCategories"
@@ -3217,9 +2907,7 @@ paths:
           format: uuid
       responses:
         '200':
-          description: A successful request
-          schema:
-            $ref: '#/definitions/TrackingOption'
+          $ref: '#/responses/TrackingCategoriesResponse'
   '/TrackingCategories/{TrackingCategoryID}/Options/{TrackingOptionID}':
     x-related-model: TrackingCategory
     delete:
@@ -3248,11 +2936,7 @@ paths:
       summary: Retrieve a collection of Users
       responses:
         '200':
-          description: A successful response
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/User'
+          $ref: '#/responses/UsersResponse'
       produces:
         - application/xml
         - application/json
@@ -3268,9 +2952,7 @@ paths:
       summary: Retrieve an individual User
       responses:
         '200':
-          description: A successful request
-          schema:
-            $ref: '#/definitions/User'
+          $ref: '#/responses/UsersResponse'
       parameters:
         - required: true
           in: path
@@ -3279,8 +2961,6 @@ paths:
           format: uuid
 definitions:
   Account:
-    externalDocs:
-      url: 'http://developer.xero.com/documentation/api/accounts/'
     type: object
     required:
       - Code
@@ -3422,37 +3102,7 @@ definitions:
         format: date-time
         description: Last modified date UTC format
         readOnly: true
-  Accounts:
-        type: array
-        items:
-          $ref: '#/definitions/Account'
-  AccountsResponse:
-    type: object
-    xml:
-      name: Response
-    properties:
-      ID:
-        type: string
-        description: Unique identifier for each response
-        readOnly: true
-      Status:
-        type: string
-        description: OK for a successful response
-        readOnly: true
-      ProviderName:
-        type: string
-        description: Name of the application that made the request
-        readOnly: true
-      DateTimeUTC:
-        type: string
-        format: dateTime
-        description: DateTime of the request
-        readOnly: true
-      Accounts:
-        $ref: '#/definitions/Accounts'
   Address:
-    externalDocs:
-      url: 'https://developer.xero.com/documentation/api/types#addresses'
     type: object
     properties:
       AddressType:
@@ -3499,10 +3149,6 @@ definitions:
         type: string
         example: Accounts Department
         maxLength: 255
-  Addresses:
-    type: array
-    items:
-      $ref: '#/definitions/Address'
   Allocation:
     type: object
     properties:
@@ -3511,6 +3157,8 @@ definitions:
         properties:
           InvoiceId:
             type: string
+            format: uuid
+            example: 2edbb726-f6ad-41e4-8e00-f84550b8a455
       AppliedAmount:
         description: the amount being applied to the invoice
         type: number
@@ -3521,35 +3169,39 @@ definitions:
           be the latter of the invoice date and the prepayment date.
         type: string
         format: date
+        readOnly: true
   Attachment:
     type: object
     properties:
       AttachmentId:
         type: string
+        format: uuid
         description: Xero generated unique identifier for attachment
+        example: a04bf353-4d9a-4bda-8c1e-db1274164ee
       Filename:
         type: string
         description: The filename of the attachemnt
+        example: my-receipt.jpg
       Url:
         type: string
         description: The URL to where the attachment is located
+        example: https://api.xero.com/api.xro/2.0/Receipts/e59a2c7f-4078-a0f3-73537afcbba9/Attachments/my-receipt.jpg
       MimeType:
         type: string
         description: The mimetype of the attachemnt
+        example: image/jpg
       ContentLegth:
-        type: number
-        format: integer
+        type: integer
         description: The content length in bytes
+        example: 6384
       IncludeOnline:
         type: boolean
         description: Determines whether the attachment is included with the online invoice
-  Attachments:
-    type: array
-    items:
-      $ref: '#/definitions/Attachment'
+        example: true
   Balances:
     type: array
     description: The raw AccountsReceivable (sales invoices) and AccountsPayable (bills) outstanding and overdue amounts, not converted to base currency
+    readOnly: true
     items:
       properties:
         AccountsReceivable:
@@ -3630,8 +3282,6 @@ definitions:
         description: Bank account name
         example: Savings account
   BankTransaction:
-    externalDocs:
-      url: 'http://developer.xero.com/documentation/api/banktransactions/'
     type: object
     required:
       - Type
@@ -3666,10 +3316,9 @@ definitions:
       Reference:
         type: string
         description:   Reference for the transaction. Only supported for SPEND and RECEIVE transactions
+        example: ABC123
       Contact:
-        allOf:
-          - description: See Contacts
-          - $ref: '#/definitions/Contact'
+        $ref: '#/definitions/Contact'
       Date:
         type: string
         format: date
@@ -3696,17 +3345,17 @@ definitions:
       Url:
         type: string
         description: >-
-          URL link to a source document – shown as “Go to [appName]” in the Xero
-          app
+          URL link to a source document – shown as “Go to [appName]” in the Xero app
+        example: https://yourapp.com/transactions/ABC123
       CurrencyCode:
         type: string
         description: The currency that bank transaction has been raised in
+        example: AUD
       CurrencyRate:
         type: number
         format: double
         description: >-
-          The currency rate for a multicurrency bank transaction. If no rate is
-          specified, the XE.com day rate is used.
+          The currency rate for a multicurrency bank transaction. If no rate is specified, the XE.com day rate is used.
       SubTotal:
         type: number
         format: double
@@ -3721,16 +3370,17 @@ definitions:
         type: number
         format: double
         description: >-
-          Total of bank transaction tax inclusive (i.e. SubTotal + TotalTax). This will
-          be ignored if it doesn’t equal the sum of the LineAmounts
+          Total of bank transaction tax inclusive (i.e. SubTotal + TotalTax). This will be ignored if it doesn’t equal the sum of the LineAmounts
         readOnly: true
       PrepaymentID:
         type: string
+        format: uuid
         description: Xero generated unique identifier for a Prepayment. This will be returned on BankTransactions with a Type of SPEND-PREPAYMENT or RECEIVE-PREPAYMENT
         example: d2c63bbd-bc9e-4fb4-9d1c-e5d15749aaa2
         readOnly: true
       OverpaymentID:
         type: string
+        format: uuid
         description: Xero generated unique identifier for an Overpayment. This will be returned on BankTransactions with a Type of SPEND-OVERPAYMENT or RECEIVE-OVERPAYMENT
         example: 66fbdc01-e2e7-4ee3-ab10-2d5821d38fe4
         readOnly: true
@@ -3744,12 +3394,12 @@ definitions:
         description: boolean to indicate if the bank transaction has an attachment
         readOnly: true
       Attachments:
-        $ref: '#/definitions/Attachments'
+        type: array
+        items:
+          $ref: '#/definitions/Attachment'
     xml:
       name: BankTransaction
   BankTransfer:
-    externalDocs:
-      url: 'http://developer.xero.com/documentation/api/bank-transfers/'
     type: object
     required:
       - FromBankAccount
@@ -3758,6 +3408,7 @@ definitions:
     properties:
       BankTransferId:
         type: string
+        format: uuid
         description: Xero generated unique identifier for bank transfers
         readOnly: true
         example: 72f1dcfe-5d7d-4239-bf9d-e12469309716
@@ -3782,11 +3433,13 @@ definitions:
           Total of the bank transfer
       FromBankTransactionID:
         type: string
+        format: uuid
         description: The Bank Transaction ID for the source account
         example: d2c63bbd-bc9e-4fb4-9d1c-e5d15749aaa2
         readOnly: true
       ToBankTransactionID:
         type: string
+        format: uuid
         description: The Bank Transaction ID for the destination account
         example: 66fbdc01-e2e7-4ee3-ab10-2d5821d38fe4
         readOnly: true
@@ -3800,61 +3453,39 @@ definitions:
         description: boolean to indicate if the bank transaction has an attachment
         readOnly: true
       Attachments:
-        $ref: '#/definitions/Attachments'
+        type: array
+        items:
+          $ref: '#/definitions/Attachment'
     xml:
       name: BankTransfer
-  BankTransfers:
-    type: array
-    items:
-      $ref: '#/definitions/BankTransfer'
-  BankTransfersResponse:
-    type: object
-    xml:
-      name: Response
-    properties:
-      ID:
-        type: string
-        description: Unique identifier for each response
-        readOnly: true
-      Status:
-        type: string
-        description: OK for a successful response
-        readOnly: true
-      ProviderName:
-        type: string
-        description: Name of the application that made the request
-        readOnly: true
-      DateTimeUTC:
-        type: string
-        format: dateTime
-        description: DateTime of the request
-        readOnly: true
-      BankTransfers:
-        $ref: '#/definitions/BankTransfers'  
   BrandingTheme:
-    externalDocs:
-      url: 'http://developer.xero.com/documentation/api/branding-themes/'
     type: object
+    readOnly: true
     properties:
       BrandingThemeID:
         description: Xero identifier
         type: string
         format: uuid
+        readOnly: true
       Name:
         description: Name of branding theme
         type: string
+        example: VIP Customer Theme
+        readOnly: true
       SortOrder:
         description: >-
           Integer – ranked order of branding theme. The default branding theme
           has a value of 0
-        type: number
-        format: double
+        type: integer
+        readOnly: true
       CreatedDateUTC:
         description: UTC timestamp of creation date of branding theme
         type: string
         format: date-time
+        readOnly: true
   BatchPayments:
     type: object
+    readOnly: true
     properties:
       BankAccountNumber:
         type: string
@@ -3869,8 +3500,6 @@ definitions:
         readOnly: true
         example: Stuff about the account
   Contact:
-    externalDocs:
-      url: 'http://developer.xero.com/documentation/api/contacts/'
     type: object
     required:
       - Name
@@ -3936,7 +3565,10 @@ definitions:
         description: Default tax type used for contact on AP invoices
         example: NONE
       Addresses:
-        $ref: '#/definitions/Addresses'
+        description: Address details for the contact
+        type: array
+        items:
+          $ref: '#/definitions/Address'
       Phones:
         $ref: '#/definitions/Phones'
       IsSupplier:
@@ -3977,7 +3609,10 @@ definitions:
         description: Last modified date UTC format
         readOnly: true
       ContactGroups:
-        $ref: '#/definitions/ContactGroups'
+        type: array
+        readOnly: true
+        items:
+          $ref: '#/definitions/ContactGroup'
       Website:
         type: string
         description: Website address for contact 
@@ -3996,39 +3631,14 @@ definitions:
         example: true
     xml:
       name: Contact
-  Contacts:
-    type: array
-    items:
-      $ref: '#/definitions/Contact'
-  ContactsResponse:
-    type: object
-    xml:
-      name: Response
-    properties:
-      ID:
-        type: string
-        description: Unique identifier for each response
-        readOnly: true
-      Status:
-        type: string
-        description: OK for a successful response
-        readOnly: true
-      ProviderName:
-        type: string
-        description: Name of the application that made the request
-        readOnly: true
-      DateTimeUTC:
-        type: string
-        format: dateTime
-        description: DateTime of the request
-        readOnly: true
-      Contacts:
-        $ref: '#/definitions/Contacts' 
   ContactGroup:
     type: object
+    required: 
+      - Name
     properties:
       ContactGroupID:
         type: string
+        format: uuid
         description: Unique identifier for the contact group
         readOnly: true
         example: 50e845c3-464e-4a6d-8951-8794317c7893
@@ -4043,34 +3653,6 @@ definitions:
         enum:
           - ACTIVE
           - DELETED
-  ContactGroups:
-    type: array
-    items: 
-      $ref: '#/definitions/ContactGroup'
-  ContactGroupsResponse:
-    type: object
-    xml:
-      name: Response
-    properties:
-      ID:
-        type: string
-        description: Unique identifier for each response
-        readOnly: true
-      Status:
-        type: string
-        description: OK for a successful response
-        readOnly: true
-      ProviderName:
-        type: string
-        description: Name of the application that made the request
-        readOnly: true
-      DateTimeUTC:
-        type: string
-        format: dateTime
-        description: DateTime of the request
-        readOnly: true
-      ContactGroups:
-        $ref: '#/definitions/ContactGroups'   
   ContactPerson:
     type: object
     properties:
@@ -4095,34 +3677,134 @@ definitions:
     items:
       $ref: '#/definitions/ContactPerson'
   Currency:
-    externalDocs:
-      url: 'http://developer.xero.com/documentation/api/currencies/'
+    type: object
     properties:
       Code:
         description: 3 letter alpha code for the currency – see list of currency codes
         type: string
+        example: AUD
+        readOnly: true
       Description:
         description: Name of Currency
         type: string
+        example: Australian Dollar
+        readOnly: true
   CreditNote:
     type: object
+    required:
+      - Type
+      - Contact
+      - LineItems
     properties:
-      CreditNoteID:
+      Type:
+        description: The type of Credit Note
         type: string
-      CreditNoteNumber:
-        type: string
+        enum:
+          - ACCPAYCREDIT
+          - ACCRECCREDIT
+      Contact:
+        $ref: '#/definitions/Contact'
       Date:
+        description: >-
+          The date the credit note is issued YYYY-MM-DD. If the Date element is not specified then it will default to the current date based on the timezone setting of the organisation
         type: string
         format: date
+      Status:
+        description: The Credit Note status
+        type: string
+        enum:
+          - DRAFT
+          - SUBMITTED
+          - AUTHORISED
+          - PAID
+          - VOIDED
+          - DELETED
+      LineAmountTypes:
+        description: How tax is applied on the line items
+        type: string
+        enum:
+          - Inclusive
+          - Exclusive
+          - NoTax
+      LineItems:
+        type: array
+        items:
+          $ref: '#/definitions/LineItem'
+      SubTotal:
+        description: The subtotal of the credit note excluding taxes
+        type: number
+        format: float
+        readOnly: true
+      TotalTax:
+        description: The total tax on the credit note
+        type: number
+        format: float
+        readOnly: true
       Total:
+        description: The total of the Credit Note(subtotal + total tax)
         type: number
-        format: double
-      AppliedAmount:
+        format: float
+        readOnly: true
+      UpdatedDateUTC:
+        description: UTC timestamp of last update to the credit note
+        type: string
+        format: date-time
+        readOnly: true
+      CurrencyCode:
+        description: Currency used for the Credit Note
+        type: string
+        example: AUD
+      FullyPaidOnDate:
+        description: Date when credit note was fully paid
+        type: string
+        format: date
+        readOnly: true
+      CreditNoteID:
+        description: Xero generated unique identifier
+        type: string
+        format: uuid
+        readOnly: true
+      CreditNoteNumber:
+        description: >-
+          ACCRECCREDIT – Unique alpha numeric code identifying credit note (when missing will auto-generate from your Organisation Invoice Settings)
+        type: string
+        example: CN-123
+      Reference:
+        description: ACCRECCREDIT only – additional reference number
+        type: string
+        example: ABC123
+      SentToContact:
+        description: >-
+          boolean to indicate if a credit note has been sent to a contact via
+          the Xero app (currently read only)
+        readOnly: true
+        type: boolean
+      CurrencyRate:
+        description: >-
+          The currency rate for a multicurrency invoice. If no rate is
+          specified, the XE.com day rate is used
         type: number
-        format: double
+        format: float
+      RemainingCredit:
+        description: The remaining credit balance on the Credit Note
+        type: number
+        format: float
+        readOnly: true
+      Allocations:
+        description: Transactions the credit note has been allocated to
+        type: array
+        readOnly: true
+        items:
+          $ref: '#/definitions/Allocation'
+      BrandingThemeID:
+        description: The identifier for the branding theme applied to the credit note
+        type: string
+        format: uuid
+      HasAttachments:
+        description: boolean to indicate if a credit note has an attachment
+        type: boolean
+        readOnly: true
   Content:
-    externalDocs:
-      url: 'http://developer.xero.com/documentation/api/contacts/'
     type: object
     required:
       - Content
@@ -4130,16 +3812,12 @@ definitions:
       Content:
         type: string
         description: The raw file content
-        example: "cc04bc53-f094-4ed6-8b3e-67297c37fae0"
-        readOnly: true
-  CreditNotes:
-    type: array
-    items:
-      $ref: '#/definitions/CreditNote'
+        example: "23456238745623865897326457634259763425976342596"
   Employee:
-    externalDocs:
-      url: 'http://developer.xero.com/documentation/api/employees/'
     type: object
+    required:
+      - FirstName
+      - LastName
     properties:
       EmployeeID:
         description: |-
@@ -4147,17 +3825,23 @@ definitions:
           e.g. 297c2dc5-cc47-4afd-8ec8-74990b8761e9
         type: string
         format: uuid
+        readOnly: true
       Status:
-        description: Current status of an employee – see contact status types
+        description: Current status of an employee
         type: string
+        enum:
+          - ACTIVE
+          - ARCHIVED
       FirstName:
         description: First name of an employee (max length = 255)
         maxLength: 255
         type: string
+        example: Adam
       LastName:
         description: Last name of an employee (max length = 255)
         maxLength: 255
         type: string
+        example: Moore
       ExternalLink:
         type: object
         allOf:
@@ -4170,8 +3854,6 @@ definitions:
               is making the API call.
           - $ref: '#/definitions/ExternalLink'
   ExpenseClaim:
-    externalDocs:
-      url: 'http://developer.xero.com/documentation/api/expense-claims/'
     type: object
     properties:
       User:
@@ -4237,8 +3919,6 @@ definitions:
       - Receipts
       - ReceiptID  
   ExternalLink:
-    externalDocs:
-      url: 'http://developer.xero.com/documentation/api/organisation/'
     type: object
     properties:
       LinkType:
@@ -4402,48 +4082,28 @@ definitions:
         description: boolean to indicate if an invoice has an attachment
         readOnly: true
       Attachments:
-        $ref: '#/definitions/Attachments'
+        type: array
+        items:
+          $ref: '#/definitions/Attachment'
       Payments:
-        $ref: '#/definitions/Payments'
+        type: array
+        items:
+          $ref: '#/definitions/Payment'
       CreditNotes:
-        $ref: '#/definitions/CreditNotes'
+        type: array
+        items:
+          $ref: '#/definitions/CreditNote'
       Prepayments:
-        $ref: '#/definitions/Prepayments'
+        type: array
+        items:
+          $ref: '#/definitions/Prepayment'
       Overpayments:
-        $ref: '#/definitions/Overpayments'
+        type: array
+        items:
+          $ref: '#/definitions/Overpayment'
     xml:
       name: Invoice
-  Invoices:
-    type: array
-    items:
-      $ref: '#/definitions/Invoice'
-  InvoicesResponse:
-    type: object
-    xml:
-      name: Response
-    properties:
-      ID:
-        type: string
-        description: Unique identifier for each response
-        readOnly: true
-      Status:
-        type: string
-        description: OK for a successful response
-        readOnly: true
-      ProviderName:
-        type: string
-        description: Name of the application that made the request
-        readOnly: true
-      DateTimeUTC:
-        type: string
-        format: dateTime
-        description: DateTime of the request
-        readOnly: true
-      Invoices:
-        $ref: '#/definitions/Invoices'
   Item:
-    externalDocs:
-      url: 'http://developer.xero.com/documentation/api/items/'
     type: object
     properties:
       Code:
@@ -4528,37 +4188,7 @@ definitions:
       CurrencyRate:
         type: number
         format: double
-  Payments:
-    type: array
-    items:
-      $ref: '#/definitions/Payment'
-  PaymentsResponse:
-    type: object
-    xml:
-      name: Response
-    properties:
-      ID:
-        type: string
-        description: Unique identifier for each response
-        readOnly: true
-      Status:
-        type: string
-        description: OK for a successful response
-        readOnly: true
-      ProviderName:
-        type: string
-        description: Name of the application that made the request
-        readOnly: true
-      DateTimeUTC:
-        type: string
-        format: dateTime
-        description: DateTime of the request
-        readOnly: true
-      Payments:
-        $ref: '#/definitions/Payments'
   Prepayment:
-    externalDocs:
-      url: 'http://developer.xero.com/documentation/api/prepayments/'
     type: object
     properties:
       Date:
@@ -4628,34 +4258,6 @@ definitions:
       HasAttachments:
         description: boolean to indicate if a prepayment has an attachment
         type: boolean
-  Prepayments:
-    type: array
-    items:
-      $ref: '#/definitions/Prepayment'
-  PrepaymentsResponse:
-    type: object
-    xml:
-      name: Response
-    properties:
-      ID:
-        type: string
-        description: Unique identifier for each response
-        readOnly: true
-      Status:
-        type: string
-        description: OK for a successful response
-        readOnly: true
-      ProviderName:
-        type: string
-        description: Name of the application that made the request
-        readOnly: true
-      DateTimeUTC:
-        type: string
-        format: dateTime
-        description: DateTime of the request
-        readOnly: true
-      Prepayments:
-          $ref: '#/definitions/Prepayments'
   Overpayment:
     type: object
     properties:
@@ -4670,37 +4272,7 @@ definitions:
       AppliedAmount:
         type: number
         format: double
-  Overpayments:
-    type: array
-    items:
-      $ref: '#/definitions/Overpayment'
-  OverpaymentsResponse:
-    type: object
-    xml:
-      name: Response
-    properties:
-      ID:
-        type: string
-        description: Unique identifier for each response
-        readOnly: true
-      Status:
-        type: string
-        description: OK for a successful response
-        readOnly: true
-      ProviderName:
-        type: string
-        description: Name of the application that made the request
-        readOnly: true
-      DateTimeUTC:
-        type: string
-        format: dateTime
-        description: DateTime of the request
-        readOnly: true
-      Overpayments:
-          $ref: '#/definitions/Overpayments'
   Purchase:
-    externalDocs:
-      url: 'http://developer.xero.com/documentation/api/items/'
     properties:
       UnitPrice:
         description: >-
@@ -4725,8 +4297,6 @@ definitions:
           <AccountCode> is not correct – see TaxTypes.
         type: string
   Journal:
-    externalDocs:
-      url: 'http://developer.xero.com/documentation/api/journals/'
     properties:
       JournalID:
         description: Xero identifier
@@ -4761,8 +4331,6 @@ definitions:
         items:
           $ref: '#/definitions/JournalLine'
   JournalLine:
-    externalDocs:
-      url: 'http://developer.xero.com/documentation/api/manual-journals/'
     properties:
       LineAmount:
         description: 'total for line. Debits are positive, credits are negative value'
@@ -4862,8 +4430,6 @@ definitions:
     items:
       $ref: '#/definitions/LineItem'
   LinkedTransaction:
-    externalDocs:
-      url: 'http://developer.xero.com/documentation/api/linked-transactions/'
     type: object
     properties:
       SourceTransactionID:
@@ -4927,8 +4493,6 @@ definitions:
     required:
       - SourceLineItemID
   ManualJournal:
-    externalDocs:
-      url: 'http://developer.xero.com/documentation/api/manual-journals/'
     type: object
     properties:
       Narration:
@@ -4976,44 +4540,12 @@ definitions:
       - Narration
       - JournalLines
   OnlineInvoice:
-    externalDocs:
-      url: 'http://developer.xero.com/documentation/api/invoices/'
     properties:
       OnlineInvoiceUrl:
         description: >-
           The URL to view the online invoice
         type: string
-  OnlineInvoices:
-    type: array
-    items:
-      $ref: '#/definitions/OnlineInvoice'
-  OnlineInvoicesResponse:
-    type: object
-    xml:
-      name: Response
-    properties:
-      ID:
-        type: string
-        description: Unique identifier for each response
-        readOnly: true
-      Status:
-        type: string
-        description: OK for a successful response
-        readOnly: true
-      ProviderName:
-        type: string
-        description: Name of the application that made the request
-        readOnly: true
-      DateTimeUTC:
-        type: string
-        format: dateTime
-        description: DateTime of the request
-        readOnly: true
-      Accounts:
-        $ref: '#/definitions/OnlineInvoices'
   Organisation:
-    externalDocs:
-      url: 'http://developer.xero.com/documentation/api/organisation/'
     properties:
       APIKey:
         description: Display a unique key used for Xero-to-Xero transactions
@@ -5210,14 +4742,10 @@ definitions:
         example: 01
         maxLength: 20
   Phones:
-    externalDocs:
-      url: 'http://developer.xero.com/documentation/api/types#phones'
     type: array
     items:
       $ref: '#/definitions/Phone'  
   PurchaseOrder:
-    externalDocs:
-      url: 'http://developer.xero.com/documentation/api/purchase-orders/'
     type: object
     properties:
       Contact:
@@ -5332,8 +4860,6 @@ definitions:
       - Contact
       - LineItems
   Receipt:
-    externalDocs:
-      url: 'http://developer.xero.com/documentation/api/receipts/'
     type: object
     properties:
       Date:
@@ -5409,8 +4935,6 @@ definitions:
       - Lineitems
       - User
   RepeatingInvoice:
-    externalDocs:
-      url: 'http://developer.xero.com/documentation/api/repeating-invoices/'
     properties:
       Type:
         description: See Invoice Types
@@ -5466,13 +4990,10 @@ definitions:
         description: boolean to indicate if an invoice has an attachment
         type: boolean
   Schedule:
-    externalDocs:
-      url: 'http://developer.xero.com/documentation/api/repeating-invoices/'
     properties:
       Period:
         description: 'Integer used with the unit e.g. 1 (every 1 week), 2 (every 2 months)'
-        type: number
-        format: double
+        type: integer
       Unit:
         description: 'One of the following : WEEKLY or MONTHLY'
         type: string
@@ -5480,8 +5001,7 @@ definitions:
         description: >-
           Integer used with due date type e.g 20 (of following month), 31 (of
           current month)
-        type: number
-        format: integer
+        type: integer
       DueDateType:
         description: >-
           Used with due date to describe when the invoice is due
@@ -5506,8 +5026,6 @@ definitions:
         type: string
         format: date
   TaxRate:
-    externalDocs:
-      url: 'http://developer.xero.com/documentation/api/tax-rates/'
     type: object
     properties:
       Name:
@@ -5579,8 +5097,6 @@ definitions:
     required:
       - ReportTaxType
   TaxComponent:
-    externalDocs:
-      url: 'http://developer.xero.com/documentation/api/tax-rates/'
     properties:
       Name:
         description: Name of Tax Component
@@ -5597,8 +5113,6 @@ definitions:
         description: Filter by a Tax Type
         type: string
   TrackingCategory:
-    externalDocs:
-      url: 'http://developer.xero.com/documentation/api/tracking-categories/'
     type: object
     properties:
       TrackingCategoryID:
@@ -5623,8 +5137,6 @@ definitions:
           $ref: '#/definitions/TrackingOption'
   TrackingOption:
     type: object
-    externalDocs:
-      url: 'http://developer.xero.com/documentation/api/tracking-categories/'
     properties:
       TrackingOptionID:
         description: >-
@@ -5674,8 +5186,6 @@ definitions:
     items:
       $ref: '#/definitions/TrackingCategory'
   User:
-    externalDocs:
-      url: 'http://developer.xero.com/documentation/api/users/'
     type: object
     properties:
       UserID:
@@ -5817,5 +5327,837 @@ responses:
                           example: You did something silly
   404ErrorResponse:
     description: The resource you're looking for cannot be found
-
-  
+  AttachmentsResponse:
+    description: A successful response
+    schema:
+      type: object
+      xml:
+        name: Response
+      properties:
+        ID:
+          type: string
+          description: Unique identifier for each response
+          readOnly: true
+          example: 8904103f-f25e-4af2-887a-f5d3acace293
+        Status:
+          type: string
+          description: OK for a successful response
+          readOnly: true
+          example: OK
+        ProviderName:
+          type: string
+          description: Name of the application that made the request
+          readOnly: true
+          example: My Awesome App
+        DateTimeUTC:
+          type: string
+          format: date-time
+          description: DateTime of the request
+          readOnly: true
+        Attachments:
+          type: array
+          items:
+            $ref: '#/definitions/Attachment'
+  AccountsResponse:
+    description: A successful response
+    schema:
+      type: object
+      xml:
+        name: Response
+      properties:
+        ID:
+          type: string
+          description: Unique identifier for each response
+          readOnly: true
+          example: 8904103f-f25e-4af2-887a-f5d3acace293
+        Status:
+          type: string
+          description: OK for a successful response
+          readOnly: true
+          example: OK
+        ProviderName:
+          type: string
+          description: Name of the application that made the request
+          readOnly: true
+          example: My Awesome App
+        DateTimeUTC:
+          type: string
+          format: date-time
+          description: DateTime of the request
+          readOnly: true
+        Accounts:
+          type: array
+          items:
+            $ref: '#/definitions/Account' 
+  BankTransactionsResponse:
+    description: A successful response
+    schema:
+      type: object
+      xml:
+        name: Response
+      properties:
+        ID:
+          type: string
+          description: Unique identifier for each response
+          readOnly: true
+          example: 8904103f-f25e-4af2-887a-f5d3acace293
+        Status:
+          type: string
+          description: OK for a successful response
+          readOnly: true
+          example: OK
+        ProviderName:
+          type: string
+          description: Name of the application that made the request
+          readOnly: true
+          example: My Awesome App
+        DateTimeUTC:
+          type: string
+          format: date-time
+          description: DateTime of the request
+          readOnly: true
+        BankTransactions:
+          type: array
+          items:
+            $ref: '#/definitions/BankTransaction'          
+  BankTransfersResponse:
+    description: A successful response
+    schema:
+      type: object
+      xml:
+        name: Response
+      properties:
+        ID:
+          type: string
+          description: Unique identifier for each response
+          readOnly: true
+          example: 8904103f-f25e-4af2-887a-f5d3acace293
+        Status:
+          type: string
+          description: OK for a successful response
+          readOnly: true
+          example: OK
+        ProviderName:
+          type: string
+          description: Name of the application that made the request
+          readOnly: true
+          example: My Awesome App
+        DateTimeUTC:
+          type: string
+          format: date-time
+          description: DateTime of the request
+          readOnly: true
+        BankTransfers:
+          type: array
+          items:
+            $ref: '#/definitions/BankTransfer'
+  BrandingThemesResponse:
+    description: A successful response
+    schema:
+      type: object
+      xml:
+        name: Response
+      properties:
+        ID:
+          type: string
+          description: Unique identifier for each response
+          readOnly: true
+          example: 8904103f-f25e-4af2-887a-f5d3acace293
+        Status:
+          type: string
+          description: OK for a successful response
+          readOnly: true
+          example: OK
+        ProviderName:
+          type: string
+          description: Name of the application that made the request
+          readOnly: true
+          example: My Awesome App
+        DateTimeUTC:
+          type: string
+          format: date-time
+          description: DateTime of the request
+          readOnly: true
+        BrandingThemes:
+          type: array
+          items:
+            $ref: '#/definitions/BrandingTheme'
+  ContactsResponse:
+    description: A successful response
+    schema:
+      type: object
+      xml:
+        name: Response
+      properties:
+        ID:
+          type: string
+          description: Unique identifier for each response
+          readOnly: true
+          example: 8904103f-f25e-4af2-887a-f5d3acace293
+        Status:
+          type: string
+          description: OK for a successful response
+          readOnly: true
+          example: OK
+        ProviderName:
+          type: string
+          description: Name of the application that made the request
+          readOnly: true
+          example: My Awesome App
+        DateTimeUTC:
+          type: string
+          format: date-time
+          description: DateTime of the request
+          readOnly: true
+        Contacts:
+          type: array
+          items:
+            $ref: '#/definitions/Contact'
+  ContactGroupsResponse:
+    description: A successful response
+    schema:
+      type: object
+      xml:
+        name: Response
+      properties:
+        ID:
+          type: string
+          description: Unique identifier for each response
+          readOnly: true
+          example: 8904103f-f25e-4af2-887a-f5d3acace293
+        Status:
+          type: string
+          description: OK for a successful response
+          readOnly: true
+          example: OK
+        ProviderName:
+          type: string
+          description: Name of the application that made the request
+          readOnly: true
+          example: My Awesome App
+        DateTimeUTC:
+          type: string
+          format: date-time
+          description: DateTime of the request
+          readOnly: true
+        ContactGroups:
+          type: array
+          items:
+            $ref: '#/definitions/ContactGroup'   
+  CreditNotesResponse:
+    description: A successful response
+    schema:
+      type: object
+      xml:
+        name: Response
+      properties:
+        ID:
+          type: string
+          description: Unique identifier for each response
+          readOnly: true
+          example: 8904103f-f25e-4af2-887a-f5d3acace293
+        Status:
+          type: string
+          description: OK for a successful response
+          readOnly: true
+          example: OK
+        ProviderName:
+          type: string
+          description: Name of the application that made the request
+          readOnly: true
+          example: My Awesome App
+        DateTimeUTC:
+          type: string
+          format: date-time
+          description: DateTime of the request
+          readOnly: true
+        CreditNotes:
+          type: array
+          items:
+            $ref: '#/definitions/CreditNote'
+  CurrenciesResponse:
+    description: A successful response
+    schema:
+      type: object
+      xml:
+        name: Response
+      properties:
+        ID:
+          type: string
+          description: Unique identifier for each response
+          readOnly: true
+          example: 8904103f-f25e-4af2-887a-f5d3acace293
+        Status:
+          type: string
+          description: OK for a successful response
+          readOnly: true
+          example: OK
+        ProviderName:
+          type: string
+          description: Name of the application that made the request
+          readOnly: true
+          example: My Awesome App
+        DateTimeUTC:
+          type: string
+          format: date-time
+          description: DateTime of the request
+          readOnly: true
+        Currencies:
+          type: array
+          items:
+            $ref: '#/definitions/Currency'
+  EmployeesResponse:
+    description: A successful response
+    schema:
+      type: object
+      xml:
+        name: Response
+      properties:
+        ID:
+          type: string
+          description: Unique identifier for each response
+          readOnly: true
+          example: 8904103f-f25e-4af2-887a-f5d3acace293
+        Status:
+          type: string
+          description: OK for a successful response
+          readOnly: true
+          example: OK
+        ProviderName:
+          type: string
+          description: Name of the application that made the request
+          readOnly: true
+          example: My Awesome App
+        DateTimeUTC:
+          type: string
+          format: date-time
+          description: DateTime of the request
+          readOnly: true
+        Employees:
+          type: array
+          items:
+            $ref: '#/definitions/Employee'    
+  ExpenseClaimsResponse:
+    description: A successful response
+    schema:
+      type: object
+      xml:
+        name: Response
+      properties:
+        ID:
+          type: string
+          description: Unique identifier for each response
+          readOnly: true
+          example: 8904103f-f25e-4af2-887a-f5d3acace293
+        Status:
+          type: string
+          description: OK for a successful response
+          readOnly: true
+          example: OK
+        ProviderName:
+          type: string
+          description: Name of the application that made the request
+          readOnly: true
+          example: My Awesome App
+        DateTimeUTC:
+          type: string
+          format: date-time
+          description: DateTime of the request
+          readOnly: true
+        ExpenseClaims:
+          type: array
+          items:
+            $ref: '#/definitions/ExpenseClaim'  
+  InvoicesResponse:
+    description: A successful response
+    schema:
+      type: object
+      xml:
+        name: Response
+      properties:
+        ID:
+          type: string
+          description: Unique identifier for each response
+          readOnly: true
+          example: 8904103f-f25e-4af2-887a-f5d3acace293
+        Status:
+          type: string
+          description: OK for a successful response
+          readOnly: true
+          example: OK
+        ProviderName:
+          type: string
+          description: Name of the application that made the request
+          readOnly: true
+          example: My Awesome App
+        DateTimeUTC:
+          type: string
+          format: date-time
+          description: DateTime of the request
+          readOnly: true
+        Invoices:
+          type: array
+          items:
+            $ref: '#/definitions/Invoice' 
+  ItemsResponse:
+    description: A successful response
+    schema:
+      type: object
+      xml:
+        name: Response
+      properties:
+        ID:
+          type: string
+          description: Unique identifier for each response
+          readOnly: true
+          example: 8904103f-f25e-4af2-887a-f5d3acace293
+        Status:
+          type: string
+          description: OK for a successful response
+          readOnly: true
+          example: OK
+        ProviderName:
+          type: string
+          description: Name of the application that made the request
+          readOnly: true
+          example: My Awesome App
+        DateTimeUTC:
+          type: string
+          format: date-time
+          description: DateTime of the request
+          readOnly: true
+        Items:
+          type: array
+          items:
+            $ref: '#/definitions/Item'   
+  JournalsResponse:
+    description: A successful response
+    schema:
+      type: object
+      xml:
+        name: Response
+      properties:
+        ID:
+          type: string
+          description: Unique identifier for each response
+          readOnly: true
+          example: 8904103f-f25e-4af2-887a-f5d3acace293
+        Status:
+          type: string
+          description: OK for a successful response
+          readOnly: true
+          example: OK
+        ProviderName:
+          type: string
+          description: Name of the application that made the request
+          readOnly: true
+          example: My Awesome App
+        DateTimeUTC:
+          type: string
+          format: date-time
+          description: DateTime of the request
+          readOnly: true
+        Journals:
+          type: array
+          items:
+            $ref: '#/definitions/Journal'
+  LinkedTransactionsResponse:
+    description: A successful response
+    schema:
+      type: object
+      xml:
+        name: Response
+      properties:
+        ID:
+          type: string
+          description: Unique identifier for each response
+          readOnly: true
+          example: 8904103f-f25e-4af2-887a-f5d3acace293
+        Status:
+          type: string
+          description: OK for a successful response
+          readOnly: true
+          example: OK
+        ProviderName:
+          type: string
+          description: Name of the application that made the request
+          readOnly: true
+          example: My Awesome App
+        DateTimeUTC:
+          type: string
+          format: date-time
+          description: DateTime of the request
+          readOnly: true
+        LinkedTransactions:
+          type: array
+          items:
+            $ref: '#/definitions/LinkedTransaction'
+  ManualJournalsResponse:
+    description: A successful response
+    schema:
+      type: object
+      xml:
+        name: Response
+      properties:
+        ID:
+          type: string
+          description: Unique identifier for each response
+          readOnly: true
+          example: 8904103f-f25e-4af2-887a-f5d3acace293
+        Status:
+          type: string
+          description: OK for a successful response
+          readOnly: true
+          example: OK
+        ProviderName:
+          type: string
+          description: Name of the application that made the request
+          readOnly: true
+          example: My Awesome App
+        DateTimeUTC:
+          type: string
+          format: date-time
+          description: DateTime of the request
+          readOnly: true
+        ManualJournals:
+          type: array
+          items:
+            $ref: '#/definitions/ManualJournal'
+  OnlineInvoicesResponse:
+    description: A successful response
+    schema:
+      type: object
+      xml:
+       name: Response
+      properties:
+        ID:
+          type: string
+          description: Unique identifier for each response
+          readOnly: true
+        Status:
+          type: string
+          description: OK for a successful response
+          readOnly: true
+        ProviderName:
+          type: string
+          description: Name of the application that made the request
+          readOnly: true
+        DateTimeUTC:
+          type: string
+          format: dateTime
+          description: DateTime of the request
+          readOnly: true
+        OnlineInvoices:
+          type: array
+          items:
+            $ref: '#/definitions/OnlineInvoice'
+  OrganisationsResponse:
+    description: A successful response
+    schema:
+      type: object
+      xml:
+        name: Response
+      properties:
+        ID:
+          type: string
+          description: Unique identifier for each response
+          readOnly: true
+          example: 8904103f-f25e-4af2-887a-f5d3acace293
+        Status:
+          type: string
+          description: OK for a successful response
+          readOnly: true
+          example: OK
+        ProviderName:
+          type: string
+          description: Name of the application that made the request
+          readOnly: true
+          example: My Awesome App
+        DateTimeUTC:
+          type: string
+          format: date-time
+          description: DateTime of the request
+          readOnly: true
+        Organisations:
+          type: array
+          items:
+            $ref: '#/definitions/Organisation' 
+  OverpaymentsResponse:
+    description: A successful response
+    schema:
+      type: object
+      xml:
+        name: Response
+      properties:
+        ID:
+          type: string
+          description: Unique identifier for each response
+          readOnly: true
+          example: 8904103f-f25e-4af2-887a-f5d3acace293
+        Status:
+          type: string
+          description: OK for a successful response
+          readOnly: true
+          example: OK
+        ProviderName:
+          type: string
+          description: Name of the application that made the request
+          readOnly: true
+          example: My Awesome App
+        DateTimeUTC:
+          type: string
+          format: date-time
+          description: DateTime of the request
+          readOnly: true
+        Overpayments:
+          type: array
+          items:
+            $ref: '#/definitions/Overpayment'
+  PaymentsResponse:
+    description: A successful response
+    schema:
+      type: object
+      xml:
+        name: Response
+      properties:
+        ID:
+          type: string
+          description: Unique identifier for each response
+          readOnly: true
+          example: 8904103f-f25e-4af2-887a-f5d3acace293
+        Status:
+          type: string
+          description: OK for a successful response
+          readOnly: true
+          example: OK
+        ProviderName:
+          type: string
+          description: Name of the application that made the request
+          readOnly: true
+          example: My Awesome App
+        DateTimeUTC:
+          type: string
+          format: date-time
+          description: DateTime of the request
+          readOnly: true
+        Payments:
+          type: array
+          items:
+            $ref: '#/definitions/Payment'  
+  PrepaymentsResponse:
+    description: A successful response
+    schema:
+      type: object
+      xml:
+        name: Response
+      properties:
+        ID:
+          type: string
+          description: Unique identifier for each response
+          readOnly: true
+          example: 8904103f-f25e-4af2-887a-f5d3acace293
+        Status:
+          type: string
+          description: OK for a successful response
+          readOnly: true
+          example: OK
+        ProviderName:
+          type: string
+          description: Name of the application that made the request
+          readOnly: true
+          example: My Awesome App
+        DateTimeUTC:
+          type: string
+          format: date-time
+          description: DateTime of the request
+          readOnly: true
+        Prepayments:
+          type: array
+          items:
+            $ref: '#/definitions/Prepayment'            
+  PurchaseOrdersResponse:
+    description: A successful response
+    schema:
+      type: object
+      xml:
+        name: Response
+      properties:
+        ID:
+          type: string
+          description: Unique identifier for each response
+          readOnly: true
+          example: 8904103f-f25e-4af2-887a-f5d3acace293
+        Status:
+          type: string
+          description: OK for a successful response
+          readOnly: true
+          example: OK
+        ProviderName:
+          type: string
+          description: Name of the application that made the request
+          readOnly: true
+          example: My Awesome App
+        DateTimeUTC:
+          type: string
+          format: date-time
+          description: DateTime of the request
+          readOnly: true
+        PurchaseOrders:
+          type: array
+          items:
+            $ref: '#/definitions/PurchaseOrder' 
+  ReceiptsResponse:
+    description: A successful response
+    schema:
+      type: object
+      xml:
+        name: Response
+      properties:
+        ID:
+          type: string
+          description: Unique identifier for each response
+          readOnly: true
+          example: 8904103f-f25e-4af2-887a-f5d3acace293
+        Status:
+          type: string
+          description: OK for a successful response
+          readOnly: true
+          example: OK
+        ProviderName:
+          type: string
+          description: Name of the application that made the request
+          readOnly: true
+          example: My Awesome App
+        DateTimeUTC:
+          type: string
+          format: date-time
+          description: DateTime of the request
+          readOnly: true
+        Receipts:
+          type: array
+          items:
+            $ref: '#/definitions/Receipt' 
+  RepeatingInvoicesResponse:
+    description: A successful response
+    schema:
+      type: object
+      xml:
+        name: Response
+      properties:
+        ID:
+          type: string
+          description: Unique identifier for each response
+          readOnly: true
+          example: 8904103f-f25e-4af2-887a-f5d3acace293
+        Status:
+          type: string
+          description: OK for a successful response
+          readOnly: true
+          example: OK
+        ProviderName:
+          type: string
+          description: Name of the application that made the request
+          readOnly: true
+          example: My Awesome App
+        DateTimeUTC:
+          type: string
+          format: date-time
+          description: DateTime of the request
+          readOnly: true
+        RepeatingInvoices:
+          type: array
+          items:
+            $ref: '#/definitions/RepeatingInvoice' 
+  TaxRatesResponse:
+    description: A successful response
+    schema:
+      type: object
+      xml:
+        name: Response
+      properties:
+        ID:
+          type: string
+          description: Unique identifier for each response
+          readOnly: true
+          example: 8904103f-f25e-4af2-887a-f5d3acace293
+        Status:
+          type: string
+          description: OK for a successful response
+          readOnly: true
+          example: OK
+        ProviderName:
+          type: string
+          description: Name of the application that made the request
+          readOnly: true
+          example: My Awesome App
+        DateTimeUTC:
+          type: string
+          format: date-time
+          description: DateTime of the request
+          readOnly: true
+        TaxRates:
+          type: array
+          items:
+            $ref: '#/definitions/TaxRate' 
+  TrackingCategoriesResponse:
+    description: A successful response
+    schema:
+      type: object
+      xml:
+        name: Response
+      properties:
+        ID:
+          type: string
+          description: Unique identifier for each response
+          readOnly: true
+          example: 8904103f-f25e-4af2-887a-f5d3acace293
+        Status:
+          type: string
+          description: OK for a successful response
+          readOnly: true
+          example: OK
+        ProviderName:
+          type: string
+          description: Name of the application that made the request
+          readOnly: true
+          example: My Awesome App
+        DateTimeUTC:
+          type: string
+          format: date-time
+          description: DateTime of the request
+          readOnly: true
+        TrackingCategories:
+          type: array
+          items:
+            $ref: '#/definitions/TrackingCategory' 
+  UsersResponse:
+    description: A successful response
+    schema:
+      type: object
+      xml:
+        name: Response
+      properties:
+        ID:
+          type: string
+          description: Unique identifier for each response
+          readOnly: true
+          example: 8904103f-f25e-4af2-887a-f5d3acace293
+        Status:
+          type: string
+          description: OK for a successful response
+          readOnly: true
+          example: OK
+        ProviderName:
+          type: string
+          description: Name of the application that made the request
+          readOnly: true
+          example: My Awesome App
+        DateTimeUTC:
+          type: string
+          format: date-time
+          description: DateTime of the request
+          readOnly: true
+        Users:
+          type: array
+          items:
+            $ref: '#/definitions/User' 

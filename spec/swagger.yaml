@@ -3859,7 +3859,7 @@ definitions:
       User:
         $ref: '#/definitions/User'
       Receipts:
-        description: See Receipts
+        description: The Receipts in the expense claim
         type: array
         items:
           $ref: '#/definitions/Receipt'
@@ -3869,15 +3869,18 @@ definitions:
         type: string
         format: uuid
       Payments:
-        description: See Payments
+        description: Payments applied to the expense claim
         readOnly: true
         type: array
         items:
           $ref: '#/definitions/Payment'
       Status:
         description: Current status of an expense claim – see status types
-        readOnly: true
         type: string
+        enum:
+          - SUBMITTED
+          - AUTHORISED
+          - PAID
       UpdatedDateUTC:
         description: Last modified date UTC format
         readOnly: true
@@ -3908,16 +3911,9 @@ definitions:
         readOnly: true
         type: string
         format: date
-      ReceiptID:
-        description: >-
-          The Xero identifier for the Receipt e.g.
-          e59a2c7f-1306-4078-a0f3-73537afcbba9
-        type: string
-        format: uuid
     required:
       - User
       - Receipts
-      - ReceiptID  
   ExternalLink:
     type: object
     properties:
@@ -3931,8 +3927,9 @@ definitions:
           - Twitter
           - Website
       Url:
-        description: 'URL for service e.g. http://twitter.com/xeroapi'
+        description: URL for service
         type: string
+        example: http://twitter.com/xeroapi
   Invoice:
     type: object
     required:
@@ -3942,6 +3939,7 @@ definitions:
     properties:
       InvoiceId:
         type: string
+        format: uuid
         description: Xero generated unique identifier for invoice
         readOnly: true
       Type:
@@ -3950,7 +3948,6 @@ definitions:
         enum:
           - ACCREC
           - ACCPAY
-        example: ACCREC 
       InvoiceNumber:
         type: string
         description: |
@@ -3962,6 +3959,7 @@ definitions:
       Reference:
         type: string
         description: ACCREC only – additional reference number
+        example: REF-123
       Contact:
         $ref: '#/definitions/Contact'
       Date:
@@ -3997,15 +3995,18 @@ definitions:
         $ref: '#/definitions/LineItems'
       BrandingThemeID:
         type: string
+        format: uuid
         description: The identifier for the branding theme applied to the invoice
       Url:
         type: string
         description: >-
           URL link to a source document – shown as “Go to [appName]” in the Xero
           app
+        example: https://myapp.com/INV-123
       CurrencyCode:
         type: string
         description: The currency that invoice has been raised in
+        example: AUD
       CurrencyRate:
         type: number
         format: double

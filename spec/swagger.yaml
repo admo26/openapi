@@ -2757,6 +2757,198 @@ paths:
           description: Attachment does not exist
         '500':
           $ref: '#/responses/500ErrorResponse'
+  /Reports:
+    x-related-model: Report
+    get:
+      tags:
+        - "Reports"
+      summary: Retrieve Reports
+      responses:
+        '200':
+          $ref: '#/responses/ReportsResponse'
+      produces:
+        - application/xml
+        - application/json
+      parameters:
+        - $ref: '#/parameters/If-Modified-Since'
+        - $ref: '#/parameters/order'
+        - $ref: '#/parameters/where'
+  '/Reports/{ReportID}':
+    x-related-model: Reports
+    get:
+      tags:
+        - "Reports"
+      summary: Retrieve an individual BAS Report (AU) or GST Report (NZ)
+      responses:
+        '200':
+          $ref: '#/responses/ReportsResponse'
+      parameters:
+        - required: true
+          in: path
+          name: ReportID
+          type: string
+          format: uuid
+  '/Reports/AgedPayablesByContact':
+    x-related-model: Reports
+    get:
+      tags:
+        - "Reports"
+      summary: Retrieve an Aged Payables report for a contact
+      responses:
+        '200':
+          $ref: '#/responses/ReportsResponse'
+      parameters:
+        - required: true
+          in: query
+          name: contactID
+          type: string
+          format: uuid
+          description: ContactID for the contact you're running the report for
+        - required: false
+          in: query
+          name: date
+          type: string
+          description: Shows payments up to this date e.g. 2014-04-30. Defaults to end of the current month
+        - required: false
+          in: query
+          name: fromDate
+          type: string
+          description: Show all payable invoices from this date for contact 
+        - required: false
+          in: query
+          name: toDate
+          type: string
+          description: Show all payable invoices to this date for the contact
+  '/Reports/AgedReceivablesByContact':
+    x-related-model: Reports
+    get:
+      tags:
+        - "Reports"
+      summary: Retrieve an Aged Receivables report for a contact
+      responses:
+        '200':
+          $ref: '#/responses/ReportsResponse'
+      parameters:
+        - required: true
+          in: query
+          name: contactID
+          type: string
+          format: uuid
+          description: ContactID for the contact you're running the report for
+        - required: false
+          in: query
+          name: date
+          type: string
+          description: Shows payments up to this date e.g. 2014-04-30. Defaults to end of the current month
+        - required: false
+          in: query
+          name: fromDate
+          type: string
+          description: Show all receivable invoices from this date for contact 
+        - required: false
+          in: query
+          name: toDate
+          type: string
+          description: Show all receivable invoices to this date for the contact
+  '/Reports/BankStatement':
+    x-related-model: Reports
+    get:
+      tags:
+        - "Reports"
+      summary: Returns the statement lines for a specified bank account
+      responses:
+        '200':
+          $ref: '#/responses/ReportsResponse'
+      parameters:
+        - required: true
+          in: query
+          name: bankAccountID
+          type: string
+          format: uuid
+          description: bankAccountID e.g. 5040915e-8ce7-4177-8d08-fde416232f18
+        - required: false
+          in: query
+          name: fromDate
+          type: string
+          description: YYYY-MM-DD
+        - required: false
+          in: query
+          name: toDate
+          type: string
+          description: YYYY-MM-DD
+  '/Reports/BankSummary':
+    x-related-model: Reports
+    get:
+      tags:
+        - "Reports"
+      summary: Returns the balances and cash movements for each bank account
+      responses:
+        '200':
+          $ref: '#/responses/ReportsResponse'
+      parameters:
+        - required: false
+          in: query
+          name: fromDate
+          type: string
+          description: YYYY-MM-DD
+        - required: false
+          in: query
+          name: toDate
+          type: string
+          description: YYYY-MM-DD
+  '/Reports/BalanceSheet':
+    x-related-model: Reports
+    get:
+      tags:
+        - "Reports"
+      summary: Retrieve a Balance Sheet Report
+      responses:
+        '200':
+          $ref: '#/responses/ReportsResponse'
+      parameters:
+        - required: false
+          in: query
+          name: date
+          type: string
+          format: date
+          description: YYYY-MM-DD
+        - required: false
+          in: query
+          name: trackingOptionID1
+          type: string
+          format: uuid
+          description: Run the balance sheet for a specific tracking option
+        - required: false
+          in: query
+          name: trackingOptionID2
+          type: string
+          format: uuid
+          description: Run the balance sheet for a combination of two tracking options  
+        - required: false
+          in: query
+          name: standardLayout
+          type: boolean
+          description: If set to true no custom report layouts will be applied to response
+        - required: false
+          in: query
+          name: paymentsOnly
+          type: boolean
+          description: Set this to true to get cash transactions only
+  '/Reports/TenNinetyNine':
+    x-related-model: Reports
+    get:
+      tags:
+        - "Reports"
+      summary: Retrieve a 1099 Report (US only)
+      responses:
+        '200':
+          $ref: '#/responses/ReportsResponse'
+      parameters:
+        - required: false
+          in: query
+          name: reportYear
+          type: string
+          description: Year of the report e.g. 2013
   /TaxRates:
     x-related-model: TaxRate
     get:
@@ -4106,21 +4298,26 @@ definitions:
       name: Invoice
   Item:
     type: object
+    required: 
+      - Code
     properties:
       Code:
-        description: User defined item code (max length = 30)
+        description: User defined item code
         maxLength: 30
         type: string
+        example: ABC123
       InventoryAssetAccountCode:
         description: >-
           The inventory asset account for the item. The account must be of type
           INVENTORY. The  COGSAccountCode in PurchaseDetails is also required to
           create a tracked item
         type: string
+        example: 630
       Name:
         description: The name of the item (max length = 50)
         maxLength: 50
         type: string
+        example: Widget
       IsSold:
         description: >-
           Boolean value, defaults to true. When IsSold is true the item will be
@@ -4135,11 +4332,12 @@ definitions:
           will be nulled.
         type: boolean
       Description:
-        description: The sales description of the item (max length = 4000)
+        description: The sales description of the item 
         maxLength: 4000
         type: string
+        example: A really cool widget
       PurchaseDescription:
-        description: The purchase description of the item (max length = 4000)
+        description: The purchase description of the item 
         maxLength: 4000
         type: string
       PurchaseDetails:
@@ -4172,9 +4370,6 @@ definitions:
         description: The Xero identifier for an Item
         type: string
         format: uuid
-    required:
-      - Code
-      - InventoryAssetAccountCode
   Payment:
     type: object
     properties:
@@ -4990,6 +5185,95 @@ definitions:
       HasAttachments:
         description: boolean to indicate if an invoice has an attachment
         type: boolean
+  Report:
+    properties:
+      ReportID:
+        description: Identifier of the report
+        type: string
+        example: BalanceSheet
+      ReportName:
+        description: Name of the report
+        type: string
+        example: Balance Sheet
+      ReportType:
+        description: Type of report
+        type: string
+        example: BalanceSheet
+      ReportTitles:
+        type: array
+        description: The titles of the report
+        example: Balance Sheet
+        items:
+          type: string
+      ReportDate:
+        description: The date of the report
+        type: string
+        example: 10 November 2017
+      UpdatedDateUTC:
+        description: The date and time the report was generated
+        type: string
+        format: dateTime
+      Rows:
+        type: array
+        description: The rows of the report that contain the data (including header rows)
+        items:
+          type: object
+          properties:
+            RowType:
+              description: The type of row
+              enum:
+                - Header
+                - Section
+                - Row
+                - SummaryRow
+            Cells:
+              type: array
+              items:
+                type: object
+                properties:
+                  Value:
+                    description: Header row labels
+                    type: string
+                    example: 30 Nov 2017
+            Title:
+              description: The title of the row
+              example: Assets
+              type: string
+            Rows:
+              type: array
+              description: The rows of the report (including header rows)
+              items:
+                type: object
+                properties:
+                  RowType:
+                    description: The type of row
+                    enum:
+                      - Row
+                      - SummaryRow
+                  Cells:
+                    type: array
+                    description: The cells that contain the data of the report
+                    items:
+                      type: object
+                      properties:
+                        Value:
+                          description: The data displayed in the report
+                          type: string
+                          example: Business Account
+                        Attributes:
+                          type: array
+                          description: AccountID that the Value relates to
+                          items:
+                            type: object
+                            properties:
+                              Value:
+                                description: The AccountID that the Value relates to
+                                type: string
+                                format: uuid
+                              Id:
+                                description: Always 'account'
+                                enum:
+                                  - account
   Schedule:
     properties:
       Period:
@@ -6068,7 +6352,38 @@ responses:
         RepeatingInvoices:
           type: array
           items:
-            $ref: '#/definitions/RepeatingInvoice' 
+            $ref: '#/definitions/RepeatingInvoice'
+  ReportsResponse:
+    description: A successful response
+    schema:
+      type: object
+      xml:
+        name: Response
+      properties:
+        ID:
+          type: string
+          description: Unique identifier for each response
+          readOnly: true
+          example: 8904103f-f25e-4af2-887a-f5d3acace293
+        Status:
+          type: string
+          description: OK for a successful response
+          readOnly: true
+          example: OK
+        ProviderName:
+          type: string
+          description: Name of the application that made the request
+          readOnly: true
+          example: My Awesome App
+        DateTimeUTC:
+          type: string
+          format: date-time
+          description: DateTime of the request
+          readOnly: true
+        Reports:
+          type: array
+          items:
+            $ref: '#/definitions/Report'
   TaxRatesResponse:
     description: A successful response
     schema:

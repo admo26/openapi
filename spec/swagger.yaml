@@ -2762,7 +2762,7 @@ paths:
     get:
       tags:
         - "Reports"
-      summary: Retrieve Reports
+      summary: Retrieve a list of published GST reports (NZ) or BAS reports (AU)
       responses:
         '200':
           $ref: '#/responses/ReportsResponse'

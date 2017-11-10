@@ -2850,6 +2850,44 @@ paths:
           name: toDate
           type: string
           description: Show all receivable invoices to this date for the contact
+  '/Reports/BalanceSheet':
+    x-related-model: Reports
+    get:
+      tags:
+        - "Reports"
+      summary: Retrieve a Balance Sheet Report
+      responses:
+        '200':
+          $ref: '#/responses/ReportsResponse'
+      parameters:
+        - required: false
+          in: query
+          name: date
+          type: string
+          format: date
+          description: YYYY-MM-DD
+        - required: false
+          in: query
+          name: trackingOptionID1
+          type: string
+          format: uuid
+          description: Run the balance sheet for a specific tracking option
+        - required: false
+          in: query
+          name: trackingOptionID2
+          type: string
+          format: uuid
+          description: Run the balance sheet for a combination of two tracking options  
+        - required: false
+          in: query
+          name: standardLayout
+          type: boolean
+          description: If set to true no custom report layouts will be applied to response
+        - required: false
+          in: query
+          name: paymentsOnly
+          type: boolean
+          description: Set this to true to get cash transactions only
   '/Reports/BankStatement':
     x-related-model: Reports
     get:
@@ -2896,12 +2934,12 @@ paths:
           name: toDate
           type: string
           description: YYYY-MM-DD
-  '/Reports/BalanceSheet':
+  '/Reports/BudgetSummary':
     x-related-model: Reports
     get:
       tags:
         - "Reports"
-      summary: Retrieve a Balance Sheet Report
+      summary: Returns a summary of your monthly budget
       responses:
         '200':
           $ref: '#/responses/ReportsResponse'
@@ -2910,30 +2948,32 @@ paths:
           in: query
           name: date
           type: string
-          format: date
           description: YYYY-MM-DD
         - required: false
           in: query
-          name: trackingOptionID1
+          name: periods
+          type: integer
+          description: The number of periods to compare (integer between 1 and 12)
+        - required: false
+          in: query
+          name: timeframe
+          type: integer
+          description: The period size to compare to (1=month, 3=quarter, 12=year)
+  '/Reports/ExecutiveSummary':
+    x-related-model: Reports
+    get:
+      tags:
+        - "Reports"
+      summary: A summary including monthly totals and some common business ratios
+      responses:
+        '200':
+          $ref: '#/responses/ReportsResponse'
+      parameters:
+        - required: false
+          in: query
+          name: date
           type: string
-          format: uuid
-          description: Run the balance sheet for a specific tracking option
-        - required: false
-          in: query
-          name: trackingOptionID2
-          type: string
-          format: uuid
-          description: Run the balance sheet for a combination of two tracking options  
-        - required: false
-          in: query
-          name: standardLayout
-          type: boolean
-          description: If set to true no custom report layouts will be applied to response
-        - required: false
-          in: query
-          name: paymentsOnly
-          type: boolean
-          description: Set this to true to get cash transactions only
+          description: YYYY-MM-DD
   '/Reports/TenNinetyNine':
     x-related-model: Reports
     get:

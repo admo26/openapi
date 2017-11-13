@@ -2974,6 +2974,76 @@ paths:
           name: date
           type: string
           description: YYYY-MM-DD
+  '/Reports/ProfitAndLoss':
+    x-related-model: Reports
+    get:
+      tags:
+        - "Reports"
+      summary: Returns a profit and loss for the current month by default. An alternate date range can also be specified using the optional parameters listed below.
+      responses:
+        '200':
+          $ref: '#/responses/ReportsResponse'
+      parameters:
+        - required: false
+          in: query
+          name: fromDate
+          type: string
+          description: YYYY-MM-DD
+        - required: false
+          in: query
+          name: toDate
+          type: string
+          description: YYYY-MM-DD
+        - required: false
+          in: query
+          name: trackingCategoryID
+          type: string
+          description:  If you specify the trackingCategoryID parameter then the Profit and Loss Report will show figures for each of the options in the category as separate columns. See the Profit and Loss Report in Xero to learn more about this behavior when filtering by a tracking category.
+        - required: false
+          in: query
+          name: trackingOptionID
+          type: string
+          description: If you specify this parameter in addition to the trackingCategoryID then just one option will be returned (i.e. 1 column only)
+        - required: false
+          in: query
+          name: trackingCategoryID2
+          type: string
+          description: If you specify a second trackingCategoryID parameter then the Profit and Loss Report will show figures for each combination of options from the two categories as separate columns. See the Profit and Loss Report in Xero to learn more about this behaviour when filtering by two tracking categories.
+        - required: false
+          in: query
+          name: trackingOptionID2
+          type: string
+          description: If you specify this parameter in addition to a second trackingCategoryID then just one option will be returned combined with the option/s from the first tracking category
+        - required: false
+          in: query
+          name: standardLayout
+          type: boolean
+          description: If you set this parameter to "true" then no custom report layouts will be applied to response
+        - required: false
+          in: query
+          name: paymentsOnly
+          type: string
+          description: Set this to true to get cash transactions only
+  '/Reports/TrialBalance':
+    x-related-model: Reports
+    get:
+      tags:
+        - "Reports"
+      summary: Returns a trial balance for the current month up to the date specified. YTD values are shown too.
+      responses:
+        '200':
+          $ref: '#/responses/ReportsResponse'
+      parameters:
+        - required: false
+          in: query
+          name: Date
+          type: string
+          description: YYYY-MM-DD
+        - required: false
+          in: query
+          name: paymentsOnly
+          type: string
+          description: Set this to true to get cash transactions only      
   '/Reports/TenNinetyNine':
     x-related-model: Reports
     get:
@@ -3397,7 +3467,7 @@ definitions:
         format: float
       Date:
         description: >-
-          the date the prepayment is applied YYYY-MM-DD (read-only). This will
+          The date the prepayment is applied YYYY-MM-DD (read-only). This will
           be the latter of the invoice date and the prepayment date.
         type: string
         format: date
@@ -5314,6 +5384,44 @@ definitions:
                                 description: Always 'account'
                                 enum:
                                   - account
+  BASReport:
+    properties:
+      ReportID:
+        description: Identifier of the report
+        type: string
+        example: BalanceSheet
+      ReportName:
+        description: Name of the report
+        type: string
+        example: Balance Sheet
+      ReportType:
+        description: Type of report
+        type: string
+        example: BalanceSheet
+      ReportDate:
+        description: The date of the report
+        type: string
+        example: 10 November 2017
+      UpdatedDateUTC:
+        description: The date and time the report was generated
+        type: string
+        format: dateTime
+      Fields:
+        type: array
+        description: The reprt fields that contain useful data
+        items:
+          type: object
+          properties:
+            FieldID:
+              description: The identifier for the field
+              type: string
+            Description:
+              type: string
+              description: The description of the field
+            Value:
+              description: The value of the field
+              example: 2 Monthly
+              type: string
   Schedule:
     properties:
       Period:

@@ -3,12 +3,12 @@
 
 ## Viewing the specification
 You can view the spec using the following links:
-- SwaggerUI: https://admo26.github.io/openapi-accounting/swagger-ui/
-- ReDoc: https://admo26.github.io/openapi-accounting/
+- SwaggerUI: https://admo26.github.io/openapi/swagger-ui/
+- ReDoc: https://admo26.github.io/openapi/
 - Look full spec:
-    + JSON https://admo26.github.io/openapi-accounting/swagger.json
-    + YAML https://admo26.github.io/openapi-accounting/swagger.yaml
-- Preview spec version for branch `[branch]`: https://admo26.github.io/openapi-accounting/preview/[branch]
+    + JSON https://admo26.github.io/openapi/swagger.json
+    + YAML https://admo26.github.io/openapi/swagger.yaml
+- Preview spec version for branch `[branch]`: https://admo26.github.io/openapi/preview/[branch]
 
 Thanks to the [Rebilly](https://github.com/Rebilly) team for sharing their [generator-openapi-repo](https://github.com/Rebilly/generator-openapi-repo) project and making this really easy.
 

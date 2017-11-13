@@ -1,7 +1,7 @@
 # OpenAPI Specification for the Xero Accounting API
 [![Build Status](https://travis-ci.org/admo26/xero-accounting.svg?branch=master)](https://travis-ci.org/admo26/xero-accounting)
 
-## Links
+## Viewing the specification
 You can view the spec using the following links:
 - SwaggerUI: https://admo26.github.io/openapi-accounting/swagger-ui/
 - ReDoc: https://admo26.github.io/openapi-accounting/
@@ -10,11 +10,10 @@ You can view the spec using the following links:
     + YAML https://admo26.github.io/openapi-accounting/swagger.yaml
 - Preview spec version for branch `[branch]`: https://admo26.github.io/openapi-accounting/preview/[branch]
 
-Thanks to the @Rebilly for making this easy by sharing their [generator-openapi-repo](https://github.com/Rebilly/generator-openapi-repo) project
+Thanks to the [Rebilly](https://github.com/Rebilly) team for sharing their [generator-openapi-repo](https://github.com/Rebilly/generator-openapi-repo) project and making this really easy.
 
-**Warning:** All above links are updated only after Travis CI finishes deployment
-
-## Working on specification
+## Working on the specification
+If you find any issues with the spec :open_mouth: feel free to send us a pull request. You can make the changes in your favourite OpenAPI editor or clone this repo to run Swagger Editor locally.
 ### Install
 
 1. Install [Node JS](https://nodejs.org/)

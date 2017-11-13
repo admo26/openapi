@@ -2,15 +2,15 @@
 [![Build Status](https://travis-ci.org/admo26/xero-accounting.svg?branch=master)](https://travis-ci.org/admo26/xero-accounting)
 
 ## Links
-You can view the spec using SwaggerUI or Redoc using the following links:
+You can view the spec using the following links:
 - SwaggerUI: https://admo26.github.io/openapi-accounting/swagger-ui/
-- Documentation(ReDoc): https://admo26.github.io/openapi-accounting/
+- ReDoc: https://admo26.github.io/openapi-accounting/
 - Look full spec:
     + JSON https://admo26.github.io/openapi-accounting/swagger.json
     + YAML https://admo26.github.io/openapi-accounting/swagger.yaml
 - Preview spec version for branch `[branch]`: https://admo26.github.io/openapi-accounting/preview/[branch]
 
-Thanks to the Rebilly for sharing their [generator-openapi-repo](https://github.com/Rebilly/generator-openapi-repo)
+Thanks to the @Rebilly for making this easy by sharing their [generator-openapi-repo](https://github.com/Rebilly/generator-openapi-repo) project
 
 **Warning:** All above links are updated only after Travis CI finishes deployment
 

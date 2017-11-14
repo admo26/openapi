@@ -2769,10 +2769,6 @@ paths:
       produces:
         - application/xml
         - application/json
-      parameters:
-        - $ref: '#/parameters/If-Modified-Since'
-        - $ref: '#/parameters/order'
-        - $ref: '#/parameters/where'
   '/Reports/{ReportID}':
     x-related-model: Reports
     get:
@@ -2781,7 +2777,7 @@ paths:
       summary: Retrieve an individual BAS Report (AU) or GST Report (NZ)
       responses:
         '200':
-          $ref: '#/responses/ReportsResponse'
+          $ref: '#/responses/GSTReportResponse'
       parameters:
         - required: true
           in: path
@@ -5384,20 +5380,20 @@ definitions:
                                 description: Always 'account'
                                 enum:
                                   - account
-  BASReport:
+  GSTReport:
     properties:
       ReportID:
         description: Identifier of the report
         type: string
-        example: BalanceSheet
+        format: uuid
       ReportName:
         description: Name of the report
         type: string
-        example: Balance Sheet
+        example: Activity Statement
       ReportType:
         description: Type of report
         type: string
-        example: BalanceSheet
+        example: SalesTaxReturn
       ReportDate:
         description: The date of the report
         type: string
@@ -6532,6 +6528,37 @@ responses:
           type: array
           items:
             $ref: '#/definitions/Report'
+  GSTReportResponse:
+    description: A successful response
+    schema:
+      type: object
+      xml:
+        name: Response
+      properties:
+        ID:
+          type: string
+          description: Unique identifier for each response
+          readOnly: true
+          example: 8904103f-f25e-4af2-887a-f5d3acace293
+        Status:
+          type: string
+          description: OK for a successful response
+          readOnly: true
+          example: OK
+        ProviderName:
+          type: string
+          description: Name of the application that made the request
+          readOnly: true
+          example: My Awesome App
+        DateTimeUTC:
+          type: string
+          format: date-time
+          description: DateTime of the request
+          readOnly: true
+        Reports:
+          type: array
+          items:
+            $ref: '#/definitions/GSTReport'
   TaxRatesResponse:
     description: A successful response
     schema:

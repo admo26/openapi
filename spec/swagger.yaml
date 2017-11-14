@@ -3449,6 +3449,10 @@ definitions:
         maxLength: 255
   Allocation:
     type: object
+    required:
+      - Invoice
+      - AppliedAmount
+      - Date
     properties:
       Invoice:
         type: object
@@ -3507,13 +3511,13 @@ definitions:
           properties:
             Outstanding:
               type: number
-              format: double
+              format: float
               description: AR outstanding balance
               readOnly: true
               example: 1000
             Overdue:
               type: number
-              format: double
+              format: float
               description: AR overdue balance
               readOnly: true
               example: 500
@@ -3522,13 +3526,13 @@ definitions:
           properties:
             Outstanding:
               type: number
-              format: double
+              format: float
               description: AP outstanding balance
               readOnly: true
               example: 50
             Overdue:
               type: number
-              format: double
+              format: float
               description: AP overdue balance
               readOnly: true
               example: 2
@@ -3558,6 +3562,7 @@ definitions:
         example: 610
       AccountID:
         type: string
+        format: uuid
         description: Account identifier
         example: ae8074e0-1ac1-4b37-8546-afa9fa6ace9e
       Name:
@@ -3573,8 +3578,8 @@ definitions:
         example: 610
       AccountID:
         type: string
+        format: uuid
         description: Account identifier
-        example: d7defb58-7028-480d-bd70-453770b0715d
       Name:
         type: string
         description: Bank account name
@@ -3589,6 +3594,7 @@ definitions:
     properties:
       BankTransactionId:
         type: string
+        format: uuid
         description: Xero generated unique identifier for bank transactions
         readOnly: true
         example: 72f1dcfe-5d7d-4239-bf9d-e12469309716
@@ -3651,22 +3657,22 @@ definitions:
         example: AUD
       CurrencyRate:
         type: number
-        format: double
+        format: float
         description: >-
           The currency rate for a multicurrency bank transaction. If no rate is specified, the XE.com day rate is used.
       SubTotal:
         type: number
-        format: double
+        format: float
         description: Total of bank transaction excluding taxes
         readOnly: true
       Totaltax:
         type: number
-        format: double
+        format: float
         description: Total tax on the bank transaction
         readOnly: true
       Total:
         type: number
-        format: double
+        format: float
         description: >-
           Total of bank transaction tax inclusive (i.e. SubTotal + TotalTax). This will be ignored if it doesn’t equal the sum of the LineAmounts
         readOnly: true
@@ -3684,7 +3690,7 @@ definitions:
         readOnly: true
       UpdatedDateUTC:
         type: string
-        format: dateTime
+        format: date-time
         description: Last modified date UTC format
         readOnly: true
       HasAttachments:
@@ -3720,13 +3726,13 @@ definitions:
         description: Date bank transfer was made YYYY-MM-DD
       CurrencyRate:
         type: number
-        format: double
+        format: float
         description: >-
           The currency rate for a multicurrency bank transfer. If no rate is
           specified, the XE.com day rate is used.
       Amount:
         type: number
-        format: double
+        format: float
         description: >-
           Total of the bank transfer
       FromBankTransactionID:
@@ -3743,7 +3749,7 @@ definitions:
         readOnly: true
       UpdatedDateUTC:
         type: string
-        format: dateTime
+        format: date-time
         description: Last modified date UTC format
         readOnly: true
       HasAttachments:
@@ -3804,6 +3810,7 @@ definitions:
     properties:
       ContactID:
         type: string
+        format: uuid
         description: Xero identifier
         example: "cc04bc53-f094-4ed6-8b3e-67297c37fae0"
         readOnly: true
@@ -3903,7 +3910,7 @@ definitions:
         $ref: '#/definitions/PaymentTerms'
       UpdatedDateUTC:
         type: string
-        format: dateTime
+        format: date-time
         description: Last modified date UTC format
         readOnly: true
       ContactGroups:
@@ -4307,7 +4314,7 @@ definitions:
         example: AUD
       CurrencyRate:
         type: number
-        format: double
+        format: float
         description: >-
           The currency rate for a multicurrency invoice. If no rate is
           specified, the XE.com day rate is used.
@@ -4327,34 +4334,34 @@ definitions:
         description: Shown on bills (Accounts Payable) when this has been set
       SubTotal:
         type: number
-        format: double
+        format: float
         description: Total of invoice excluding taxes
         readOnly: true
       Totaltax:
         type: number
-        format: double
+        format: float
         description: Total tax on the invoice
         readOnly: true
       Total:
         type: number
-        format: double
+        format: float
         description: >-
           Total of Invoice tax inclusive (i.e. SubTotal + TotalTax). This will
           be ignored if it doesn’t equal the sum of the LineAmounts
         readOnly: true
       TotalDiscount:
         type: number
-        format: double
+        format: float
         description: Total of discounts applied on the invoice line items
         readOnly: true
       AmountDue:
         type: number
-        format: double
+        format: float
         description: Amount remaining to be paid on invoice
         readOnly: true
       AmountPaid:
         type: number
-        format: double
+        format: float
         description: Sum of payments received for invoice
         readOnly: true
       FullyPaidOnDate:
@@ -4366,14 +4373,14 @@ definitions:
         readOnly: true
       AmountCredited:
         type: number
-        format: double
+        format: float
         description: >-
           Sum of all credit notes, over-payments and pre-payments applied to
           invoice
         readOnly: true
       UpdatedDateUTC:
         type: string
-        format: dateTime
+        format: date-time
         description: Last modified date UTC format
         readOnly: true
       HasAttachments:
@@ -4446,158 +4453,40 @@ definitions:
         description: The purchase description of the item 
         maxLength: 4000
         type: string
+        example: A cheapo widget
       PurchaseDetails:
-        description: See Purchases & Sales
-        type: array
-        items:
-          $ref: '#/definitions/Purchase'
+        $ref: '#/definitions/PurchaseDetails'
       SalesDetails:
-        description: See Purchases & Sales
-        type: string
+        $ref: '#/definitions/SalesDetails'
       IsTrackedAsInventory:
         description: >-
           True for items that are tracked as inventory. An item will be tracked
           as inventory if the InventoryAssetAccountCode and COGSAccountCode are
           set.
         type: boolean
+        readOnly: true
       TotalCostPool:
         description: >-
           The value of the item on hand. Calculated using average cost
           accounting.
-        type: string
+        type: number
+        format: float
+        readOnly: true
       QuantityOnHand:
         description: The quantity of the item on hand
-        type: string
+        type: number
+        format: float
+        readOnly: true
       UpdatedDateUTC:
         description: Last modified date in UTC format
         type: string
         format: date-time
+        readOnly: true
       ItemID:
         description: The Xero identifier for an Item
         type: string
         format: uuid
-  Payment:
-    type: object
-    properties:
-      PaymentID:
-        type: string
-      Date:
-        type: string
-        format: date
-      Amount:
-        type: number
-        format: double
-      CurrencyRate:
-        type: number
-        format: double
-  Prepayment:
-    type: object
-    properties:
-      Date:
-        description: The date the prepayment is created YYYY-MM-DD
-        type: string
-        format: date
-      Type:
-        description: See Prepayment Types
-        type: string
-        enum:
-          - RECEIVE-PREPAYMENT
-          - SPEND-PREPAYMENT
-      Contact:
-        $ref: '#/definitions/Contact'
-      Status:
-        description: See Prepayment Status Codes
-        type: string
-        enum:
-          - AUTHORISED
-          - PAID
-          - VOIDED
-      LineAmountTypes:
-        description: See Prepayment Line Amount Types
-        type: string
-      LineItems:
-        description: See Prepayment Line Items
-        type: array
-        items:
-          $ref: '#/definitions/LineItem'
-      SubTotal:
-        description: The subtotal of the prepayment excluding taxes
-        type: number
-        format: float
-      TotalTax:
-        description: The total tax on the prepayment
-        type: number
-        format: float
-      Total:
-        description: The total of the prepayment(subtotal + total tax)
-        type: number
-        format: float
-      UpdatedDateUTC:
-        description: UTC timestamp of last update to the prepayment
-        type: string
-        format: date-time
-      CurrencyCode:
-        description: Currency used for the prepayment
-        type: string
-      PrepaymentID:
-        description: Xero generated unique identifier
-        type: string
-        format: uuid
-      CurrencyRate:
-        description: >-
-          The currency rate for a multicurrency prepayment. If no rate is
-          specified, the XE.com day rate is used
-        type: number
-        format: float
-      RemainingCredit:
-        description: The remaining credit balance on the prepayment
-        type: string
-      Allocations:
-        description: See Allocations
-        type: array
-        items:
-          $ref: '#/definitions/Allocation'
-      HasAttachments:
-        description: boolean to indicate if a prepayment has an attachment
-        type: boolean
-  Overpayment:
-    type: object
-    properties:
-      PrepaymentID:
-        type: string
-      Date:
-        type: string
-        format: date
-      Total:
-        type: number
-        format: double
-      AppliedAmount:
-        type: number
-        format: double
-  Purchase:
-    properties:
-      UnitPrice:
-        description: >-
-          Unit Price of the item. By default UnitPrice is rounded to two decimal
-          places. You can use 4 decimal places by adding the unitdp=4
-          querystring parameter to your request.
-        type: number
-        format: float
-      AccountCode:
-        description: >-
-          Default account code to be used for purchased/sale. Not applicable to
-          the purchase details of tracked items
-        type: string
-      COGSAccountCode:
-        description: >-
-          Cost of goods sold account. Only applicable to the purchase details of
-          tracked items.
-        type: string
-      TaxType:
-        description: >-
-          Used as an override if the default Tax Code for the selected
-          <AccountCode> is not correct – see TaxTypes.
-        type: string
+        readOnly: true
   Journal:
     properties:
       JournalID:
@@ -4677,11 +4566,11 @@ definitions:
           character
       Quantity:
         type: number
-        format: double
+        format: float
         description: LineItem Quantity
       UnitAmount:
         type: number
-        format: double
+        format: float
         description: >-
           Lineitem unit amount. By default, unit amount will be rounded to two
           decimal places. You can opt in to use four decimal places by adding
@@ -4695,6 +4584,7 @@ definitions:
         description: The account that the lineitem is being coded to
       LineItemID:
         type: string
+        format: uuid
         description: >-
           The Xero generated identifier for a LineItem. If LineItemIDs are not
           included with line items in an update request then the line items are
@@ -4706,21 +4596,21 @@ definitions:
           <AccountCode> is not correct
       TaxAmount:
         type: number
-        format: double
+        format: float
         description: >-
           The tax amount is auto calculated as a percentage of the line amount
           (see below) based on the tax rate. This value can be overriden if the
           calculated <TaxAmount> is not correct.
       LineAmount:
         type: number
-        format: double
+        format: float
         description: >-
           The line amount reflects the discounted price if a DiscountRate has
           been used i.e LineAmount = Quantity * Unit Amount * ((100 –
           DiscountRate)/100)
       DiscountRate:
         type: number
-        format: double
+        format: float
         description: >-
           Percentage discount being applied to a line item (only supported on
           ACCREC invoices – ACC PAY invoices and credit notes in Xero do not
@@ -4987,6 +4877,35 @@ definitions:
               Default payment terms for the organisation if set – See Payment
               Terms below
           - $ref: '#/definitions/PaymentTerms'
+  Overpayment:
+    type: object
+    properties:
+      PrepaymentID:
+        type: string
+      Date:
+        type: string
+        format: date
+      Total:
+        type: number
+        format: float
+      AppliedAmount:
+        type: number
+        format: float
+  Payment:
+    type: object
+    properties:
+      PaymentID:
+        type: string
+        format: uuid
+      Date:
+        type: string
+        format: date
+      Amount:
+        type: number
+        format: float
+      CurrencyRate:
+        type: number
+        format: float
   PaymentTerms:
     type: array
     items:
@@ -5046,7 +4965,104 @@ definitions:
   Phones:
     type: array
     items:
-      $ref: '#/definitions/Phone'  
+      $ref: '#/definitions/Phone'
+  Prepayment:
+    type: object
+    properties:
+      Date:
+        description: The date the prepayment is created YYYY-MM-DD
+        type: string
+        format: date
+      Type:
+        description: See Prepayment Types
+        type: string
+        enum:
+          - RECEIVE-PREPAYMENT
+          - SPEND-PREPAYMENT
+      Contact:
+        $ref: '#/definitions/Contact'
+      Status:
+        description: See Prepayment Status Codes
+        type: string
+        enum:
+          - AUTHORISED
+          - PAID
+          - VOIDED
+      LineAmountTypes:
+        description: See Prepayment Line Amount Types
+        type: string
+      LineItems:
+        description: See Prepayment Line Items
+        type: array
+        items:
+          $ref: '#/definitions/LineItem'
+      SubTotal:
+        description: The subtotal of the prepayment excluding taxes
+        type: number
+        format: float
+      TotalTax:
+        description: The total tax on the prepayment
+        type: number
+        format: float
+      Total:
+        description: The total of the prepayment(subtotal + total tax)
+        type: number
+        format: float
+      UpdatedDateUTC:
+        description: UTC timestamp of last update to the prepayment
+        type: string
+        format: date-time
+      CurrencyCode:
+        description: Currency used for the prepayment
+        type: string
+      PrepaymentID:
+        description: Xero generated unique identifier
+        type: string
+        format: uuid
+      CurrencyRate:
+        description: >-
+          The currency rate for a multicurrency prepayment. If no rate is
+          specified, the XE.com day rate is used
+        type: number
+        format: float
+      RemainingCredit:
+        description: The remaining credit balance on the prepayment
+        type: string
+      Allocations:
+        description: See Allocations
+        type: array
+        items:
+          $ref: '#/definitions/Allocation'
+      HasAttachments:
+        description: boolean to indicate if a prepayment has an attachment
+        type: boolean 
+  PurchaseDetails:
+    properties:
+      UnitPrice:
+        description: >-
+          Unit Price of the item. By default UnitPrice is rounded to two decimal
+          places. You can use 4 decimal places by adding the unitdp=4
+          querystring parameter to your request.
+        type: number
+        format: float
+      AccountCode:
+        description: >-
+          Default account code to be used for purchase of non-tracked items. Not applicable to
+          the purchase details of tracked items
+        type: string
+        example: 420
+      COGSAccountCode:
+        description: >-
+          Cost of goods sold account. Only applicable to the purchase details of
+          tracked items.
+        type: string
+        example: 420
+      TaxType:
+        description: >-
+          Used as an override if the default Tax Code for the selected
+          <AccountCode> is not correct – see TaxTypes.
+        type: string 
+        example: NONE
   PurchaseOrder:
     type: object
     properties:
@@ -5318,7 +5334,7 @@ definitions:
       UpdatedDateUTC:
         description: The date and time the report was generated
         type: string
-        format: dateTime
+        format: date-time
       Rows:
         type: array
         description: The rows of the report that contain the data (including header rows)
@@ -5401,7 +5417,7 @@ definitions:
       UpdatedDateUTC:
         description: The date and time the report was generated
         type: string
-        format: dateTime
+        format: date-time
   TaxReport:
     properties:
       ReportID:
@@ -5423,26 +5439,69 @@ definitions:
       UpdatedDateUTC:
         description: The date and time the report was generated
         type: string
-        format: dateTime
+        format: date-time
+      Attributes:
+        type: object
+        properties:
+          ReportAttribute:
+            type: array
+            description: The attributes of the report (AU BAS Report only)
+            items:
+              type: object
+              properties:
+                Name:
+                  description: The identifier for the field
+                  type: string
+                  example: fromDate
+                Description:
+                  type: string
+                  description: The description of the field
+                  example: From
+                Value:
+                  description: The value of the field
+                  example: 2011-11-01T00:00:00
+                  type: string
       Fields:
         type: object
         properties:
           ReportField:
             type: array
-            description: The reprt fields that contain useful data
+            description: The report fields that contain useful data
             items:
               type: object
               properties:
                 FieldID:
                   description: The identifier for the field
                   type: string
+                  example: W1
                 Description:
                   type: string
                   description: The description of the field
+                  example: Total salary, wages and other payments
                 Value:
                   description: The value of the field
-                  example: 2 Monthly
+                  example: 500
                   type: string
+  SalesDetails:
+    properties:
+      UnitPrice:
+        description: >-
+          Unit Price of the item. By default UnitPrice is rounded to two decimal
+          places. You can use 4 decimal places by adding the unitdp=4
+          querystring parameter to your request.
+        type: number
+        format: float
+      AccountCode:
+        description: >-
+          Default account code to be used for sale.
+        type: string
+        example: 200
+      TaxType:
+        description: >-
+          Used as an override if the default Tax Code for the selected
+          <AccountCode> is not correct – see TaxTypes.
+        type: string 
+        example: NONE
   Schedule:
     properties:
       Period:
@@ -5614,6 +5673,7 @@ definitions:
     properties:
       TrackingCategoryID:
         type: string
+        format: uuid
       Name:
         type: string
       Option:
@@ -5627,6 +5687,7 @@ definitions:
     properties:
       TrackingCategoryID:
         type: string
+        format: uuid
       Name:
         type: string
       Option:
@@ -5790,6 +5851,7 @@ responses:
       properties:
         ID:
           type: string
+          format: uuid
           description: Unique identifier for each response
           readOnly: true
           example: 8904103f-f25e-4af2-887a-f5d3acace293
@@ -5821,6 +5883,7 @@ responses:
       properties:
         ID:
           type: string
+          format: uuid
           description: Unique identifier for each response
           readOnly: true
           example: 8904103f-f25e-4af2-887a-f5d3acace293
@@ -5852,6 +5915,7 @@ responses:
       properties:
         ID:
           type: string
+          format: uuid
           description: Unique identifier for each response
           readOnly: true
           example: 8904103f-f25e-4af2-887a-f5d3acace293
@@ -5883,6 +5947,7 @@ responses:
       properties:
         ID:
           type: string
+          format: uuid
           description: Unique identifier for each response
           readOnly: true
           example: 8904103f-f25e-4af2-887a-f5d3acace293
@@ -5914,6 +5979,7 @@ responses:
       properties:
         ID:
           type: string
+          format: uuid
           description: Unique identifier for each response
           readOnly: true
           example: 8904103f-f25e-4af2-887a-f5d3acace293
@@ -5945,6 +6011,7 @@ responses:
       properties:
         ID:
           type: string
+          format: uuid
           description: Unique identifier for each response
           readOnly: true
           example: 8904103f-f25e-4af2-887a-f5d3acace293
@@ -5976,6 +6043,7 @@ responses:
       properties:
         ID:
           type: string
+          format: uuid
           description: Unique identifier for each response
           readOnly: true
           example: 8904103f-f25e-4af2-887a-f5d3acace293
@@ -6007,6 +6075,7 @@ responses:
       properties:
         ID:
           type: string
+          format: uuid
           description: Unique identifier for each response
           readOnly: true
           example: 8904103f-f25e-4af2-887a-f5d3acace293
@@ -6038,6 +6107,7 @@ responses:
       properties:
         ID:
           type: string
+          format: uuid
           description: Unique identifier for each response
           readOnly: true
           example: 8904103f-f25e-4af2-887a-f5d3acace293
@@ -6069,6 +6139,7 @@ responses:
       properties:
         ID:
           type: string
+          format: uuid
           description: Unique identifier for each response
           readOnly: true
           example: 8904103f-f25e-4af2-887a-f5d3acace293
@@ -6100,6 +6171,7 @@ responses:
       properties:
         ID:
           type: string
+          format: uuid
           description: Unique identifier for each response
           readOnly: true
           example: 8904103f-f25e-4af2-887a-f5d3acace293
@@ -6131,6 +6203,7 @@ responses:
       properties:
         ID:
           type: string
+          format: uuid
           description: Unique identifier for each response
           readOnly: true
           example: 8904103f-f25e-4af2-887a-f5d3acace293
@@ -6162,6 +6235,7 @@ responses:
       properties:
         ID:
           type: string
+          format: uuid
           description: Unique identifier for each response
           readOnly: true
           example: 8904103f-f25e-4af2-887a-f5d3acace293
@@ -6193,6 +6267,7 @@ responses:
       properties:
         ID:
           type: string
+          format: uuid
           description: Unique identifier for each response
           readOnly: true
           example: 8904103f-f25e-4af2-887a-f5d3acace293
@@ -6224,6 +6299,7 @@ responses:
       properties:
         ID:
           type: string
+          format: uuid
           description: Unique identifier for each response
           readOnly: true
           example: 8904103f-f25e-4af2-887a-f5d3acace293
@@ -6255,6 +6331,7 @@ responses:
       properties:
         ID:
           type: string
+          format: uuid
           description: Unique identifier for each response
           readOnly: true
           example: 8904103f-f25e-4af2-887a-f5d3acace293
@@ -6286,6 +6363,7 @@ responses:
       properties:
         ID:
           type: string
+          format: uuid
           description: Unique identifier for each response
           readOnly: true
         Status:
@@ -6298,7 +6376,7 @@ responses:
           readOnly: true
         DateTimeUTC:
           type: string
-          format: dateTime
+          format: date-time
           description: DateTime of the request
           readOnly: true
         OnlineInvoices:
@@ -6314,6 +6392,7 @@ responses:
       properties:
         ID:
           type: string
+          format: uuid
           description: Unique identifier for each response
           readOnly: true
           example: 8904103f-f25e-4af2-887a-f5d3acace293
@@ -6345,6 +6424,7 @@ responses:
       properties:
         ID:
           type: string
+          format: uuid
           description: Unique identifier for each response
           readOnly: true
           example: 8904103f-f25e-4af2-887a-f5d3acace293
@@ -6376,6 +6456,7 @@ responses:
       properties:
         ID:
           type: string
+          format: uuid
           description: Unique identifier for each response
           readOnly: true
           example: 8904103f-f25e-4af2-887a-f5d3acace293
@@ -6407,6 +6488,7 @@ responses:
       properties:
         ID:
           type: string
+          format: uuid
           description: Unique identifier for each response
           readOnly: true
           example: 8904103f-f25e-4af2-887a-f5d3acace293
@@ -6438,6 +6520,7 @@ responses:
       properties:
         ID:
           type: string
+          format: uuid
           description: Unique identifier for each response
           readOnly: true
           example: 8904103f-f25e-4af2-887a-f5d3acace293
@@ -6469,6 +6552,7 @@ responses:
       properties:
         ID:
           type: string
+          format: uuid
           description: Unique identifier for each response
           readOnly: true
           example: 8904103f-f25e-4af2-887a-f5d3acace293
@@ -6500,6 +6584,7 @@ responses:
       properties:
         ID:
           type: string
+          format: uuid
           description: Unique identifier for each response
           readOnly: true
           example: 8904103f-f25e-4af2-887a-f5d3acace293
@@ -6531,6 +6616,7 @@ responses:
       properties:
         ID:
           type: string
+          format: uuid
           description: Unique identifier for each response
           readOnly: true
           example: 8904103f-f25e-4af2-887a-f5d3acace293
@@ -6562,6 +6648,7 @@ responses:
       properties:
         ID:
           type: string
+          format: uuid
           description: Unique identifier for each response
           readOnly: true
           example: 8904103f-f25e-4af2-887a-f5d3acace293
@@ -6581,12 +6668,9 @@ responses:
           description: DateTime of the request
           readOnly: true
         Reports:
-          type: object
-          properties:
-            Report:
-              type: array
-              items:
-                $ref: '#/definitions/ReportSummary'
+          type: array
+          items:
+            $ref: '#/definitions/ReportSummary'
   TaxReportResponse:
     description: A successful response
     schema:
@@ -6596,6 +6680,7 @@ responses:
       properties:
         ID:
           type: string
+          format: uuid
           description: Unique identifier for each response
           readOnly: true
           example: 8904103f-f25e-4af2-887a-f5d3acace293
@@ -6627,6 +6712,7 @@ responses:
       properties:
         ID:
           type: string
+          format: uuid
           description: Unique identifier for each response
           readOnly: true
           example: 8904103f-f25e-4af2-887a-f5d3acace293
@@ -6658,6 +6744,7 @@ responses:
       properties:
         ID:
           type: string
+          format: uuid
           description: Unique identifier for each response
           readOnly: true
           example: 8904103f-f25e-4af2-887a-f5d3acace293
@@ -6689,6 +6776,7 @@ responses:
       properties:
         ID:
           type: string
+          format: uuid
           description: Unique identifier for each response
           readOnly: true
           example: 8904103f-f25e-4af2-887a-f5d3acace293

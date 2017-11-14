@@ -2765,7 +2765,7 @@ paths:
       summary: Retrieve a list of published GST reports (NZ) or BAS reports (AU)
       responses:
         '200':
-          $ref: '#/responses/ReportsResponse'
+          $ref: '#/responses/ReportSummaryResponse'
       produces:
         - application/xml
         - application/json
@@ -2777,7 +2777,7 @@ paths:
       summary: Retrieve an individual BAS Report (AU) or GST Report (NZ)
       responses:
         '200':
-          $ref: '#/responses/GSTReportResponse'
+          $ref: '#/responses/TaxReportResponse'
       parameters:
         - required: true
           in: path
@@ -5380,7 +5380,29 @@ definitions:
                                 description: Always 'account'
                                 enum:
                                   - account
-  GSTReport:
+  ReportSummary:
+    properties:
+      ReportID:
+        description: Identifier of the report
+        type: string
+        format: uuid
+      ReportName:
+        description: Name of the report
+        type: string
+        example: Activity Statement
+      ReportType:
+        description: Type of report
+        type: string
+        example: ActivityStatement
+      ReportDate:
+        description: The date of the report
+        type: string
+        example: 1 Oct 2017 to 31 Oct 2017
+      UpdatedDateUTC:
+        description: The date and time the report was generated
+        type: string
+        format: dateTime
+  TaxReport:
     properties:
       ReportID:
         description: Identifier of the report
@@ -5403,21 +5425,24 @@ definitions:
         type: string
         format: dateTime
       Fields:
-        type: array
-        description: The reprt fields that contain useful data
-        items:
-          type: object
-          properties:
-            FieldID:
-              description: The identifier for the field
-              type: string
-            Description:
-              type: string
-              description: The description of the field
-            Value:
-              description: The value of the field
-              example: 2 Monthly
-              type: string
+        type: object
+        properties:
+          ReportField:
+            type: array
+            description: The reprt fields that contain useful data
+            items:
+              type: object
+              properties:
+                FieldID:
+                  description: The identifier for the field
+                  type: string
+                Description:
+                  type: string
+                  description: The description of the field
+                Value:
+                  description: The value of the field
+                  example: 2 Monthly
+                  type: string
   Schedule:
     properties:
       Period:
@@ -6528,7 +6553,7 @@ responses:
           type: array
           items:
             $ref: '#/definitions/Report'
-  GSTReportResponse:
+  ReportSummaryResponse:
     description: A successful response
     schema:
       type: object
@@ -6558,7 +6583,38 @@ responses:
         Reports:
           type: array
           items:
-            $ref: '#/definitions/GSTReport'
+            $ref: '#/definitions/ReportSummary'
+  TaxReportResponse:
+    description: A successful response
+    schema:
+      type: object
+      xml:
+        name: Response
+      properties:
+        ID:
+          type: string
+          description: Unique identifier for each response
+          readOnly: true
+          example: 8904103f-f25e-4af2-887a-f5d3acace293
+        Status:
+          type: string
+          description: OK for a successful response
+          readOnly: true
+          example: OK
+        ProviderName:
+          type: string
+          description: Name of the application that made the request
+          readOnly: true
+          example: My Awesome App
+        DateTimeUTC:
+          type: string
+          format: date-time
+          description: DateTime of the request
+          readOnly: true
+        Reports:
+          type: array
+          items:
+            $ref: '#/definitions/TaxReport'
   TaxRatesResponse:
     description: A successful response
     schema:

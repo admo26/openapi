@@ -6581,9 +6581,12 @@ responses:
           description: DateTime of the request
           readOnly: true
         Reports:
-          type: array
-          items:
-            $ref: '#/definitions/ReportSummary'
+          type: object
+          properties:
+            Report:
+              type: array
+              items:
+                $ref: '#/definitions/ReportSummary'
   TaxReportResponse:
     description: A successful response
     schema:

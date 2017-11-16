@@ -4727,6 +4727,7 @@ definitions:
       Narration:
         description: Description of journal being posted
         type: string
+        example: Fixing a mistake
       JournalLines:
         description: See JournalLines
         type: array
@@ -4737,10 +4738,15 @@ definitions:
         type: string
         format: date
       LineAmountTypes:
-        description: >-
-          NoTax by default if you don’t specify this element. See Line Amount
-          Types
         type: string
+        enum:
+          - Inclusive
+          - Exclusive
+          - NoTax
+        description: >-
+          Line amounts are exclusive of tax by default if you don’t specify this
+          element
+        default: NoTax
       Status:
         description: See Manual Journal Status Codes
         type: string
@@ -5026,8 +5032,15 @@ definitions:
           - PAID
           - VOIDED
       LineAmountTypes:
-        description: See Prepayment Line Amount Types
         type: string
+        enum:
+          - Inclusive
+          - Exclusive
+          - NoTax
+        description: >-
+          Line amounts are exclusive of tax by default if you don’t specify this
+          element
+        default: NoTax
       LineItems:
         description: See Prepayment Line Items
         type: array
@@ -5127,10 +5140,15 @@ definitions:
         type: string
         format: date
       LineAmountTypes:
+        type: string
+        enum:
+          - Inclusive
+          - Exclusive
+          - NoTax
         description: >-
           Line amounts are exclusive of tax by default if you don’t specify this
-          element. See Line Amount Types
-        type: string
+          element
+        default: NoTax
       PurchaseOrderNumber:
         description: >-
           Unique alpha numeric code identifying purchase order (when missing
@@ -5240,8 +5258,15 @@ definitions:
         description: Additional reference number
         type: string
       LineAmountTypes:
-        description: See Line Amount Types
         type: string
+        enum:
+          - Inclusive
+          - Exclusive
+          - NoTax
+        description: >-
+          Line amounts are exclusive of tax by default if you don’t specify this
+          element
+        default: NoTax
       SubTotal:
         description: Total of receipt excluding taxes
         type: number
@@ -5308,10 +5333,15 @@ definitions:
         items:
           $ref: '#/definitions/LineItem'
       LineAmountTypes:
+        type: string
+        enum:
+          - Inclusive
+          - Exclusive
+          - NoTax
         description: >-
           Line amounts are exclusive of tax by default if you don’t specify this
-          element. See Line Amount Types
-        type: string
+          element
+        default: NoTax
       Reference:
         description: ACCREC only – additional reference number
         type: string

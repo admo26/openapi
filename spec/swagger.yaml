@@ -4970,8 +4970,9 @@ definitions:
               Terms below
           - $ref: '#/definitions/PaymentTerms'
   Overpayment:
+    type: object
     properties:
-      Type:
+      Type: 
         description: The Overpayment Type
         type: string
         enum:
@@ -5054,6 +5055,7 @@ definitions:
         type: boolean
         readOnly: true
   Payment:
+    type: object
     properties:
       Invoice:
         $ref: '#/definitions/Invoice'
@@ -5258,6 +5260,7 @@ definitions:
         type: boolean
         readOnly: true 
   PurchaseDetails:
+    type: object
     properties:
       UnitPrice:
         description: >-
@@ -5739,6 +5742,7 @@ definitions:
                   example: 500
                   type: string
   SalesDetails:
+    type: object
     properties:
       UnitPrice:
         description: >-

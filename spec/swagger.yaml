@@ -3643,7 +3643,7 @@ definitions:
         description: >-
           Line amounts are exclusive of tax by default if you don’t specify this
           element
-        default: NoTax
+        default: Exclusive
       LineItems:
         $ref: '#/definitions/LineItems'
       Url:
@@ -4295,7 +4295,7 @@ definitions:
         description: >-
           Line amounts are exclusive of tax by default if you don’t specify this
           element
-        default: NoTax
+        default: Exclusive
       LineItems:
         $ref: '#/definitions/LineItems'
       BrandingThemeID:
@@ -4739,22 +4739,28 @@ definitions:
         format: date
       LineAmountTypes:
         type: string
+        description: >-
+          Line amounts are exclusive of tax by default if you don’t specify this
+          element
         enum:
           - Inclusive
           - Exclusive
           - NoTax
-        description: >-
-          Line amounts are exclusive of tax by default if you don’t specify this
-          element
-        default: NoTax
+        default: Exclusive
       Status:
         description: See Manual Journal Status Codes
         type: string
+        enum:
+         - DRAFT
+         - POSTED
+         - DELETED
+         - VOIDED
       Url:
         description: >-
           Url link to a source document – shown as “Go to [appName]” in the Xero
           app
         type: string
+        example: https://myaapp.com/journal/123
       ShowOnCashBasisReports:
         description: Boolean – default is true if not specified
         type: boolean
@@ -4771,6 +4777,7 @@ definitions:
         description: The Xero identifier for a Manual Journal
         type: string
         format: uuid
+        readOnly: true
     required:
       - Narration
       - JournalLines
@@ -4780,17 +4787,22 @@ definitions:
         description: >-
           The URL to view the online invoice
         type: string
+        readOnly: true
+        example: https://in.xero.com/U56hvGos5l9yHoeNITNjmqCVMVFUuDQyJMDwy41X
   Organisation:
     properties:
       APIKey:
         description: Display a unique key used for Xero-to-Xero transactions
         type: string
+        example: HJSONEEWGDGATQAL1VSWAZ0XHME0DV
       Name:
         description: Display name of organisation shown in Xero
         type: string
+        example: My Awesome Company
       LegalName:
         description: Organisation name shown on Reports
         type: string
+        example: My Awesome Company Pty Ltd
       PaysTax:
         description: >-
           Boolean to describe if organisation is registered with a local tax
@@ -4825,9 +4837,11 @@ definitions:
       BaseCurrency:
         description: Default currency for organisation. See ISO 4217 Currency Codes
         type: string
+        example: AUD
       CountryCode:
         description: Country code for organisation. See ISO 3166-2 Country Codes
         type: string
+        example: AU
       IsDemoCompany:
         description: Boolean to describe if organisation is a demo company.
         type: boolean
@@ -4836,40 +4850,58 @@ definitions:
           Will be set to ACTIVE if you can connect to organisation via the Xero
           API
         type: string
+        enum:
+          - ACTIVE
       RegistrationNumber:
         description: 'Shows for New Zealand, Australian and UK organisations'
         type: string
+        example: 11111111138
       TaxNumber:
         description: >-
           Shown if set. Displays in the Xero UI as Tax File Number (AU), GST
           Number (NZ), VAT Number (UK) and Tax ID Number (US & Global).
         type: string
+        example: 53003086616
       FinancialYearEndDay:
         description: Calendar day e.g. 0-31
         type: string
+        example: 30
       FinancialYearEndMonth:
         description: Calendar Month e.g. 1-12
         type: string
+        example: 6
       SalesTaxBasis:
-        description: The accounting basis used for tax returns. See Sales Tax Basis
+        description: The accounting basis used for tax returns
         type: string
+        example: CASH
       SalesTaxPeriod:
         description: >-
           The frequency with which tax returns are processed. See Sales Tax
           Period
         type: string
+        example: MONTHLY
       DefaultSalesTax:
         description: The default for LineAmountTypes on sales transactions
         type: string
+        enum:
+          - Inclusive
+          - Exclusive
+          - NoTax
       DefaultPurchasesTax:
         description: The default for LineAmountTypes on purchase transactions
         type: string
+        enum:
+          - Inclusive
+          - Exclusive
+          - NoTax
       PeriodLockDate:
         description: Shown if set. See lock dates
         type: string
+        format: date
       EndOfYearLockDate:
         description: Shown if set. See lock dates
         type: string
+        format: date
       CreatedDateUTC:
         description: Timestamp when the organisation was created in Xero
         type: string
@@ -4877,6 +4909,7 @@ definitions:
       Timezone:
         description: Timezone specifications
         type: string
+        example: AUSEASTERNSTANDARDTIME
       OrganisationEntityType:
         description: Organisation Type
         type: string
@@ -4890,11 +4923,13 @@ definitions:
           - SOLETRADER
           - TRUST
       ShortCode:
-        description: A unique identifier for the organisation. Potential uses.
+        description: A unique identifier for the organisation. Used for deep linking into Xero.
         type: string
+        example: '!YDrVg'
       LineOfBusiness:
         description: Description of business type as defined in Organisation settings
         type: string
+        example: Dairy Cattle Farming
       Addresses:
         description: Address details for organisation – see Addresses
         type: array
@@ -4921,34 +4956,150 @@ definitions:
               Terms below
           - $ref: '#/definitions/PaymentTerms'
   Overpayment:
-    type: object
     properties:
-      PrepaymentID:
+      Type:
+        description: The Overpayment Type
         type: string
+        enum:
+          - RECEIVE-OVERPAYMENT
+          - SPEND-OVERPAYMENT
+      Contact:
+        $ref: '#/definitions/Contact'
       Date:
+        description: The date the overpayment is created YYYY-MM-DD
         type: string
         format: date
+      Status:
+        description: Overpayment Status
+        type: string
+        enum:
+          - AUTHORISED
+          - PAID
+          - VOIDED
+      LineAmountTypes:
+        type: string
+        enum:
+          - Inclusive
+          - Exclusive
+          - NoTax
+        description: >-
+          Line amounts are exclusive of tax by default if you don’t specify this
+          element
+        default: Exclusive
+      LineItems:
+        description: Overpayment Line Items
+        type: array
+        items:
+          $ref: '#/definitions/LineItem'
+      SubTotal:
+        description: The subtotal of the overpayment excluding taxes
+        type: number
+        format: float
+      TotalTax:
+        description: The total tax on the overpayment
+        type: number
+        format: float
       Total:
+        description: The total of the overpayment (subtotal + total tax)
         type: number
         format: float
-      AppliedAmount:
-        type: number
-        format: float
-  Payment:
-    type: object
-    properties:
-      PaymentID:
+      UpdatedDateUTC:
+        description: UTC timestamp of last update to the overpayment
+        type: string
+        format: date-time
+        readOnly: true
+      CurrencyCode:
+        description: Currency used for the overpayment
+        type: string
+        example: AUD
+      OverpaymentID:
+        description: Xero generated unique identifier
         type: string
         format: uuid
+        readOnly: true
+      CurrencyRate:
+        description: 'The currency rate for a multicurrency overpayment. If no rate is specified, the XE.com day rate is used'
+        type: number
+        format: float
+      RemainingCredit:
+        description: The remaining credit balance on the overpayment
+        type: number
+        format: float
+        readOnly: true
+      Allocations:
+        description: See Allocations
+        type: array
+        items:
+          $ref: '#/definitions/Allocation'
+      Payments:
+        description: See Payments
+        type: array
+        items:
+          $ref: '#/definitions/Payment'
+      HasAttachments:
+        description: boolean to indicate if a overpayment has an attachment
+        type: boolean
+        readOnly: true
+  Payment:
+    properties:
+      Invoice:
+        $ref: '#/definitions/Invoice'
+      CreditNote:
+        $ref: '#/definitions/CreditNote'
+      Prepayment:
+        $ref: '#/definitions/Prepayment'
+      Overpayment:
+        $ref: '#/definitions/Overpayment'
+      Account:
+        $ref: '#/definitions/Account'
       Date:
+        description: Date the payment is being made (YYYY-MM-DD)
         type: string
         format: date
-      Amount:
-        type: number
-        format: float
       CurrencyRate:
+        description: Exchange rate when payment is received. Only used for non base currency invoices and credit notes.
         type: number
         format: float
+      Amount:
+        description: The amount of the payment. Must be less than or equal to the outstanding amount owing on the invoice 
+        type: number
+        format: float
+      Reference:
+        description: An optional description for the payment 
+        type: string
+        example: Direct Debit
+      IsReconciled:
+        description: 'An optional parameter for the payment. A boolean indicating whether you would like the payment to be created as reconciled when using PUT, or whether a payment has been reconciled when using GET'
+        type: boolean
+      Status:
+        description: The status of the payment.
+        type: string
+        enum:
+          - AUTHORISED
+          - DELETED
+      PaymentType:
+        description: The Payment Type.
+        readOnly: true
+        type: string
+        enum:
+          - ACCRECPAYMENT
+          - ACCPAYPAYMENT
+          - ARCREDITPAYMENT
+          - APCREDITPAYMENT
+          - AROVERPAYMENTPAYMENT
+          - ARPREPAYMENTPAYMENT
+          - APPREPAYMENTPAYMENT
+          - APOVERPAYMENTPAYMENT
+      UpdatedDateUTC:
+        description: UTC timestamp of last update to the payment
+        readOnly: true
+        type: string
+        format: date-time
+      PaymentID:
+        description: The Xero identifier for an Payment e.g. 297c2dc5-cc47-4afd-8ec8-74990b8761e9
+        type: string
+        format: uuid
+        readOnly: true
   PaymentTerms:
     type: array
     items:
@@ -5017,7 +5168,7 @@ definitions:
         type: string
         format: date
       Type:
-        description: See Prepayment Types
+        description: Prepayment Types
         type: string
         enum:
           - RECEIVE-PREPAYMENT
@@ -5025,7 +5176,7 @@ definitions:
       Contact:
         $ref: '#/definitions/Contact'
       Status:
-        description: See Prepayment Status Codes
+        description: Prepayment Status Codes
         type: string
         enum:
           - AUTHORISED
@@ -5040,7 +5191,7 @@ definitions:
         description: >-
           Line amounts are exclusive of tax by default if you don’t specify this
           element
-        default: NoTax
+        default: Exclusive
       LineItems:
         description: See Prepayment Line Items
         type: array
@@ -5050,25 +5201,31 @@ definitions:
         description: The subtotal of the prepayment excluding taxes
         type: number
         format: float
+        readOnly: true
       TotalTax:
         description: The total tax on the prepayment
         type: number
         format: float
+        readOnly: true
       Total:
         description: The total of the prepayment(subtotal + total tax)
         type: number
         format: float
+        readOnly: true
       UpdatedDateUTC:
         description: UTC timestamp of last update to the prepayment
         type: string
         format: date-time
+        readOnly: true
       CurrencyCode:
         description: Currency used for the prepayment
         type: string
+        example: AUD
       PrepaymentID:
         description: Xero generated unique identifier
         type: string
         format: uuid
+        readOnly: true
       CurrencyRate:
         description: >-
           The currency rate for a multicurrency prepayment. If no rate is
@@ -5077,7 +5234,9 @@ definitions:
         format: float
       RemainingCredit:
         description: The remaining credit balance on the prepayment
-        type: string
+        type: number
+        format: float
+        readOnly: true
       Allocations:
         description: See Allocations
         type: array
@@ -5085,7 +5244,8 @@ definitions:
           $ref: '#/definitions/Allocation'
       HasAttachments:
         description: boolean to indicate if a prepayment has an attachment
-        type: boolean 
+        type: boolean
+        readOnly: true 
   PurchaseDetails:
     properties:
       UnitPrice:
@@ -5117,12 +5277,7 @@ definitions:
     type: object
     properties:
       Contact:
-        allOf:
-          - description: >-
-              The PurchaseOrders endpoint does not create new contacts. You need
-              to provide the ContactID or ContactNumber of an existing contact.
-              For more information on creating contacts see Contacts.
-          - $ref: '#/definitions/Contact'
+        $ref: '#/definitions/Contact'
       LineItems:
         description: See LineItems
         type: array
@@ -5148,15 +5303,17 @@ definitions:
         description: >-
           Line amounts are exclusive of tax by default if you don’t specify this
           element
-        default: NoTax
+        default: Exclusive
       PurchaseOrderNumber:
         description: >-
           Unique alpha numeric code identifying purchase order (when missing
           will auto-generate from your Organisation Invoice Settings)
         type: string
+        example: PO-123
       Reference:
         description: Additional reference number
         type: string
+        example: ABC123
       BrandingThemeID:
         description: See BrandingThemes
         type: string
@@ -5164,27 +5321,39 @@ definitions:
       CurrencyCode:
         description: The currency that purchase order has been raised in (see Currencies)
         type: string
+        example: AUD
       Status:
-        description: See Purchase Order Status Codes
+        description: Purchase Order Status Codes
         type: string
+        enum:
+          - DRAFT
+          - SUBMITTED
+          - AUTHORISED
+          - BILLED
+          - DELETED
       SentToContact:
         description: >-
           Boolean to set whether the purchase order should be marked as “sent”.
           This can be set only on purchase orders that have been approved or
           billed
         type: boolean
+        default: false
       DeliveryAddress:
         description: The address the goods are to be delivered to
         type: string
+        example: 23 Main Street, Central City, Marineville,1234
       AttentionTo:
         description: The person that the delivery is going to
         type: string
+        example: Adam
       Telephone:
         description: The phone number for the person accepting the delivery
         type: string
+        example: 0800 1234 5678
       DeliveryInstructions:
         description: A free text feild for instructions (500 characters max)
         type: string
+        example: Don't forget the secret knock
       ExpectedArrivalDate:
         description: The date the goods are expected to arrive.
         type: string
@@ -5193,6 +5362,7 @@ definitions:
         description: Xero generated unique identifier for purchase order
         type: string
         format: uuid
+        readOnly: true
       CurrencyRate:
         description: >-
           The currency rate for a multicurrency purchase order. As no rate can
@@ -5240,23 +5410,18 @@ definitions:
         type: string
         format: date
       Contact:
-        allOf:
-          - description: See Contacts
-          - $ref: '#/definitions/Contact'
+        $ref: '#/definitions/Contact'
       Lineitems:
         description: See LineItems
         type: array
         items:
           $ref: '#/definitions/LineItem'
       User:
-        allOf:
-          - description: >-
-              The user in the organisation that the expense claim receipt is
-              for. See Users
-          - $ref: '#/definitions/User'
+        $ref: '#/definitions/User'
       Reference:
         description: Additional reference number
         type: string
+        example: ABC123
       LineAmountTypes:
         type: string
         enum:
@@ -5266,28 +5431,35 @@ definitions:
         description: >-
           Line amounts are exclusive of tax by default if you don’t specify this
           element
-        default: NoTax
+        default: Exclusive
       SubTotal:
         description: Total of receipt excluding taxes
         type: number
         format: float
+        readOnly: true
       TotalTax:
         description: Total tax on receipt
         type: number
         format: float
+        readOnly: true
       Total:
         description: Total of receipt tax inclusive (i.e. SubTotal + TotalTax)
         type: number
         format: float
+        readOnly: true
       ReceiptID:
         description: Xero generated unique identifier for receipt
         readOnly: true
         type: string
         format: uuid
       Status:
-        description: Current status of receipt – see status types
-        readOnly: true
+        description: Current status of receipt
         type: string
+        enum:
+          - DRAFT
+          - SUBMITTED
+          - AUTHORISED
+          - DECLINED
       ReceiptNumber:
         description: >-
           Xero generated sequence number for receipt in current claim for a
@@ -5307,8 +5479,8 @@ definitions:
         description: >-
           URL link to a source document – shown as “Go to [appName]” in the Xero
           app
-        readOnly: true
         type: string
+        example: https://myapp.com/receipt/123
     required:
       - Date
       - Contact
@@ -5317,18 +5489,16 @@ definitions:
   RepeatingInvoice:
     properties:
       Type:
-        description: See Invoice Types
+        description: Invoice Types
         type: string
+        enum:
+          - ACCPAY
+          - ACCREC
       Contact:
-        allOf:
-          - description: See Contacts
-          - $ref: '#/definitions/Contact'
+        $ref: '#/definitions/Contact'
       Schedule:
-        allOf:
-          - description: See Schedule
-          - $ref: '#/definitions/Schedule'
+        $ref: '#/definitions/Schedule'
       LineItems:
-        description: See LineItems
         type: array
         items:
           $ref: '#/definitions/LineItem'
@@ -5341,10 +5511,11 @@ definitions:
         description: >-
           Line amounts are exclusive of tax by default if you don’t specify this
           element
-        default: NoTax
+        default: Exclusive
       Reference:
         description: ACCREC only – additional reference number
         type: string
+        example: ABC123
       BrandingThemeID:
         description: See BrandingThemes
         type: string
@@ -5352,28 +5523,37 @@ definitions:
       CurrencyCode:
         description: The currency that invoice has been raised in (see Currencies)
         type: string
+        example: AUD
       Status:
-        description: 'One of the following : DRAFT or AUTHORISED – See Invoice Status Codes'
+        description: 'One of the following : DRAFT or AUTHORISED'
         type: string
+        enum:
+          - DRAFT
+          - AUTHORISED
       SubTotal:
         description: Total of invoice excluding taxes
         type: number
         format: float
+        readOnly: true
       TotalTax:
         description: Total tax on invoice
         type: number
         format: float
+        readOnly: true
       Total:
         description: Total of Invoice tax inclusive (i.e. SubTotal + TotalTax)
         type: number
         format: float
+        readOnly: true
       RepeatingInvoiceID:
         description: Xero generated unique identifier for repeating invoice template
         type: string
         format: uuid
+        readOnly: true
       HasAttachments:
         description: boolean to indicate if an invoice has an attachment
         type: boolean
+        readOnly: true
   Report:
     properties:
       ReportID:
@@ -5611,16 +5791,17 @@ definitions:
       Name:
         description: Name of tax rate
         type: string
+        example: Sales Tax
       TaxType:
         description: See Tax Types – can only be used on update calls
         type: string
+        example: TAX001
       TaxComponents:
-        description: See TaxComponents
         type: array
         items:
           $ref: '#/definitions/TaxComponent'
       Status:
-        description: See Status Codes
+        description: Status Codes
         type: string
         enum:
           - ACTIVE
@@ -5631,39 +5812,24 @@ definitions:
         type: string
       CanApplyToAssets:
         description: >-
-          Boolean to describe if tax rate can be used for asset accounts i.e.
-          true,false
-        readOnly: true
-        type: number
-        format: float
+          Boolean to describe if tax rate can be used for asset accounts 
+        type: boolean
       CanApplyToEquity:
         description: >-
-          Boolean to describe if tax rate can be used for equity accounts i.e.
-          true,false
-        readOnly: true
-        type: number
-        format: float
+          Boolean to describe if tax rate can be used for equity accounts 
+        type: boolean
       CanApplyToExpenses:
         description: >-
-          Boolean to describe if tax rate can be used for expense accounts i.e.
-          true,false
-        readOnly: true
-        type: number
-        format: float
+          Boolean to describe if tax rate can be used for expense accounts 
+        type: boolean
       CanApplyToLiabilities:
         description: >-
           Boolean to describe if tax rate can be used for liability accounts
-          i.e. true,false
-        readOnly: true
-        type: number
-        format: float
+        type: boolean
       CanApplyToRevenue:
         description: >-
-          Boolean to describe if tax rate can be used for revenue accounts i.e.
-          true,false
-        readOnly: true
-        type: number
-        format: float
+          Boolean to describe if tax rate can be used for revenue accounts
+        type: boolean
       DisplayTaxRate:
         description: Tax Rate (decimal to 4dp) e.g 12.5000
         readOnly: true
@@ -5675,23 +5841,21 @@ definitions:
         type: number
         format: float
     required:
-      - ReportTaxType
+      - Name
+      - TaxComponents
   TaxComponent:
     properties:
       Name:
         description: Name of Tax Component
         type: string
+        example: City Tax
       Rate:
         description: Tax Rate (up to 4dp)
         type: number
         format: float
       IsCompound:
         description: Boolean to describe if Tax rate is compounded.Learn more
-        type: number
-        format: float
-      TaxType:
-        description: Filter by a Tax Type
-        type: string
+        type: boolean
   TrackingCategory:
     type: object
     properties:
@@ -5707,9 +5871,13 @@ definitions:
           = 100)
         maxLength: 100
         type: string
+        example: Region
       Status:
         description: The status of a tracking category
         type: string
+        enum:
+          - ACTIVE
+          - ARCHIVED
       Options:
         description: See Tracking Options
         type: array
@@ -5728,13 +5896,13 @@ definitions:
         description: 'The name of the tracking option e.g. Marketing, East (max length = 50)'
         maxLength: 50
         type: string
+        example: North
       Status:
         description: The status of a tracking option
         type: string
-      TrackingCategoryID:
-        description: Filter by a tracking categorye.g. 297c2dc5-cc47-4afd-8ec8-74990b8761e9
-        type: string
-        format: uuid
+        enum:
+          - ACTIVE
+          - ARCHIVED
   PurchasesTrackingCategory:
     type: object
     properties:
@@ -5777,12 +5945,15 @@ definitions:
       EmailAddress:
         description: Email address of user
         type: string
+        example: john@smith.com
       FirstName:
         description: First name of user
         type: string
+        example: John
       LastName:
         description: Last name of user
         type: string
+        example: Smith
       UpdatedDateUTC:
         description: Timestamp of last change to user
         type: string
@@ -5791,8 +5962,15 @@ definitions:
         description: Boolean to indicate if user is the subscriber
         type: boolean
       OrganisationRole:
-        description: User role (see Types)
+        description: User role 
         type: string
+        enum: 
+          - READONLY
+          - INVOICEONLY
+          - STANDARD
+          - FINANCIALADVISER
+          - MANAGEDCLIENT
+          - CASHBOOKCLIENT
 parameters:
   If-Modified-Since:
     name: If-Modified-Since

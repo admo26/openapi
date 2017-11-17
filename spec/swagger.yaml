@@ -3456,10 +3456,9 @@ definitions:
       Invoice:
         type: object
         properties:
-          InvoiceId:
+          InvoiceID:
             type: string
             format: uuid
-            example: 2edbb726-f6ad-41e4-8e00-f84550b8a455
       AppliedAmount:
         description: the amount being applied to the invoice
         type: number
@@ -3621,7 +3620,7 @@ definitions:
         description:   Reference for the transaction. Only supported for SPEND and RECEIVE transactions
         example: ABC123
       Contact:
-        $ref: '#/definitions/Contact'
+        $ref: '#/definitions/ContactSummary'
       Date:
         type: string
         format: date
@@ -4023,7 +4022,7 @@ definitions:
           - ACCPAYCREDIT
           - ACCRECCREDIT
       Contact:
-        $ref: '#/definitions/Contact'
+        $ref: '#/definitions/ContactSummary'
       Date:
         description: >-
           The date the credit note is issued YYYY-MM-DD. If the Date element is not specified then it will default to the current date based on the timezone setting of the organisation
@@ -4124,6 +4123,34 @@ definitions:
         description: boolean to indicate if a credit note has an attachment
         type: boolean
         readOnly: true
+  CreditNoteSummary:
+    type: object
+    properties:
+      Date:
+        description: >-
+          The date the credit note is issued YYYY-MM-DD. If the Date element is not specified then it will default to the current date based on the timezone setting of the organisation
+        type: string
+        format: date
+      Total:
+        description: The total of the Credit Note(subtotal + total tax)
+        type: number
+        format: float
+        readOnly: true
+      AppliedAmount:
+        description: The total applied to the invoice
+        type: number
+        format: float
+        readOnly: true
+      CreditNoteID:
+        description: Xero generated unique identifier
+        type: string
+        format: uuid
+        readOnly: true
+      CreditNoteNumber:
+        description: >-
+          ACCRECCREDIT – Unique alpha numeric code identifying credit note (when missing will auto-generate from your Organisation Invoice Settings)
+        type: string
+        example: CN-123
   Content:
     type: object
     required:
@@ -4193,7 +4220,7 @@ definitions:
         readOnly: true
         type: array
         items:
-          $ref: '#/definitions/Payment'
+          $ref: '#/definitions/PaymentSummary'
       Status:
         description: Current status of an expense claim
         type: string
@@ -4257,7 +4284,7 @@ definitions:
       - Contact
       - LineItems
     properties:
-      InvoiceId:
+      InvoiceID:
         type: string
         format: uuid
         description: Xero generated unique identifier for invoice
@@ -4409,19 +4436,45 @@ definitions:
       Payments:
         type: array
         items:
-          $ref: '#/definitions/Payment'
+          $ref: '#/definitions/PaymentSummary'
       CreditNotes:
         type: array
         items:
-          $ref: '#/definitions/CreditNote'
+          $ref: '#/definitions/CreditNoteSummary'
       Prepayments:
         type: array
         items:
-          $ref: '#/definitions/Prepayment'
+          $ref: '#/definitions/PrepaymentSummary'
       Overpayments:
         type: array
         items:
-          $ref: '#/definitions/Overpayment'
+          $ref: '#/definitions/OverpaymentSummary'
+    xml:
+      name: Invoice
+  InvoiceSummary:
+    type: object
+    properties:
+      Contact:
+        $ref: '#/definitions/ContactSummary'
+      Type: 
+        description: The Invoice Type
+        type: string
+        enum:
+          - ACCPAY
+          - ACCREC
+      InvoiceID:
+        type: string
+        format: uuid
+        description: Xero generated unique identifier for invoice
+        readOnly: true
+      InvoiceNumber:
+        type: string
+        description: |
+          User defined alphanumeric code for identifying invoices. 
+          - Unique for ACCREC but not for ACCPAY. 
+          - For ACCREC it will auto-generate when left blank. 
+          - For ACCPAY it displays as Reference in the UI.
+        example: INV-123
     xml:
       name: Invoice
   Item:
@@ -5049,24 +5102,59 @@ definitions:
       Payments:
         type: array
         items:
-          $ref: '#/definitions/Payment'
+          $ref: '#/definitions/PaymentSummary'
       HasAttachments:
         description: boolean to indicate if a overpayment has an attachment
         type: boolean
         readOnly: true
+  OverpaymentSummary:
+    type: object
+    properties:
+      Date:
+        description: >-
+          The date the overpayment was made YYYY-MM-DD
+        type: string
+        format: date
+      Total:
+        description: The total of the Overpayment (subtotal + total tax)
+        type: number
+        format: float
+        readOnly: true
+      AppliedAmount:
+        description: The total applied to the invoice
+        type: number
+        format: float
+        readOnly: true
+      OverpaymentID:
+        description: Xero generated unique identifier
+        type: string
+        format: uuid
+        readOnly: true
+    xml:
+      name: Overpayment
   Payment:
     type: object
     properties:
       Invoice:
-        $ref: '#/definitions/Invoice'
+        $ref: '#/definitions/InvoiceSummary'
       CreditNote:
-        $ref: '#/definitions/CreditNote'
+        $ref: '#/definitions/CreditNoteSummary'
       Prepayment:
-        $ref: '#/definitions/Prepayment'
+        $ref: '#/definitions/PrepaymentSummary'
       Overpayment:
-        $ref: '#/definitions/Overpayment'
+        $ref: '#/definitions/OverpaymentSummary'
       Account:
-        $ref: '#/definitions/Account'
+        description: The Account the payment was made from
+        type: object
+        properties:
+          Code:
+            description: Account Code
+            type: string
+            example: 600
+          AccountID:
+            description: Identifier for the account
+            type: string
+            format: uuid
       Date:
         description: Date the payment is being made (YYYY-MM-DD)
         type: string
@@ -5111,10 +5199,28 @@ definitions:
         type: string
         format: date-time
       PaymentID:
-        description: The Xero identifier for an Payment e.g. 297c2dc5-cc47-4afd-8ec8-74990b8761e9
+        description: The Xero identifier for an Payment
         type: string
         format: uuid
         readOnly: true
+  PaymentSummary:
+    type: object
+    properties:
+      PaymentID:
+        description: The Xero identifier for an Payment
+        type: string
+        format: uuid
+        readOnly: true
+      Date:
+        description: Date the payment is being made (YYYY-MM-DD)
+        type: string
+        format: date
+      Amount:
+        description: The amount of the payment. Must be less than or equal to the outstanding amount owing on the invoice 
+        type: number
+        format: float
+    xml:
+      name: Payment
   PaymentTerms:
     type: array
     items:
@@ -5189,7 +5295,7 @@ definitions:
           - RECEIVE-PREPAYMENT
           - SPEND-PREPAYMENT
       Contact:
-        $ref: '#/definitions/Contact'
+        $ref: '#/definitions/ContactSummary'
       Status:
         description: Prepayment Status Codes
         type: string
@@ -5258,7 +5364,32 @@ definitions:
       HasAttachments:
         description: boolean to indicate if a prepayment has an attachment
         type: boolean
-        readOnly: true 
+        readOnly: true
+  PrepaymentSummary:
+    type: object
+    properties:
+      Date:
+        description: >-
+          The date the prepayment is issued YYYY-MM-DD.
+        type: string
+        format: date
+      Total:
+        description: The total of the Prepayment (subtotal + total tax)
+        type: number
+        format: float
+        readOnly: true
+      AppliedAmount:
+        description: The total applied to the invoice
+        type: number
+        format: float
+        readOnly: true
+      PrepaymentID:
+        description: Xero generated unique identifier
+        type: string
+        format: uuid
+        readOnly: true
+    xml:
+      name: Prepayment
   PurchaseDetails:
     type: object
     properties:
@@ -5291,7 +5422,7 @@ definitions:
     type: object
     properties:
       Contact:
-        $ref: '#/definitions/Contact'
+        $ref: '#/definitions/ContactSummary'
       LineItems:
         type: array
         items:
@@ -5423,7 +5554,7 @@ definitions:
         type: string
         format: date
       Contact:
-        $ref: '#/definitions/Contact'
+        $ref: '#/definitions/ContactSummary'
       Lineitems:
         type: array
         items:
@@ -5507,7 +5638,7 @@ definitions:
           - ACCPAY
           - ACCREC
       Contact:
-        $ref: '#/definitions/Contact'
+        $ref: '#/definitions/ContactSummary'
       Schedule:
         $ref: '#/definitions/Schedule'
       LineItems:

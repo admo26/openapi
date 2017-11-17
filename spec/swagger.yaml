@@ -3933,6 +3933,22 @@ definitions:
         description: A boolean to indicate if a contact has an attachment
         readOnly: true
         example: true
+  ContactSummary:
+    type: object
+    required:
+      - Name
+    properties:
+      ContactID:
+        type: string
+        format: uuid
+        description: Xero identifier
+        example: "cc04bc53-f094-4ed6-8b3e-67297c37fae0"
+        readOnly: true
+      Name:
+        type: string
+        maxLength: 255
+        description: Full name of contact/organisation
+        example: Adam Moore
     xml:
       name: Contact
   ContactGroup:
@@ -4265,7 +4281,7 @@ definitions:
         description: ACCREC only – additional reference number
         example: REF-123
       Contact:
-        $ref: '#/definitions/Contact'
+        $ref: '#/definitions/ContactSummary'
       Date:
         type: string
         format: date
@@ -4962,7 +4978,7 @@ definitions:
           - RECEIVE-OVERPAYMENT
           - SPEND-OVERPAYMENT
       Contact:
-        $ref: '#/definitions/Contact'
+        $ref: '#/definitions/ContactSummary'
       Date:
         description: The date the overpayment is created YYYY-MM-DD
         type: string

@@ -3361,8 +3361,7 @@ definitions:
           - REVENUE
       SystemAccount:
         type: string
-        description: If this is a system account then this element is returned. See System
-          Account types. Note that non-system accounts may have this element set
+        description: If this is a system account then this element is returned. Note that non-system accounts may have this element set
           as either “” or null.
         readOnly: true
         example: ROUNDING
@@ -3985,7 +3984,7 @@ definitions:
     type: object
     properties:
       Code:
-        description: 3 letter alpha code for the currency – see list of currency codes
+        description: 3 letter alpha code for the currency
         type: string
         example: AUD
         readOnly: true
@@ -4180,7 +4179,7 @@ definitions:
         items:
           $ref: '#/definitions/Payment'
       Status:
-        description: Current status of an expense claim – see status types
+        description: Current status of an expense claim
         type: string
         enum:
           - SUBMITTED
@@ -4223,7 +4222,7 @@ definitions:
     type: object
     properties:
       LinkType:
-        description: See External link types
+        description: External link types
         type: string
         enum:
           - Facebook
@@ -4539,7 +4538,6 @@ definitions:
           - INTEGRATEDPAYROLLPTPAYMENT
           - INTEGRATEDPAYROLLCN
       JournalLines:
-        description: See JournalLines
         type: array
         items:
           $ref: '#/definitions/JournalLine'
@@ -4550,7 +4548,7 @@ definitions:
         type: number
         format: float
       AccountCode:
-        description: See Accounts
+        description: Account Code
         type: string
         example: 200
       Description:
@@ -4560,13 +4558,13 @@ definitions:
       TaxType:
         description: >-
           Used as an override if the default Tax Code for the selected
-          <AccountCode> is not correct – see TaxTypes.
+          AccountCode is not correct.
         type: string
         example: NONE
       Tracking:
         description: >-
-          Optional Tracking Category – see Tracking. Any JournalLine can have a
-          maximum of 2 <TrackingCategory> elements.
+          Optional Tracking Category. Any JournalLine can have a
+          maximum of 2 TrackingCategory elements.
         type: array
         items:
           $ref: '#/definitions/TrackingCategory'
@@ -4627,8 +4625,8 @@ definitions:
         format: float
         description: >-
           The tax amount is auto calculated as a percentage of the line amount
-          (see below) based on the tax rate. This value can be overriden if the
-          calculated <TaxAmount> is not correct.
+          based on the tax rate. This value can be overriden if the
+          calculated TaxAmount is not correct.
       LineAmount:
         type: number
         format: float
@@ -4748,7 +4746,7 @@ definitions:
           - NoTax
         default: Exclusive
       Status:
-        description: See Manual Journal Status Codes
+        description: Manual Journal Status Codes
         type: string
         enum:
          - DRAFT
@@ -4809,7 +4807,7 @@ definitions:
           authority i.e. true, false
         type: boolean
       Version:
-        description: See Version Types
+        description: Version Types
         type: string
         enum:
           - AU
@@ -4895,11 +4893,11 @@ definitions:
           - Exclusive
           - NoTax
       PeriodLockDate:
-        description: Shown if set. See lock dates
+        description: Shown if set
         type: string
         format: date
       EndOfYearLockDate:
-        description: Shown if set. See lock dates
+        description: Shown if set
         type: string
         format: date
       CreatedDateUTC:
@@ -4931,12 +4929,12 @@ definitions:
         type: string
         example: Dairy Cattle Farming
       Addresses:
-        description: Address details for organisation – see Addresses
+        description: Address details for organisation 
         type: array
         items:
           $ref: '#/definitions/Address'
       Phones:
-        description: Phones details for organisation – see Phones
+        description: Phones details for organisation
         type: array
         items:
           $ref: '#/definitions/Phone'
@@ -4952,7 +4950,7 @@ definitions:
       PaymentTerms:
         allOf:
           - description: >-
-              Default payment terms for the organisation if set – See Payment
+              Default payment terms for the organisation if set
               Terms below
           - $ref: '#/definitions/PaymentTerms'
   Overpayment:
@@ -5032,7 +5030,6 @@ definitions:
         items:
           $ref: '#/definitions/Allocation'
       Payments:
-        description: See Payments
         type: array
         items:
           $ref: '#/definitions/Payment'
@@ -5193,7 +5190,6 @@ definitions:
           element
         default: Exclusive
       LineItems:
-        description: See Prepayment Line Items
         type: array
         items:
           $ref: '#/definitions/LineItem'
@@ -5238,7 +5234,6 @@ definitions:
         format: float
         readOnly: true
       Allocations:
-        description: See Allocations
         type: array
         items:
           $ref: '#/definitions/Allocation'
@@ -5270,7 +5265,7 @@ definitions:
       TaxType:
         description: >-
           Used as an override if the default Tax Code for the selected
-          <AccountCode> is not correct – see TaxTypes.
+          AccountCode is not correct.
         type: string 
         example: NONE
   PurchaseOrder:
@@ -5279,7 +5274,6 @@ definitions:
       Contact:
         $ref: '#/definitions/Contact'
       LineItems:
-        description: See LineItems
         type: array
         items:
           $ref: '#/definitions/LineItem'
@@ -5319,7 +5313,7 @@ definitions:
         type: string
         format: uuid
       CurrencyCode:
-        description: The currency that purchase order has been raised in (see Currencies)
+        description: The currency that purchase order has been raised in
         type: string
         example: AUD
       Status:
@@ -5412,7 +5406,6 @@ definitions:
       Contact:
         $ref: '#/definitions/Contact'
       Lineitems:
-        description: See LineItems
         type: array
         items:
           $ref: '#/definitions/LineItem'
@@ -5517,11 +5510,11 @@ definitions:
         type: string
         example: ABC123
       BrandingThemeID:
-        description: See BrandingThemes
+        description: Branding Theme to be applied to the invoice
         type: string
         format: uuid
       CurrencyCode:
-        description: The currency that invoice has been raised in (see Currencies)
+        description: The currency that invoice has been raised in
         type: string
         example: AUD
       Status:
@@ -5746,7 +5739,7 @@ definitions:
       TaxType:
         description: >-
           Used as an override if the default Tax Code for the selected
-          <AccountCode> is not correct – see TaxTypes.
+          AccountCode is not correct .
         type: string 
         example: NONE
   Schedule:
@@ -5793,7 +5786,7 @@ definitions:
         type: string
         example: Sales Tax
       TaxType:
-        description: See Tax Types – can only be used on update calls
+        description: Tax Types – can only be used as the identifier on update calls
         type: string
         example: TAX001
       TaxComponents:
@@ -5879,7 +5872,6 @@ definitions:
           - ACTIVE
           - ARCHIVED
       Options:
-        description: See Tracking Options
         type: array
         items:
           $ref: '#/definitions/TrackingOption'

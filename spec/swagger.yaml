@@ -5940,9 +5940,24 @@ definitions:
     items:
       $ref: '#/definitions/SalesTrackingCategory'
   Tracking:
-    type: array
-    items:
-      $ref: '#/definitions/TrackingCategory'
+    type: object
+    properties:
+      TrackingCategory: 
+        type: array
+        items:
+          properties:
+            TrackingCategoryID:
+              description: The identifier for the tracking category
+              type: string
+              format: uuid
+            Name:
+              description: The name of the tracking category
+              type: string
+              example: Region
+            Option:
+              description: The name of the tracking option
+              type: string
+              example: North
   User:
     type: object
     properties:

@@ -2889,7 +2889,7 @@ paths:
     get:
       tags:
         - "Reports"
-      summary: Returns the statement lines for a specified bank account
+      summary: Retrieve a bank statement report
       responses:
         '200':
           $ref: '#/responses/ReportsResponse'
@@ -2915,7 +2915,7 @@ paths:
     get:
       tags:
         - "Reports"
-      summary: Returns the balances and cash movements for each bank account
+      summary: Retrieve a bank summary report
       responses:
         '200':
           $ref: '#/responses/ReportsResponse'
@@ -2935,7 +2935,7 @@ paths:
     get:
       tags:
         - "Reports"
-      summary: Returns a summary of your monthly budget
+      summary: Retrieve a budget summary report
       responses:
         '200':
           $ref: '#/responses/ReportsResponse'
@@ -2960,7 +2960,7 @@ paths:
     get:
       tags:
         - "Reports"
-      summary: A summary including monthly totals and some common business ratios
+      summary: Retrieve an executive summary report
       responses:
         '200':
           $ref: '#/responses/ReportsResponse'
@@ -2975,7 +2975,7 @@ paths:
     get:
       tags:
         - "Reports"
-      summary: Returns a profit and loss for the current month by default. An alternate date range can also be specified using the optional parameters listed below.
+      summary: Retrieve a profit and loss report
       responses:
         '200':
           $ref: '#/responses/ReportsResponse'
@@ -3025,7 +3025,7 @@ paths:
     get:
       tags:
         - "Reports"
-      summary: Returns a trial balance for the current month up to the date specified. YTD values are shown too.
+      summary: Retrieve a Trial Balance Report
       responses:
         '200':
           $ref: '#/responses/ReportsResponse'

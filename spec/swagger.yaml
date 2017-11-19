@@ -6306,9 +6306,12 @@ responses:
           description: DateTime of the request
           readOnly: true
         Accounts:
-          type: array
-          items:
-            $ref: '#/definitions/Account' 
+          type: object
+          properties:
+            Account:
+              type: array
+              items:
+                $ref: '#/definitions/Account' 
   BankTransactionsResponse:
     description: A successful response
     schema:

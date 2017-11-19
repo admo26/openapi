@@ -347,6 +347,7 @@ paths:
           schema:
             $ref: '#/definitions/BankTransaction'
           required: true
+        - $ref: '#/parameters/summarizeErrors'
       responses:
         '200':
           $ref: '#/responses/BankTransactionsResponse'
@@ -365,6 +366,7 @@ paths:
             $ref: '#/definitions/BankTransaction'
           required: true
         - $ref: '#/parameters/unitdp'
+        - $ref: '#/parameters/summarizeErrors'
       responses:
         '200':
           $ref: '#/responses/BankTransactionsResponse'
@@ -532,6 +534,7 @@ paths:
           schema:
             $ref: '#/definitions/BankTransfer'
           required: true
+        - $ref: '#/parameters/summarizeErrors'
       responses:
         '200':
           $ref: '#/responses/BankTransfersResponse'
@@ -705,6 +708,7 @@ paths:
           schema:
             $ref: '#/definitions/Contact'
           required: true
+        - $ref: '#/parameters/summarizeErrors'
       responses:
         '200':
           $ref: '#/responses/ContactsResponse'
@@ -874,6 +878,7 @@ paths:
           schema:
             $ref: '#/definitions/ContactGroup'
           required: true
+        - $ref: '#/parameters/summarizeErrors'
       responses:
         '200':
           $ref: '#/responses/ContactGroupsResponse'
@@ -892,6 +897,7 @@ paths:
           schema:
             $ref: '#/definitions/ContactGroup'
           required: true
+        - $ref: '#/parameters/summarizeErrors'
       responses:
         '200':
           $ref: '#/responses/ContactGroupsResponse'
@@ -1064,6 +1070,7 @@ paths:
             $ref: '#/definitions/CreditNote'
           required: true
         - $ref: '#/parameters/unitdp'
+        - $ref: '#/parameters/summarizeErrors'
       responses:
         '200':
           $ref: '#/responses/CreditNotesResponse'
@@ -1082,6 +1089,7 @@ paths:
             $ref: '#/definitions/CreditNote'
           required: true
         - $ref: '#/parameters/unitdp'
+        - $ref: '#/parameters/summarizeErrors'
       responses:
         '200':
           $ref: '#/responses/CreditNotesResponse'
@@ -1299,6 +1307,7 @@ paths:
           schema:
             $ref: '#/definitions/Employee'
           required: true
+        - $ref: '#/parameters/summarizeErrors'
       responses:
         '200':
           $ref: '#/responses/EmployeesResponse'
@@ -1317,6 +1326,7 @@ paths:
           schema:
             $ref: '#/definitions/Employee'
           required: true
+        - $ref: '#/parameters/summarizeErrors'
       responses:
         '200':
           $ref: '#/responses/EmployeesResponse'
@@ -1398,6 +1408,7 @@ paths:
           schema:
             $ref: '#/definitions/ExpenseClaim'
           required: true
+        - $ref: '#/parameters/summarizeErrors'
       responses:
         '200':
           $ref: '#/responses/ExpenseClaimsResponse'
@@ -1416,6 +1427,7 @@ paths:
           schema:
             $ref: '#/definitions/ExpenseClaim'
           required: true
+        - $ref: '#/parameters/summarizeErrors'
       responses:
         '200':
           $ref: '#/responses/ExpenseClaimsResponse'
@@ -1521,6 +1533,7 @@ paths:
             $ref: '#/definitions/Invoice'
           required: true
         - $ref: '#/parameters/unitdp'
+        - $ref: '#/parameters/summarizeErrors'
       responses:
         '200':
           $ref: '#/responses/InvoicesResponse'
@@ -1539,6 +1552,7 @@ paths:
             $ref: '#/definitions/Invoice'
           required: true
         - $ref: '#/parameters/unitdp'
+        - $ref: '#/parameters/summarizeErrors'
       responses:
         '200':
           $ref: '#/responses/InvoicesResponse'
@@ -1729,6 +1743,7 @@ paths:
             $ref: '#/definitions/Item'
           required: true
         - $ref: '#/parameters/unitdp'
+        - $ref: '#/parameters/summarizeErrors'
       responses:
         '200':
           $ref: '#/responses/ItemsResponse'
@@ -1747,6 +1762,7 @@ paths:
             $ref: '#/definitions/Item'
           required: true
         - $ref: '#/parameters/unitdp'
+        - $ref: '#/parameters/summarizeErrors'
       responses:
         '200':
           $ref: '#/responses/ItemsResponse'
@@ -1986,6 +2002,7 @@ paths:
           schema:
             $ref: '#/definitions/ManualJournal'
           required: true
+        - $ref: '#/parameters/summarizeErrors'
       responses:
         '200':
           $ref: '#/responses/ManualJournalsResponse'
@@ -1999,6 +2016,7 @@ paths:
           schema:
             $ref: '#/definitions/ManualJournal'
           required: true
+        - $ref: '#/parameters/summarizeErrors'
       responses:
         '200':
           $ref: '#/responses/ManualJournalsResponse'
@@ -2226,6 +2244,7 @@ paths:
           schema:
             $ref: '#/definitions/Payment'
           required: true
+        - $ref: '#/parameters/summarizeErrors'
       responses:
         '200':
           $ref: '#/responses/PaymentsResponse'
@@ -2239,6 +2258,7 @@ paths:
           schema:
             $ref: '#/definitions/Payment'
           required: true
+        - $ref: '#/parameters/summarizeErrors'
       responses:
         '200':
           $ref: '#/responses/PaymentsResponse'
@@ -2369,6 +2389,7 @@ paths:
           schema:
             $ref: '#/definitions/PurchaseOrder'
           required: true
+        - $ref: '#/parameters/summarizeErrors'
       responses:
         '200':
           $ref: '#/responses/PurchaseOrdersResponse'
@@ -2382,6 +2403,7 @@ paths:
           schema:
             $ref: '#/definitions/PurchaseOrder'
           required: true
+        - $ref: '#/parameters/summarizeErrors'
       responses:
         '200':
           $ref: '#/responses/PurchaseOrdersResponse'
@@ -2533,6 +2555,7 @@ paths:
             $ref: '#/definitions/Receipt'
           required: true
         - $ref: '#/parameters/unitdp'
+        - $ref: '#/parameters/summarizeErrors'
       responses:
         '200':
           $ref: '#/responses/ReceiptsResponse'
@@ -2547,6 +2570,7 @@ paths:
             $ref: '#/definitions/Receipt'
           required: true
         - $ref: '#/parameters/unitdp'
+        - $ref: '#/parameters/summarizeErrors'
       responses:
         '200':
           $ref: '#/responses/ReceiptsResponse'
@@ -3081,6 +3105,7 @@ paths:
           schema:
             $ref: '#/definitions/TaxRate'
           required: true
+        - $ref: '#/parameters/summarizeErrors'
       responses:
         '200':
           $ref: '#/responses/TaxRatesResponse'
@@ -3094,6 +3119,7 @@ paths:
           schema:
             $ref: '#/definitions/TaxRate'
           required: true
+        - $ref: '#/parameters/summarizeErrors'
       responses:
         '200':
           $ref: '#/responses/TaxRatesResponse'
@@ -3124,6 +3150,7 @@ paths:
           schema:
             $ref: '#/definitions/TrackingCategory'
           required: true
+        - $ref: '#/parameters/summarizeErrors'
       responses:
         '200':
           $ref: '#/responses/TrackingCategoriesResponse'
@@ -3137,6 +3164,7 @@ paths:
           schema:
             $ref: '#/definitions/TrackingCategory'
           required: true
+        - $ref: '#/parameters/summarizeErrors'
       responses:
         '200':
           $ref: '#/responses/TrackingCategoriesResponse'
@@ -3203,6 +3231,7 @@ paths:
           name: TrackingCategoryID
           type: string
           format: uuid
+        - $ref: '#/parameters/summarizeErrors'
       responses:
         '200':
           $ref: '#/responses/TrackingCategoriesResponse'
@@ -6146,6 +6175,7 @@ parameters:
       Page number e.g. page=1. Page size is 100. When using the page parameter full resource details will be returned (including line items).
     type: integer
     required: false
+    default: 1
   offset:
     name: offset
     in: query
@@ -6167,6 +6197,7 @@ parameters:
       Include archived records in the response 
     type: boolean
     required: false
+    default: true
   where:
     name: where
     in: query
@@ -6185,6 +6216,14 @@ parameters:
     description: Determines the decimal places accepted/returned on the UnitAmount. UnitAmount is 2 decimal places by default but can be increased to 4 decimal places by supplying the unitdp=4 parameter.
     required: false
     type: integer
+    default: 4
+  summarizeErrors:
+    name: summarizeErrors
+    in: query
+    description: If you plan to submit more than one entity per API call, we recommend that you append the summarizeErrors=false querystring to your API call. This ensures that every entity is returned back to you, each having their own status attribute.
+    required: false
+    type: boolean
+    default: false
 responses:
   500ErrorResponse:
     description: An unexpected error occured.

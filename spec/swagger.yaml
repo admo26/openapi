@@ -15,11 +15,11 @@ basePath: /api.xro/2.0
 schemes:
   - https
 consumes:
-  - application/xml
   - application/json
+  - application/xml
 produces:
-  - application/xml
   - application/json
+  - application/xml
 tags:
 - name: "Accounts"
   externalDocs: 
@@ -6307,8 +6307,6 @@ responses:
           readOnly: true
         Accounts:
           type: array
-          xml:
-            name: Account
           items:
             $ref: '#/definitions/Account' 
   BankTransactionsResponse:

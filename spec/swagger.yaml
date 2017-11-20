@@ -6162,12 +6162,13 @@ parameters:
   If-Modified-Since:
     name: If-Modified-Since
     in: header
-    description: >-
+    description: >- 
       A UTC timestamp (yyyy-mm-ddThh:mm:ss) . Only invoices created or modified
       since this timestamp will be returned e.g. 2009-11-12T00:00:00
     required: false
     type: string
     format: date-time
+    default: "2009-11-12T00:00:00Z"
   page:
     name: page
     in: query
@@ -6183,6 +6184,7 @@ parameters:
       Offset by a specified journal number. e.g. journals with a JournalNumber greater than the offset will be returned.
     type: integer
     required: false
+    default: 0
   paymentsOnly:
     name: paymentsOnly
     in: query
@@ -6190,6 +6192,7 @@ parameters:
       Return results on a the cash basis
     type: boolean
     required: false
+    default: false
   includeArchived:
     name: includeArchived
     in: query
@@ -6211,6 +6214,7 @@ parameters:
     description: Order by any element returned
     required: false
     type: string
+    default: ""
   unitdp:
     name: unitdp
     in: query

@@ -6204,6 +6204,7 @@ parameters:
     description: Filter by an any element
     required: false
     type: string
+    default: ""
   order:
     name: order
     in: query

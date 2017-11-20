@@ -681,6 +681,7 @@ paths:
             Filter by a comma-separated list of ContactIDs
           type: string
           required: false
+          default: ""
     put:
       tags:
         - "Contacts"
@@ -1504,24 +1505,28 @@ paths:
             Filter by a comma-separated list of InvoiceIDs
           type: string
           required: false
+          default: ""
         - name: ContactIDs
           in: query
           description: >-
             Filter by a comma-separated list of ContactIDs
           type: string
-          required: false 
+          required: false
+          default: "" 
         - name: Statuses
           in: query
           description: >-
             Filter by a comma-separated list of Statuses
           type: string
           required: false
+          default: ""
         - name: InvoiceNumbers
           in: query
           description: >-
             Filter by a comma-separated list of InvoiceNumbers
           type: string
           required: false 
+          default: ""
     put:
       tags:
         - "Invoices"
